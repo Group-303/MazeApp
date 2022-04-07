@@ -5,9 +5,10 @@ import javax.swing.*;
  */
 
 public class GUI {
+    JFrame mainFrame = new JFrame("MazeApp");
+
     public GUI() {
         // Create a new JFrame called mainFrame and enable exit on close
-        JFrame mainFrame = new JFrame("MazeApp");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set mainFrame window size to 800x600
@@ -17,5 +18,8 @@ public class GUI {
         mainFrame.setVisible(true);
     }
 
-
+    // Testing method for changing title of the GUI (possibly change title to the current opened maze?)
+    public void setTitle(String title) {
+        mainFrame.setTitle(title);
+    }
 }

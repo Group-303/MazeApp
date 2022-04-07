@@ -7,6 +7,10 @@ public class Position {
         this.y = y;
     }
 
+    /***
+     * Method to return the X coordinate of the position
+     * @return Integer of the x coordinate
+     */
     public int getX() {
         return this.x;
     }
