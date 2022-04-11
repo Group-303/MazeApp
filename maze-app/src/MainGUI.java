@@ -11,7 +11,8 @@ import java.util.List;
 public class MainGUI implements ActionListener {
     private final static int WIDTH = 1200;
     private final static int HEIGHT = 800;
-    private final static int CENTER = WIDTH / 2;
+    private final static int H_CENTER = WIDTH / 2;
+    private final static int V_CENTER = HEIGHT / 2;
 
     public JPanel mainPanel;
     private JButton CreateMazeButton, GenerateMazeButton, BrowseMazeButton;
@@ -48,9 +49,9 @@ public class MainGUI implements ActionListener {
         //mainPanel.add(BrowseMazeButton);
 
         // Add buttons to components list
-        componentList.add(guiHelper.newButton("Create New", new Dimension(300, 300), new Position(CENTER - 350, 60)));
-        componentList.add(guiHelper.newButton("Generate New", new Dimension(300, 300), new Position(CENTER + 50, 60)));
-        componentList.add(guiHelper.newButton("Browse Mazes", new Dimension(700, 300), new Position(CENTER - 350, 410)));
+        componentList.add(guiHelper.newButton("Create New", new Dimension(300, 300), new Position(H_CENTER - 200, V_CENTER - 200)));
+        componentList.add(guiHelper.newButton("Generate New", new Dimension(300, 300), new Position(H_CENTER + 200, V_CENTER - 200)));
+        componentList.add(guiHelper.newButton("Browse Mazes", new Dimension(700, 300), new Position(H_CENTER, V_CENTER + 200)));
 
         for (JButton button : componentList) {
             Main.frame.add(button);
