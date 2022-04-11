@@ -3,7 +3,7 @@
 Client Project Description
 - Software tool used by designers to increase productivity at creating mazs, automating repetitive and less creative parts of process
 - Allow designers to demonstrate their craft
-- MainGUI software that helps designers create custom mazes
+- GUI software that helps designers create custom mazes
 
 - Maze creation
     - Drawing
