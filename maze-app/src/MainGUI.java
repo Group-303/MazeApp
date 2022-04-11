@@ -54,7 +54,7 @@ public class MainGUI implements ActionListener {
         componentList.add(guiHelper.newButton("Browse Mazes", new Dimension(700, 300), new Position(H_CENTER, V_CENTER + 200)));
 
         for (JButton button : componentList) {
-            Main.frame.add(button);
+            mainPanel.add(button);
         }
 
         // Set the location of the buttons to the center of mainGUIFrame
