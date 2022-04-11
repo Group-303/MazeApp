@@ -17,7 +17,7 @@ Client Project Description
 - Support existing mazes
     - Convert to image file
     - Export mazes with solution (different coloured line showing path from entrance to exit)
-    - Simplistic MainGUI
+    - Simplistic GUI
 
 User Stories
 Generation
