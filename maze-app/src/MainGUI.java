@@ -92,18 +92,20 @@ public class MainGUI implements ActionListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         mainPanel.setVisible(false);
 
         switch (e.getSource().toString()) {
-            case "Generate" -> {
-                componentList.get(0).setEnabled(false);
-                Main.frame.setTitle("Test");
-            }
-            case "Create Your Own" -> componentList.get(1).setEnabled(false);
-            case "Browse" -> Main.browseGui.browsePanel.setVisible(true);
+            case "Create Maze":
+                CreateMazeButton.setEnabled(false);
+                break;
+            case "Generate Maze":
+                GenerateMazeButton.setEnabled(false);
+                break;
+            case "Load Maze":
+                Main.browseGui.browsePanel.setVisible(true);
+                break;
         }
     }
 }
