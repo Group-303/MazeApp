@@ -6,21 +6,23 @@ import java.awt.event.*;
  */
 
 public class MainGUI implements ActionListener {
+
+    public JPanel mainPanel;
     private JButton CreateMazeButton, GenerateMazeButton, BrowseMazeButton;
 
     public MainGUI() {
         // Create a new JFrame called mainFrame and enable exit on close
-        JFrame mainGUIFrame = new JFrame("MazeApp");
+        Main.frame = new JFrame("MazeApp");
 
         // Set mainFrame window size to 800x800
-        mainGUIFrame.setSize(800, 800);
+        Main.frame.setSize(800, 800);
 
         // Create JPanel for MainGUIFrame
-        JPanel mainGUIPanel = new JPanel();
+        mainPanel = new JPanel();
 
-        // Set mainGUIPanel to be in the center of the mainGUIFrame
-        mainGUIPanel.setLayout(null);
-        mainGUIPanel.setBounds(0, 0, 800, 800);
+        // Set mainGUIPanel to be in the center of the frame
+        mainPanel.setLayout(null);
+        mainPanel.setBounds(0, 0, 800, 800);
 
         // Create JButtons called CreateMazeButton, GenerateMazeButton, and LoadMazeButton
         CreateMazeButton = new JButton("Create Your Own");
@@ -28,9 +30,9 @@ public class MainGUI implements ActionListener {
         BrowseMazeButton = new JButton("Browse");
 
         // Add CreateMazeButton, GenerateMazeButton and LoadMazeButton to mainGUIPanel
-        mainGUIPanel.add(CreateMazeButton);
-        mainGUIPanel.add(GenerateMazeButton);
-        mainGUIPanel.add(BrowseMazeButton);
+        mainPanel.add(CreateMazeButton);
+        mainPanel.add(GenerateMazeButton);
+        mainPanel.add(BrowseMazeButton);
 
         // Set the location of the buttons to the center of mainGUIFrame
         CreateMazeButton.setLocation(40, 60);
@@ -43,23 +45,24 @@ public class MainGUI implements ActionListener {
         BrowseMazeButton.setSize(700, 300);
 
         // Add mainGUIPanel to mainGUIFrame
-        mainGUIFrame.add(mainGUIPanel);
+        Main.frame.add(mainPanel);
+
+        // Set Main.frame visibility to true
+        Main.frame.setVisible(true);
 
         // Add action listeners for CreateMazeButton, GenerateMazeButton, and LoadMazeButton
         CreateMazeButton.addActionListener(this);
         GenerateMazeButton.addActionListener(this);
         BrowseMazeButton.addActionListener(this);
 
-        // Set mainFrame visibility to true
-        mainGUIFrame.setLocationRelativeTo(null);
-        mainGUIFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainGUIFrame.setVisible(true);
 
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        mainPanel.setVisible(false);
+
         switch (e.getSource().toString()) {
             case "Create Maze":
                 CreateMazeButton.setEnabled(false);
@@ -68,7 +71,7 @@ public class MainGUI implements ActionListener {
                 GenerateMazeButton.setEnabled(false);
                 break;
             case "Load Maze":
-                BrowseMazeButton.setEnabled(false);
+                Main.browseGui.browsePanel.setVisible(true);
                 break;
         }
     }
