@@ -30,6 +30,7 @@ public class Maze {
         this.created = LocalDateTime.now();
     }
 
+
     /***
      * Adds a new Edit object into the list of edits on the maze
      * @param newEdit Object containing information on the edit
