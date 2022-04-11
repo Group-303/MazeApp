@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        GUI gui = new GUI();
+        MainGUI mainGui = new MainGUI();
 
         // Create dummy maze
         Maze testMaze = new Maze("Test Maze", "John Smith", 6, 4);
