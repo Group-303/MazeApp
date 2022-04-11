@@ -20,7 +20,7 @@ public class MainGUI implements ActionListener {
 
     public MainGUI() {
         // Create a new JFrame called mainFrame and enable exit on close
-        Main.frame = new JFrame("MazeApp");
+        Main.frame = new JFrame("MazeCo - Main Menu");
 
         // Set mainFrame window size to 800x800
         Main.frame.setSize(WIDTH, HEIGHT);
@@ -100,12 +100,15 @@ public class MainGUI implements ActionListener {
         switch (e.getSource().toString()) {
             case "Create Maze":
                 CreateMazeButton.setEnabled(false);
+                Main.frame.setTitle("MazeCo - Create New Maze");
                 break;
             case "Generate Maze":
                 GenerateMazeButton.setEnabled(false);
+                Main.frame.setTitle("MazeCo - Generate A Maze");
                 break;
-            case "Load Maze":
+            case "Browse Mazes":
                 Main.browseGui.browsePanel.setVisible(true);
+                Main.frame.setTitle("MazeCo - Browse Mazes");
                 break;
         }
     }
