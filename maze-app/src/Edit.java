@@ -1,17 +1,25 @@
-public class Edit {
-    private String editor;
-    private double time;
+import java.time.LocalDateTime;
 
-    public Edit(String editor, double time) {
+public class Edit {
+    private String description;
+    private String editor;
+    private LocalDateTime time;
+
+    public Edit(String description, String editor) {
+        this.description = description;
         this.editor = editor;
-        this.time = time;
+        this.time = LocalDateTime.now();
     }
 
     public String getEditor() {
         return this.editor;
     }
 
-    public double getTime() {
+    public String getDescription() {
+        return this.description;
+    }
+
+    public LocalDateTime getTime() {
         return this.time;
     }
 }
