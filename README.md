@@ -3,7 +3,7 @@
 Client Project Description
 - Software tool used by designers to increase productivity at creating mazs, automating repetitive and less creative parts of process
 - Allow designers to demonstrate their craft
-- GUI software that helps designers create custom mazes
+- GUIHelper software that helps designers create custom mazes
 
 - Maze creation
     - Drawing
@@ -17,7 +17,7 @@ Client Project Description
 - Support existing mazes
     - Convert to image file
     - Export mazes with solution (different coloured line showing path from entrance to exit)
-    - Simplistic GUI
+    - Simplistic GUIHelper
 
 User Stories
 Generation
