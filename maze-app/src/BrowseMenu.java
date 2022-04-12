@@ -1,9 +1,9 @@
 import javax.swing.*;
 
-public class BrowseGUI {
+public class BrowseMenu {
     public JPanel browsePanel;
 
-    public BrowseGUI() {
+    public BrowseMenu() {
         browsePanel = new JPanel();
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
