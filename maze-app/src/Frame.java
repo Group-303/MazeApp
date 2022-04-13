@@ -14,6 +14,4 @@ public class Frame extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-
-
 }
