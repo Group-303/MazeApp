@@ -25,6 +25,7 @@ public class GeneratedMazeGUI implements ActionListener {
                 BorderLayout.WEST,
                 BorderLayout.CENTER
         };
+
         for (int i = 0; i < PANELS - 1; i++){
             panels[i] = createPanel(colours[i]);
             generatedFrame.getContentPane().add(panels[i],layoutLocation[i]);
