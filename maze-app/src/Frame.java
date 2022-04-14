@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Frame extends JFrame {
     public final static int WIDTH = 1200;
@@ -10,95 +12,59 @@ public class Frame extends JFrame {
     public final static int H_MENU = 46; // Height of the menu-bar
 
     public Frame() {
-        setTitle("MazeCo");
+        setTitle("MazeCo Cartographer");
         setJMenuBar(createMenus());
         setSize(WIDTH, HEIGHT + H_MENU);
-        //setLocation(H_CENTER, V_CENTER);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
     }
 
+    /***
+     * Creates the menubar and tabs on top of the GUI
+     * @return Returns a JMenuBar object containing all the menu interactions
+     */
     public JMenuBar createMenus() {
-        //Where the GUI is created:
-        JMenuBar menuBar;
-        JMenu fileMenu, submenu;
-        JMenuItem menuItem;
-        JRadioButtonMenuItem rbMenuItem;
-        JCheckBoxMenuItem cbMenuItem;
+        JMenuBar menuBar = new JMenuBar();
+        GUIHelper guiHelper = new GUIHelper();
+        List<JMenu> menuList = new ArrayList<>();
+        JMenu menu, submenu;
+        JMenuItem item;
 
-        //Create the menu bar.
-        menuBar = new JMenuBar();
+        // File Section
+        menu = guiHelper.newMenuTab("File", KeyEvent.VK_F);
 
-        //Build the first menu.
-        fileMenu = new JMenu("File");
-        fileMenu.setMnemonic(KeyEvent.VK_F);
-        fileMenu.getAccessibleContext().setAccessibleDescription(
-                "The only menu in this program that has menu items");
-        menuBar.add(fileMenu);
+        // Create new mazes
+        submenu = guiHelper.newMenuTab("New Maze", KeyEvent.VK_N);
+        item = guiHelper.newMenuItem("Empty Maze", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        item = guiHelper.newMenuItem("Generate New", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        menu.add(submenu);
 
-        //a group of JMenuItems
-        menuItem = new JMenuItem("A text-only menu item",
-                KeyEvent.VK_T);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.SHIFT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription(
-                "This doesn't really do anything");
-        fileMenu.add(menuItem);
+        menu.addSeparator();
 
-        menuItem = new JMenuItem("Both text and icon",
-                new ImageIcon("images/middle.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_B);
-        fileMenu.add(menuItem);
+        // Browse all and recent mazes
+        item = guiHelper.newMenuItem("Browse Mazes", new ImageIcon("images/middle.gif"));
+        menu.add(item);
 
-        menuItem = new JMenuItem(new ImageIcon("images/middle.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        fileMenu.add(menuItem);
+        submenu = guiHelper.newMenuTab("Recent Mazes", KeyEvent.VK_R);
+        item = guiHelper.newMenuItem("DummyData001", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        item = guiHelper.newMenuItem("DummyData002", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        menu.add(submenu);
 
-        //a group of radio button menu items
-        fileMenu.addSeparator();
-        ButtonGroup group = new ButtonGroup();
-        rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
-        rbMenuItem.setSelected(true);
-        rbMenuItem.setMnemonic(KeyEvent.VK_R);
-        group.add(rbMenuItem);
-        fileMenu.add(rbMenuItem);
+        menuList.add(menu);
 
-        rbMenuItem = new JRadioButtonMenuItem("Another one");
-        rbMenuItem.setMnemonic(KeyEvent.VK_O);
-        group.add(rbMenuItem);
-        fileMenu.add(rbMenuItem);
+        // Edit Section
+        menuList.add(guiHelper.newMenuTab("Edit", KeyEvent.VK_E));
 
-        //a group of check box menu items
-        fileMenu.addSeparator();
-        cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
-        cbMenuItem.setMnemonic(KeyEvent.VK_C);
-        fileMenu.add(cbMenuItem);
+        for (JMenu menuTab : menuList) {
+            menuBar.add(menuTab);
+        }
 
-        cbMenuItem = new JCheckBoxMenuItem("Another one");
-        cbMenuItem.setMnemonic(KeyEvent.VK_H);
-        fileMenu.add(cbMenuItem);
-
-        //a submenu
-        fileMenu.addSeparator();
-        submenu = new JMenu("A submenu");
-        submenu.setMnemonic(KeyEvent.VK_S);
-
-        menuItem = new JMenuItem("An item in the submenu");
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_2, ActionEvent.ALT_MASK));
-        submenu.add(menuItem);
-
-        menuItem = new JMenuItem("Another item");
-        submenu.add(menuItem);
-        fileMenu.add(submenu);
-
-        //Build second menu in the menu bar.
-        fileMenu = new JMenu("Another Menu");
-        fileMenu.setMnemonic(KeyEvent.VK_N);
-        fileMenu.getAccessibleContext().setAccessibleDescription(
-                "This menu does nothing");
-        menuBar.add(fileMenu);
         return menuBar;
     }
 }
