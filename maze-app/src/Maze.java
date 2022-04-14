@@ -13,7 +13,7 @@ public class Maze {
     private String name;
     private String author;
     private HashMap<Image, Position> items = new HashMap<>();
-    private LocalDateTime created;
+    private Created created;
     private List<Edit> edits = new ArrayList<>();
 
     /***
@@ -27,7 +27,7 @@ public class Maze {
         this.author = author;
         this.width = width;
         this.height = height;
-        this.created = LocalDateTime.now();
+        this.created = new Created(author);
     }
 
 
@@ -64,8 +64,6 @@ public class Maze {
         this.author = author;
     }
 
-
-
     /***
      * Method for retrieving the ID of the maze
      * @return Returns an integer containing the ID of the maze
@@ -98,7 +96,7 @@ public class Maze {
     public String getCreatedReadable() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
-        return dateFormatter.format(this.created) + " at " + timeFormatter.format(this.created);
+        return dateFormatter.format(this.created.getTime()) + " at " + timeFormatter.format(this.created.getTime());
     }
 
     /***
@@ -106,7 +104,7 @@ public class Maze {
      * @return Returns a LocalDateTime object containing the date and time the maze was created
      */
     public LocalDateTime getCreatedRaw() {
-        return this.created;
+        return this.created.getTime();
     }
 
     /***

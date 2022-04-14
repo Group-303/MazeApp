@@ -1,17 +1,19 @@
+import java.time.LocalDateTime;
+
 public class Created {
     private String creator;
-    private double time;
+    private LocalDateTime time;
 
-    public Created(String creator, double time) {
+    public Created(String creator) {
         this.creator = creator;
-        this.time = time;
+        this.time = LocalDateTime.now();
     }
 
     public String getCreator() {
         return this.creator;
     }
 
-    public double getTime() {
+    public LocalDateTime getTime() {
         return this.time;
     }
 }
