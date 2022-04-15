@@ -10,6 +10,7 @@ public class Frame extends JFrame {
     public final static int H_CENTER = WIDTH / 2;
     public final static int V_CENTER = HEIGHT / 2;
     public final static int H_MENU = 46; // Height of the menu-bar
+    public final static String TITLE_PREFIX = "MazeCo Cartographer - ";
 
     public Frame() {
         setTitle("MazeCo Cartographer");

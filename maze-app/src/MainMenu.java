@@ -21,12 +21,12 @@ public class MainMenu implements ActionListener {
 
         // Set mainGUIPanel to be in the center of the frame
         mainPanel.setLayout(null);
-        mainPanel.setBounds(0, 0, Main.frame.WIDTH, Main.frame.HEIGHT);
+        mainPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
 
         // Add buttons to components list
-        componentList.add(GUIHelper.newButton("Create New", new Dimension(300, 300), new Position(Main.frame.H_CENTER - 200, Main.frame.V_CENTER - 200)));
-        componentList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Position(Main.frame.H_CENTER + 200, Main.frame.V_CENTER - 200)));
-        componentList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Position(Main.frame.H_CENTER, Main.frame.V_CENTER + 200)));
+        componentList.add(GUIHelper.newButton("Create New", new Dimension(300, 300), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
+        componentList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
+        componentList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
         for (JButton button : componentList) {
             mainPanel.add(button);

@@ -11,8 +11,9 @@ public class Maze {
     private int width;
     private int height;
     private String name;
-    private Created created;
-    private HashMap<Image, Position> items = new HashMap<>();
+    private String creator;
+    private LocalDateTime creationTime;
+    private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
 
     /***
@@ -23,9 +24,10 @@ public class Maze {
     public Maze(String name, String author, int width, int height) {
         this.id = 0; // Each Maze generates has a unique, incremented ID
         this.name = name;
+        this.creator = author;
         this.width = width;
         this.height = height;
-        this.created = new Created(author);
+        this.creationTime = LocalDateTime.now();
     }
 
 
@@ -40,10 +42,10 @@ public class Maze {
     /***
      * Adds an Image and Position object into the maze item list
      * @param image Image object that will be displayed on the Maze
-     * @param position Position object that contains the X and Y of the Image object
+     * @param point Point object that contains the X and Y of the Image object
      */
-    public void addImage(Image image, Position position) {
-        items.put(image, position);
+    public void addImage(Image image, Point point) {
+        items.put(image, point);
     }
 
     /***
@@ -78,7 +80,7 @@ public class Maze {
     public String getCreatedReadable() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
-        return dateFormatter.format(this.created.getTime()) + " at " + timeFormatter.format(this.created.getTime());
+        return dateFormatter.format(this.creationTime) + " at " + timeFormatter.format(this.creationTime);
     }
 
     /***
@@ -86,7 +88,7 @@ public class Maze {
      * @return Returns a LocalDateTime object containing the date and time the maze was created
      */
     public LocalDateTime getCreatedRaw() {
-        return this.created.getTime();
+        return this.creationTime;
     }
 
     /***

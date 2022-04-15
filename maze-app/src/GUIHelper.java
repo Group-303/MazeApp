@@ -12,9 +12,9 @@ public class GUIHelper {
      * @param location Position object containing the x and y position of the JButton
      * @return Returns a JButton object created with the specified arguments
      */
-    public static JButton newButton(String text, Dimension size, Position location) {
+    public static JButton newButton(String text, Dimension size, Point location) {
         JButton button = new JButton(text);
-        button.setLocation((location.getX() - (size.width / 2)), (location.getY() - (size.height / 2)));
+        button.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
         button.setSize(size);
         return button;
     }

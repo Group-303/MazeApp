@@ -10,16 +10,16 @@ public class GeneratedMazeGUI implements ActionListener {
     private JButton generateSolution, regenerate, save;
     private List<JButton> buttonList = new ArrayList<>();
     private JFrame generatedFrame;
-    private JPanel panels[];
+    private JPanel[] panels;
 
-    public void GeneratedMazeGUI() {
+    public GeneratedMazeGUI() {
         //create frame
         JFrame generatedFrame = new JFrame();
 
         //panel code
         panels = new JPanel[PANELS];
-        Color colours[] = {Color.GREEN, Color.gray, Color.GREEN, Color.WHITE, Color.WHITE};
-        String layoutLocation[] = {BorderLayout.NORTH,
+        Color[] colours = {Color.GREEN, Color.gray, Color.GREEN, Color.WHITE, Color.WHITE};
+        String[] layoutLocation = {BorderLayout.NORTH,
                 BorderLayout.EAST,
                 BorderLayout.SOUTH,
                 BorderLayout.WEST,
@@ -42,9 +42,9 @@ public class GeneratedMazeGUI implements ActionListener {
         panels[4].setPreferredSize(new Dimension(800, (Frame.HEIGHT) - 100));
 
         //Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), new Position(Main.frame.H_CENTER - 200, Main.frame.V_CENTER - 200)));
-        buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 50), new Position(Main.frame.H_CENTER + 200, Main.frame.V_CENTER - 200)));
-        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), new Position(Main.frame.H_CENTER, Main.frame.V_CENTER + 200)));
+        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
+        buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
+        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
         //add buttons the Panel 3
          for (JButton button : buttonList) {
