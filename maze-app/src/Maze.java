@@ -11,9 +11,8 @@ public class Maze {
     private int width;
     private int height;
     private String name;
-    private String author;
-    private HashMap<Image, Position> items = new HashMap<>();
     private Created created;
+    private HashMap<Image, Position> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
 
     /***
@@ -24,7 +23,6 @@ public class Maze {
     public Maze(String name, String author, int width, int height) {
         this.id = 0; // Each Maze generates has a unique, incremented ID
         this.name = name;
-        this.author = author;
         this.width = width;
         this.height = height;
         this.created = new Created(author);
@@ -57,14 +55,6 @@ public class Maze {
     }
 
     /***
-     * Sets the author of the maze
-     * @param author String containing the new author of the maze
-     */
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    /***
      * Method for retrieving the ID of the maze
      * @return Returns an integer containing the ID of the maze
      */
@@ -78,14 +68,6 @@ public class Maze {
      */
     public String getName() {
         return this.name;
-    }
-
-    /***
-     * Method for retrieving the full name of the author of the maze
-     * @return Returns a String containing the full name of the author of the maze
-     */
-    public String getAuthor() {
-        return this.author;
     }
 
     /***
