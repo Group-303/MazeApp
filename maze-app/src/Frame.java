@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame extends JFrame {
-    public final static int WIDTH = 1200;
-    public final static int HEIGHT = 800;
+    public final static int WIDTH = 1600;
+    public final static int HEIGHT = 900;
     public final static int H_CENTER = WIDTH / 2;
     public final static int V_CENTER = HEIGHT / 2;
     public final static int H_MENU = 46; // Height of the menu-bar
     public final static String TITLE_PREFIX = "MazeCo Cartographer - ";
 
     public Frame() {
-        setTitle("MazeCo Cartographer");
+        setTitle(TITLE_PREFIX + "Loading...");
         setJMenuBar(createMenus());
         setSize(WIDTH, HEIGHT + H_MENU);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
