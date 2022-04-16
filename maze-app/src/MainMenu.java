@@ -8,8 +8,8 @@ import java.util.List;
  * Class for managing spring MainMenu
  */
 
-public class MainMenu implements ActionListener {
-
+public class MainMenu implements IMenu, ActionListener {
+    public final static String TITLE = "Main Menu";
 
     public JPanel mainPanel;
     private JButton CreateMazeButton, GenerateMazeButton, BrowseMazeButton;
@@ -28,6 +28,7 @@ public class MainMenu implements ActionListener {
         componentList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         componentList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
+        // Add all components into the main panel
         for (JButton button : componentList) {
             mainPanel.add(button);
         }
@@ -35,11 +36,17 @@ public class MainMenu implements ActionListener {
         // Add mainGUIPanel to mainGUIFrame
         Main.frame.add(mainPanel);
 
+        // Add action listeners to each JButton component
         for (JButton button : componentList) {
             button.addActionListener(this);
         }
 
+        openMenu();
 
+    }
+
+    public void openMenu() {
+        Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
     }
 
     @Override
