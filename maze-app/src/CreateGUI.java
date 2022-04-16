@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneratedMazeGUI implements ActionListener {
+public class CreateGUI implements ActionListener {
     public static final int PANELS = 5;
     private JButton generateSolution, regenerate, save;
     private List<JButton> buttonList = new ArrayList<>();
     private JFrame generatedFrame;
     private JPanel[] panels;
 
-    public GeneratedMazeGUI() {
+    public CreateGUI() {
         //create frame
         JFrame generatedFrame = new JFrame();
 
@@ -41,7 +41,7 @@ public class GeneratedMazeGUI implements ActionListener {
         panels[3].setPreferredSize(new Dimension(900, Frame.HEIGHT));
         panels[4].setPreferredSize(new Dimension(800, (Frame.HEIGHT) - 100));
 
-        //Create buttons and add buttons to button list using GUIHelper
+        // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
