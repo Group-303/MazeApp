@@ -55,7 +55,7 @@ public class MainMenu implements IMenu, ActionListener {
 
         switch (e.getSource().toString()) {
             case "Create Maze":
-                CreateMazeButton.setEnabled(false);
+                Main.createMenu.createPanel.setVisible(true);
                 Main.frame.setTitle("MazeCo - Create New Maze");
                 break;
             case "Generate Maze":
