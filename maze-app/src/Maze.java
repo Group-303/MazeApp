@@ -15,6 +15,7 @@ public class Maze {
     private LocalDateTime creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
+    private int[][] layout;
 
     /***
      * Maze class that stores the details of a maze.

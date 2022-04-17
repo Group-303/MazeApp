@@ -5,11 +5,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateMenu implements ActionListener {
-    public static final int PANELS = 5;
+public class CreateMenu implements IMenu, ActionListener {
+    private final static String TITLE = "Maze Creator";
     private JButton generateSolution, regenerate, save;
     private List<JButton> buttonList = new ArrayList<>();
     private JPanel[] panels;
+
+    // Does this need to be public?
+    public final static int PANELS = 5;
 
     public CreateMenu() {
         //panel code
@@ -55,6 +58,10 @@ public class CreateMenu implements ActionListener {
         Main.frame.setVisible(true);
     }
 
+    public void openMenu() {
+
+    }
+
     private JPanel createPanel(Color c){
         //create a JPanel object
         JPanel panel = new JPanel();
@@ -77,7 +84,6 @@ public class CreateMenu implements ActionListener {
                 break;
             case "Regenerate":
                 regenerate.setEnabled(false);
-                //GeneratedMaze;
                 break;
             case "Save":
                 save.setEnabled(false);

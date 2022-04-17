@@ -19,6 +19,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // Testing purposes! This will be incorporated inside of the Maze class
+        MazeGenerator generator = new MazeGenerator(10, 10);
+        generator.display();
+
         frame = new Frame();
         mainMenu = new MainMenu();
         browseMenu = new BrowseMenu();
