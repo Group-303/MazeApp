@@ -5,17 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateGUI implements ActionListener {
+public class CreateMenu implements ActionListener {
     public static final int PANELS = 5;
     private JButton generateSolution, regenerate, save;
     private List<JButton> buttonList = new ArrayList<>();
-    private JFrame generatedFrame;
     private JPanel[] panels;
 
-    public CreateGUI() {
-        //create frame
-        JFrame generatedFrame = new JFrame();
-
+    public CreateMenu() {
         //panel code
         panels = new JPanel[PANELS];
         Color[] colours = {Color.GREEN, Color.gray, Color.GREEN, Color.WHITE, Color.WHITE};
@@ -29,7 +25,7 @@ public class CreateGUI implements ActionListener {
         //create  panels 0 to 3
         for (int i = 0; i < PANELS - 1; i++){
             panels[i] = createPanel(colours[i]);
-            generatedFrame.getContentPane().add(panels[i],layoutLocation[i]);
+            Main.frame.getContentPane().add(panels[i],layoutLocation[i]);
         }
 
         //create panel 4 (will be placed inside panel 1)
@@ -51,15 +47,12 @@ public class CreateGUI implements ActionListener {
              panels[3].add(button);
           }
 
-        // Add generated frame to mainGUIFrame
-        Main.frame.add(generatedFrame);
-
          for (JButton button : buttonList) {
              button.addActionListener(this);
          }
 
-        generatedFrame.repaint();
-        generatedFrame.setVisible(true);
+        Main.frame.repaint();
+        Main.frame.setVisible(true);
     }
 
     private JPanel createPanel(Color c){
