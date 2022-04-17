@@ -9,6 +9,7 @@ public class BrowseMenu implements IMenu {
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
 
+        openMenu();
     }
 
     public void openMenu() {
