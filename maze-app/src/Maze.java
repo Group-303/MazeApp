@@ -15,7 +15,7 @@ public class Maze {
     private LocalDateTime creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
-    private int[][] layout;
+    private int[][][] layout;
 
     /***
      * Maze class that stores the details of a maze.
@@ -23,12 +23,16 @@ public class Maze {
      * @param author The full name of the author
      */
     public Maze(String name, String author, int width, int height) {
-        this.id = 0; // Each Maze generates has a unique, incremented ID
+        this.id = Main.mazeList.size();
         this.name = name;
         this.creator = author;
         this.width = width;
         this.height = height;
         this.creationTime = LocalDateTime.now();
+
+        // Add to the temporary holder list
+        // Replace this with the method to add to the SQL DB once implemented
+        Main.mazeList.add(this);
     }
 
 

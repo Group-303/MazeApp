@@ -22,6 +22,14 @@ public class Main {
         MazeGenerator generator = new MazeGenerator(10, 10);
         generator.display();
 
+        Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
+
+        System.out.println(testMaze.getId());
+
+        Maze testMaze2 = new Maze("Test Maze 2", "John Doe", 10, 10);
+
+        System.out.println(testMaze2.getId());
+
         frame = new Frame();
         mainMenu = new MainMenu();
         browseMenu = new BrowseMenu();
