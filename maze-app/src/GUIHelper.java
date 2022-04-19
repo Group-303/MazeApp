@@ -42,6 +42,18 @@ public class GUIHelper {
         return new JMenuItem(text, icon);
     }
 
+    public ButtonGroup newBGroup() {
+        return new ButtonGroup();
+    }
+
+    public JRadioButton newRButton(String text, int key, Dimension size, Point location) {
+        JRadioButton radioButton = new JRadioButton(text);
+        radioButton.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
+        radioButton.setMnemonic(key);
+        radioButton.setActionCommand(text);
+        return radioButton;
+    }
+
     // This is all spaghetti code from Oracle documentation
     // Will be removed when I have fully implemented the
     // dynamic menu instantiation above -CT
@@ -126,4 +138,6 @@ public class GUIHelper {
         menuBar.add(fileMenu);
         return menuBar;
     }
+    // Remove above when dynamic menu has been implemented
+
 }

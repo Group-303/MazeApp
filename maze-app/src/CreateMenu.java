@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,9 @@ public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     private JButton generateSolution, regenerate, save;
     private List<JButton> buttonList = new ArrayList<>();
+    private List<ButtonGroup> bgroupList = new ArrayList<>();
+    private List<Component> componentList = new ArrayList<>();
+    private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
 
     // Does this need to be public?
@@ -44,9 +48,10 @@ public class CreateMenu implements IMenu, ActionListener {
         //panels[4].setPreferredSize(new Dimension(800, (Frame.HEIGHT) - 100));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
-        buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
-        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
+        buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
+        buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
+        buttonList.add(guiHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
+
 
         // Add buttons the createPanel
         for (JButton button : buttonList) {
