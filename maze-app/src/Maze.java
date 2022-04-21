@@ -10,7 +10,7 @@ public class Maze {
     private int id;
     private int width;
     private int height;
-    private String name;
+    private String title;
     private String creator;
     private LocalDateTime creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
@@ -20,12 +20,12 @@ public class Maze {
 
     /***
      * Maze class that stores the details of a maze.
-     * @param name The name of the new maze
+     * @param title The title of the new maze
      * @param author The full name of the author
      */
-    public Maze(String name, String author, int width, int height) {
+    public Maze(String title, String author, int width, int height) {
         this.id = Main.mazeList.size();
-        this.name = name;
+        this.title = title;
         this.creator = author;
         this.width = width;
         this.height = height;
@@ -61,11 +61,11 @@ public class Maze {
     }
 
     /***
-     * Sets the name of the maze
-     * @param name String containing the new name of the maze
+     * Sets the title of the maze
+     * @param title String containing the new title of the maze
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /***
@@ -77,11 +77,11 @@ public class Maze {
     }
 
     /***
-     * Method for retrieving the name of the maze
-     * @return Returns a String containing the name of the maze
+     * Method for retrieving the title of the maze
+     * @return Returns a String containing the title of the maze
      */
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
     /***
@@ -123,6 +123,7 @@ public class Maze {
         return height;
     }
 
+    // Testing method
     public void display() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
