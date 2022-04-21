@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class GUIHelper {
+    public final static Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+
     /***
      * Creates and returns a new JButton.
      * JButton will be centered on the X and Y value of the Position object

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame extends JFrame {
-    public final static int WIDTH = 1600;
-    public final static int HEIGHT = 900;
+    public final static int WIDTH = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getWidth());
+    public final static int HEIGHT = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getHeight());
     public final static int H_CENTER = WIDTH / 2;
     public final static int V_CENTER = HEIGHT / 2;
     public final static int H_MENU = 46; // Height of the menu-bar
