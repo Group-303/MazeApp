@@ -15,7 +15,8 @@ public class Maze {
     private LocalDateTime creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
-    private int[][][] layout;
+    private MazeGenerator generator;
+    private boolean[][][] layout;
 
     /***
      * Maze class that stores the details of a maze.
@@ -29,6 +30,12 @@ public class Maze {
         this.width = width;
         this.height = height;
         this.creationTime = LocalDateTime.now();
+
+        this.generator = new MazeGenerator(this.width, this.height);
+
+        this.generator.display();
+
+        this.layout = generator.getLayout();
 
         // Add to the temporary holder list
         // Replace this with the method to add to the SQL DB once implemented
@@ -102,5 +109,46 @@ public class Maze {
      */
     public List<Edit> getEdits() {
         return this.edits;
+    }
+
+    public boolean[][][] getLayout() {
+        return layout;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void display() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (layout[j][i][0] == true) {
+                    System.out.print("+---");
+                }
+                else {
+                    System.out.print("+   ");
+                }
+            }
+
+
+            for (int j = 0; j < width; j++) {
+                if (layout[j][i][1] == true) {
+                    System.out.print("|   ");
+                }
+                else {
+                    System.out.print("    ");
+                }
+            }
+            System.out.println("|");
+        }
+        // draw the bottom line
+        for (int j = 0; j < width; j++) {
+            System.out.print("+-+-");
+        }
+        System.out.println("+");
     }
 }

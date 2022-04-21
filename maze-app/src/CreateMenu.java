@@ -9,8 +9,9 @@ import java.util.List;
 public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     private JButton generateSolution, regenerate, save;
-    private List<JButton> buttonList = new ArrayList<>();
-    private List<ButtonGroup> bgroupList = new ArrayList<>();
+    private ArrayList<JButton> buttonList = new ArrayList<>();
+    private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
+    private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
@@ -52,6 +53,14 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
+        bgroupList.add(guiHelper.newButtonGroup());
+        radioButtonList.add(guiHelper.newRButton("Test", KeyEvent.VK_A, new Dimension(100, 100), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200), true));
+
+        for (JRadioButton radioButton : radioButtonList) {
+            bgroupList.get(0).add(radioButton);
+        }
+
+        //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
         // Add buttons the createPanel
         for (JButton button : buttonList) {
@@ -62,6 +71,11 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JButton button : buttonList) {
              button.addActionListener(this);
         }
+
+        for (JRadioButton radioButton : radioButtonList) {
+            radioButton.addActionListener(this);
+        }
+
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);

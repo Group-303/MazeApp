@@ -19,16 +19,24 @@ public class Main {
 
     public static void main(String[] args) {
         // Testing purposes! This will be incorporated inside of the Maze class
-        MazeGenerator generator = new MazeGenerator(10, 10);
-        generator.display();
+        //Maze testMaze = new Maze("Test Maze", "Cameron Turley", 10, 10);
+        //testMaze.regenerateMaze();
+        //testMaze.display();
+
+        MazeGenerator test = new MazeGenerator(10, 10);
+
 
         Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
 
-        System.out.println(testMaze.getId());
+        testMaze.display();
 
-        Maze testMaze2 = new Maze("Test Maze 2", "John Doe", 10, 10);
+        //for (int i = 0; i < testMaze.getWidth(); i++) {
+        //    for (int j = 0; j < testMaze.getHeight(); j++) {
+        //            System.out.println("(" + i + ", " + j + ") North: " + testMaze.getLayout()[i][j][0] + " \nWest: " + testMaze.getLayout()[i][j][1] + "\n");
+        //    }
+        //}
 
-        System.out.println(testMaze2.getId());
+        //Maze testMaze2 = new Maze("Test Maze 2", "John Doe", 10, 10);
 
         frame = new Frame();
         mainMenu = new MainMenu();

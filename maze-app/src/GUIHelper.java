@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class GUIHelper {
     /***
@@ -42,16 +43,25 @@ public class GUIHelper {
         return new JMenuItem(text, icon);
     }
 
-    public ButtonGroup newBGroup() {
+    public ButtonGroup newButtonGroup() {
         return new ButtonGroup();
     }
 
-    public JRadioButton newRButton(String text, int key, Dimension size, Point location) {
+    public JRadioButton newRButton(String text, int key, Dimension size, Point location, boolean selected) {
         JRadioButton radioButton = new JRadioButton(text);
         radioButton.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
         radioButton.setMnemonic(key);
         radioButton.setActionCommand(text);
+        radioButton.setSelected(selected);
         return radioButton;
+    }
+
+    public ButtonGroup formButtonGroup(ArrayList<JRadioButton> radioButtons) {
+        ButtonGroup group = new ButtonGroup();
+        for (JRadioButton component : radioButtons) {
+            group.add(component);
+        }
+        return group;
     }
 
     // This is all spaghetti code from Oracle documentation
