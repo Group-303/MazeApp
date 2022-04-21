@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class MazeGenerator {
-    private int DEFAULT_CX, DEFAULT_CY = 0;
     private int width;
     private int height;
     private int[][] layout;
@@ -40,26 +39,13 @@ public class MazeGenerator {
      */
     public boolean[][][] getLayout() {
         boolean[][][] format = new boolean[this.width][this.height][2];
-
         for (int i = 0; i < height; i++) {
-            // draw the north edge
             for (int j = 0; j < width; j++) {
-                if ((layout[j][i] & 1) == 0) {
-                    format[j][i][0] = true;
-                }
-                else
-                {
-                    format[j][i][0] = false;
-                }
+                format[j][i][0] = ((layout[j][i] & 1) == 0);
             }
 
             for (int j = 0; j < width; j++) {
-                if ((layout[j][i] & 8) == 0) {
-                    format[j][i][1] = true;
-                }
-                else {
-                    format[j][i][1] = false;
-                }
+                format[j][i][1] = ((layout[j][i] & 8) == 0);
             }
         }
         return format;
@@ -71,6 +57,7 @@ public class MazeGenerator {
     }
 
     public void generate() {
+        int DEFAULT_CX = 0, DEFAULT_CY = 0;
         Direction[] directions = Direction.values();
         Collections.shuffle(Arrays.asList(directions));
         for (Direction direction : directions)
