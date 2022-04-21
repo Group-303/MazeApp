@@ -49,12 +49,9 @@ public class GUIHelper {
         return new ButtonGroup();
     }
 
-    public JRadioButton newRButton(String text, int key, Dimension size, Point location, boolean selected) {
+    public JRadioButton newRButton(String text, Dimension size, Point location) {
         JRadioButton radioButton = new JRadioButton(text);
         radioButton.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
-        radioButton.setMnemonic(key);
-        radioButton.setActionCommand(text);
-        radioButton.setSelected(selected);
         return radioButton;
     }
 

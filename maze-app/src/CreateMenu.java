@@ -9,9 +9,10 @@ import java.util.List;
 public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     private JButton generateSolution, regenerate, save;
+    //private ButtonGroup buttonGroup = new ButtonGroup();
     private ArrayList<JButton> buttonList = new ArrayList<>();
-    private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
-    private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
+    //private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
+    //private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
@@ -53,12 +54,15 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
-        bgroupList.add(guiHelper.newButtonGroup());
-        radioButtonList.add(guiHelper.newRButton("Test", KeyEvent.VK_A, new Dimension(100, 100), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200), true));
+        JRadioButton confirmRButton = guiHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
+        //buttonGroup.add(confirmRButton);
+        createPanel.add(confirmRButton);
+        //bgroupList.add(guiHelper.newButtonGroup());
+        //radioButtonList.add(guiHelper.newRButton("Test", KeyEvent.VK_A, new Dimension(100, 100), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200), true));
 
-        for (JRadioButton radioButton : radioButtonList) {
-            bgroupList.get(0).add(radioButton);
-        }
+        //for (JRadioButton radioButton : radioButtonList) {
+        //    bgroupList.get(0).add(radioButton);
+        //}
 
         //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
@@ -67,14 +71,15 @@ public class CreateMenu implements IMenu, ActionListener {
              createPanel.add(button);
         }
 
+
         // Add action listeners
         for (JButton button : buttonList) {
              button.addActionListener(this);
         }
 
-        for (JRadioButton radioButton : radioButtonList) {
-            radioButton.addActionListener(this);
-        }
+        //for (JRadioButton radioButton : radioButtonList) {
+        //    radioButton.addActionListener(this);
+        //}
 
 
         //Adds panel to Main.frame
