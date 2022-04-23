@@ -8,8 +8,10 @@ import java.util.List;
 
 public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
-    private JButton generateSolution, regenerate, save;
     //private ButtonGroup buttonGroup = new ButtonGroup();
+
+    private JButton generateSolution, regenerate, save, back;
+
     private ArrayList<JButton> buttonList = new ArrayList<>();
     //private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
     //private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
@@ -53,6 +55,8 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
+        buttonList.add(guiHelper.newButton("Back", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER - 200)));
+
 
         JRadioButton confirmRButton = guiHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
         //buttonGroup.add(confirmRButton);
@@ -114,7 +118,7 @@ public class CreateMenu implements IMenu, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getSource().toString()) {
-            //generateSolution, regenerate, save
+            //generateSolution, regenerate, save, back
             case "Generate Solution":
                 generateSolution.setEnabled(false);
                 break;
@@ -123,6 +127,12 @@ public class CreateMenu implements IMenu, ActionListener {
                 break;
             case "Save":
                 save.setEnabled(false);
+                break;
+            case "Back":
+                back.setEnabled(false);
+                Main.createMenu.createPanel.setVisible(false);
+                Main.mainMenu.mainPanel.setVisible(true);
+
                 break;
         }
 
