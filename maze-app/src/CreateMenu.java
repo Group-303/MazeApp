@@ -15,10 +15,8 @@ public class CreateMenu implements IMenu, ActionListener {
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
-    public Color customColor = Color.getHSBColor(0.3f,0.5f,0.8f);
-
-    // Does this need to be public?
-    public final static int PANELS = 5;
+    public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.6f);
+    public Color customLightGreen = Color.getHSBColor(0.35f,0.1f,0.95f);
 
     public CreateMenu() {
         //panel code
@@ -28,9 +26,9 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
 
         //creating panels for layout inside the container panel
-        JPanel panel1 = panelLayout (createPanel, customColor, BorderLayout.NORTH);
-        JPanel panel2 = panelLayout (createPanel, Color.LIGHT_GRAY, BorderLayout.EAST);
-        JPanel panel3 = panelLayout (createPanel, customColor, BorderLayout.SOUTH);
+        JPanel panel1 = panelLayout (createPanel, customGreen, BorderLayout.NORTH);
+        JPanel panel2 = panelLayout (createPanel, customLightGreen, BorderLayout.EAST);
+        JPanel panel3 = panelLayout (createPanel, customGreen, BorderLayout.SOUTH);
         JPanel panel4 = panelLayout (createPanel, Color.WHITE, BorderLayout.WEST);
         JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
 
