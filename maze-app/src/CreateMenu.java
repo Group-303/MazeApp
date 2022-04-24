@@ -36,9 +36,9 @@ public class CreateMenu implements IMenu, ActionListener {
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
         panel1.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.25), (Frame.HEIGHT) - newHeight));
+        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.25), (Frame.HEIGHT) - (newHeight * 2)));
         panel3.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.75), (Frame.HEIGHT) - newHeight));
+        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.75), (Frame.HEIGHT) - (newHeight * 2)));
         panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
 
         // Create buttons and add buttons to button list using GUIHelper
