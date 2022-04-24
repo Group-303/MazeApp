@@ -91,8 +91,9 @@ public class CreateMenu implements IMenu, ActionListener {
         return panel;
         }
 
+    //Title doesn't change
     public void openMenu() {
-
+        Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
     }
 
     // Simple function to set the visibility of all panels
