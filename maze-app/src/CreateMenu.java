@@ -15,6 +15,7 @@ public class CreateMenu implements IMenu, ActionListener {
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
+    public Color customColor = Color.getHSBColor(0.3f,0.5f,0.8f);
 
     // Does this need to be public?
     public final static int PANELS = 5;
@@ -27,20 +28,21 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
 
         //creating panels for layout inside the container panel
-        JPanel panel1 = panelLayout (createPanel, Color.GREEN, BorderLayout.NORTH);
+        JPanel panel1 = panelLayout (createPanel, customColor, BorderLayout.NORTH);
         JPanel panel2 = panelLayout (createPanel, Color.LIGHT_GRAY, BorderLayout.EAST);
-        JPanel panel3 = panelLayout (createPanel, Color.GREEN, BorderLayout.SOUTH);
+        JPanel panel3 = panelLayout (createPanel, customColor, BorderLayout.SOUTH);
         JPanel panel4 = panelLayout (createPanel, Color.WHITE, BorderLayout.WEST);
-        JPanel panel5 = panelLayout (createPanel, Color.WHITE, BorderLayout.CENTER);
+        JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
         panel1.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.25), (Frame.HEIGHT) - (newHeight * 2)));
+        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.70), (Frame.HEIGHT) - (newHeight * 2)));
         panel3.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.75), (Frame.HEIGHT) - (newHeight * 2)));
+        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.30), (Frame.HEIGHT) - (newHeight * 2)));
         panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
 
+        /*
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
@@ -70,7 +72,7 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JRadioButton radioButton : radioButtonList) {
             radioButton.addActionListener(this);
         }
-
+*/
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
