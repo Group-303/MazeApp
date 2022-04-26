@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Testing purposes! This will be incorporated inside of the Maze class
-        //Maze testMaze = new Maze("Test Maze", "Cameron Turley", 10, 10);
+        //Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
         //testMaze.regenerateMaze();
         //testMaze.display();
 
@@ -27,8 +27,6 @@ public class Main {
 
 
         Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
-
-        testMaze.display();
 
         //for (int i = 0; i < testMaze.getWidth(); i++) {
         //    for (int j = 0; j < testMaze.getHeight(); j++) {
