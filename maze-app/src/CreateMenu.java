@@ -15,39 +15,32 @@ public class CreateMenu implements IMenu, ActionListener {
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
-
-    // Does this need to be public?
-    public final static int PANELS = 5;
+    public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.6f);
+    public Color customLightGreen = Color.getHSBColor(0.35f,0.1f,0.95f);
 
     public CreateMenu() {
         //panel code
         createPanel = new JPanel();
-        //Color[] colours = {Color.GREEN, Color.gray, Color.GREEN, Color.WHITE, Color.WHITE};
-        //String[] layoutLocation = {BorderLayout.NORTH,
-        //        BorderLayout.EAST,
-        //        BorderLayout.SOUTH,
-        //        BorderLayout.WEST,
-        //        BorderLayout.CENTER
-        //};
-
-        //create  panels 0 to 3
-        //for (int i = 0; i < PANELS - 1; i++){
-        //    panels[i] = createPanel(colours[i]);
-        //    Main.frame.getContentPane().add(panels[i],layoutLocation[i]);
-        //}
-
-        //create panel 4 (will be placed inside panel 1)
-        //panels[4] = createPanel(colours[4]);
-        //panels[1].add(panels[4],layoutLocation[4]);
 
         // Set boundary of panel
         createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
 
-        // WIDTH is 1200 and HEIGHT is 800
-        //panels[1].setPreferredSize(new Dimension(300, Frame.HEIGHT));
-        //panels[3].setPreferredSize(new Dimension(900, Frame.HEIGHT));
-        //panels[4].setPreferredSize(new Dimension(800, (Frame.HEIGHT) - 100));
+        //creating panels for layout inside the container panel
+        JPanel panel1 = panelLayout (createPanel, customGreen, BorderLayout.NORTH);
+        JPanel panel2 = panelLayout (createPanel, customLightGreen, BorderLayout.EAST);
+        JPanel panel3 = panelLayout (createPanel, customGreen, BorderLayout.SOUTH);
+        JPanel panel4 = panelLayout (createPanel, Color.WHITE, BorderLayout.WEST);
+        JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
 
+        //the dimension of the panels
+        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
+        panel1.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.70), (Frame.HEIGHT) - (newHeight * 2)));
+        panel3.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.30), (Frame.HEIGHT) - (newHeight * 2)));
+        panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
+
+        /*
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
@@ -64,9 +57,9 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
-        // Add buttons the createPanel
+        // Add buttons the panel4
         for (JButton button : buttonList) {
-             createPanel.add(button);
+             panel4.add(button);
         }
 
         // Add action listeners
@@ -77,16 +70,30 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JRadioButton radioButton : radioButtonList) {
             radioButton.addActionListener(this);
         }
-
+*/
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
+
         //this.panelsVisible(false);
 
     }
 
-    public void openMenu() {
+    public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
+        //create a JPanel object
+        JPanel panel = new JPanel();
 
+        //panel background color
+        panel.setBackground(c);
+
+        containerPanel.add(panel,layoutLocation);
+
+        return panel;
+        }
+
+    //Title doesn't change
+    public void openMenu() {
+        Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
     }
 
     // Simple function to set the visibility of all panels
@@ -94,17 +101,6 @@ public class CreateMenu implements IMenu, ActionListener {
         for (int i = 0; i < PANELS; i++) {
             panels[i].setVisible(bool);
         }
-    }*/
-
-    /*private JPanel createPanel(Color c){
-        //create a JPanel object
-        JPanel panel = new JPanel();
-
-        //panel background color
-        panel.setBackground(c);
-
-        //return the panel
-        return panel;
     }*/
 
 
