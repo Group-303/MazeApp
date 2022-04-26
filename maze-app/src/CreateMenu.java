@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +98,7 @@ public class CreateMenu implements IMenu, ActionListener {
     //Title doesn't change
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
-    }
+
 
     // Simple function to set the visibility of all panels
     /*public void panelsVisible(boolean bool) {
@@ -103,6 +107,14 @@ public class CreateMenu implements IMenu, ActionListener {
         }
     }*/
 
+        try {
+            BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
+            JLabel imageLabel = new JLabel(new ImageIcon(picture));
+            createPanel.add(imageLabel);
+        } catch (IOException e) {
+            //System.out.println("Invalid");
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
