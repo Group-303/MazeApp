@@ -19,32 +19,40 @@ public class CreateMenu implements IMenu, ActionListener {
     private List<Component> componentList = new ArrayList<>();
     private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
-    public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.6f);
-    public Color customLightGreen = Color.getHSBColor(0.35f,0.1f,0.95f);
+    public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.5f);
 
     public CreateMenu() {
         //panel code
         createPanel = new JPanel();
 
         // Set boundary of panel
-        createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
+        createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+Frame.H_MENU);
 
         //creating panels for layout inside the container panel
-        JPanel panel1 = panelLayout (createPanel, customGreen, BorderLayout.NORTH);
-        JPanel panel2 = panelLayout (createPanel, customLightGreen, BorderLayout.EAST);
-        JPanel panel3 = panelLayout (createPanel, customGreen, BorderLayout.SOUTH);
-        JPanel panel4 = panelLayout (createPanel, Color.WHITE, BorderLayout.WEST);
-        JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
+        // colours for panels 2 and 3 will be different
+        JPanel panel1 = panelLayout (createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel panel2 = panelLayout (createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel panel3 = panelLayout (createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
+        JPanel panel4 = panelLayout (createPanel, customGreen, BorderLayout.SOUTH); //footer
+        //JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
         panel1.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.70), (Frame.HEIGHT) - (newHeight * 2)));
-        panel3.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel4.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH) * 0.30), (Frame.HEIGHT) - (newHeight * 2)));
-        panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
+        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
+        panel3.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
+        panel4.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        //panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
 
-        /*
+        //Create label
+        JLabel l = new JLabel(TITLE);
+
+
+        //add label to panels
+        panel1.add(l);
+
+        /* Just commented out button stuff to work out layout
+
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
@@ -74,8 +82,8 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JRadioButton radioButton : radioButtonList) {
             radioButton.addActionListener(this);
         }
-*/
 
+*/
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
 
