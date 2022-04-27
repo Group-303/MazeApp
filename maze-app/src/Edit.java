@@ -11,6 +11,14 @@ public class Edit {
         this.time = LocalDateTime.now();
     }
 
+    public void setEditor(String editor) {
+        this.editor = editor;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getEditor() {
         return this.editor;
     }
