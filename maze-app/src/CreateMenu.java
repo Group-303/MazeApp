@@ -141,7 +141,6 @@ public class CreateMenu implements IMenu, ActionListener {
                 back.setEnabled(false);
                 Main.createMenu.createPanel.setVisible(false);
                 Main.mainMenu.mainPanel.setVisible(true);
-
                 break;
         }
 
