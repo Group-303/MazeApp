@@ -95,7 +95,7 @@ public class CreateMenu implements IMenu, ActionListener {
         Main.frame.add(createPanel);
 
         //this.panelsVisible(false);
-
+        createPanel.setVisible(false);
     }
 /* Moved to GUIHelper
     public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
@@ -130,14 +130,6 @@ public class CreateMenu implements IMenu, ActionListener {
             button.setEnabled(true);
         }
 
-
-    // Simple function to set the visibility of all panels
-    /*public void panelsVisible(boolean bool) {
-        for (int i = 0; i < PANELS; i++) {
-            panels[i].setVisible(bool);
-        }
-    }*/
-
         try {
             BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
             JLabel imageLabel = new JLabel(new ImageIcon(picture));
@@ -163,40 +155,6 @@ public class CreateMenu implements IMenu, ActionListener {
                 Main.mainMenu.openMenu();
                 break;
         }
-
-        /*
-        if (e.getSource() == buttonList.get(0)) {
-            buttonList.get(0).setEnabled(false);
-        }
-        else if (e.getSource() == buttonList.get(1)) {
-            buttonList.get(1).setEnabled(false);
-        }
-        else if (e.getSource() == buttonList.get(2)) {
-            buttonList.get(2).setEnabled(false);
-        }
-        else if (e.getSource() == buttonList.get(3)) {
-            buttonList.get(3).setEnabled(false);
-            Main.mainMenu.openMenu();
-        }*/
-
-        //switch (e.getSource().toString()) {
-            //generateSolution, regenerate, save, back
-        //    case "":
-        //        generateSolution.setEnabled(false);
-        //        break;
-        //    case "Regenerate":
-        //        regenerate.setEnabled(false);
-        //        break;
-        //    case "Save":
-        //        save.setEnabled(false);
-        //        break;
-        //    case "Back":
-        //        JOptionPane.showMessageDialog(Main.frame, "Eggs are not supposed to be green.");
-        //        back.setEnabled(false);
-        //        Main.createMenu.createPanel.setVisible(false);
-        //        Main.mainMenu.mainPanel.setVisible(true);
-        //        break;
-        //}
 
     }
 
