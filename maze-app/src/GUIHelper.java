@@ -148,5 +148,25 @@ public class GUIHelper {
         return menuBar;
     }
     // Remove above when dynamic menu has been implemented
+    public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
+        //create a JPanel object
+        JPanel panel = new JPanel();
 
+        //panel background color
+        panel.setBackground(c);
+
+        containerPanel.add(panel,layoutLocation);
+
+        return panel;
+    }
+
+    public JLabel createLabel(String text, JPanel container) {
+        //Create label
+        JLabel l = new JLabel(text);
+
+
+        //add label to panels
+        container.add(l);
+        return l;
+    }
 }

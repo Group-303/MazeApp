@@ -33,10 +33,10 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
-        JPanel panel1 = panelLayout (createPanel, customGreen, BorderLayout.NORTH); //Header
-        JPanel panel2 = panelLayout (createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
-        JPanel panel3 = panelLayout (createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
-        JPanel panel4 = panelLayout (createPanel, customGreen, BorderLayout.SOUTH); //footer
+        JPanel panel1 = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel panel2 = guiHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel panel3 = guiHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
+        JPanel panel4 = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
         //JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
@@ -48,13 +48,13 @@ public class CreateMenu implements IMenu, ActionListener {
         //panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
 
         //Create labels
-        JLabel labelTitle = createLabel(TITLE,panel1);
-        JLabel label1 = createLabel("Title: ", panel2);
-        JLabel label2 = createLabel("Author: ", panel2);
-        JLabel label3 = createLabel("Created: ", panel2);
-        JLabel label4 = createLabel("Last Edited: ", panel2);
-        JLabel label5 = createLabel("Width: ", panel2);
-        JLabel label6 = createLabel("Height: ", panel2);
+        JLabel labelTitle = guiHelper.createLabel(TITLE,panel1);
+        JLabel label1 = guiHelper.createLabel("Title: ", panel2);
+        JLabel label2 = guiHelper.createLabel("Author: ", panel2);
+        JLabel label3 = guiHelper.createLabel("Created: ", panel2);
+        JLabel label4 = guiHelper.createLabel("Last Edited: ", panel2);
+        JLabel label5 = guiHelper.createLabel("Width: ", panel2);
+        JLabel label6 = guiHelper.createLabel("Height: ", panel2);
 
 
         // Create buttons and add buttons to button list using GUIHelper
@@ -97,7 +97,7 @@ public class CreateMenu implements IMenu, ActionListener {
         //this.panelsVisible(false);
 
     }
-
+/* Moved to GUIHelper
     public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
         //create a JPanel object
         JPanel panel = new JPanel();
@@ -119,6 +119,8 @@ public class CreateMenu implements IMenu, ActionListener {
         container.add(l);
         return l;
     }
+
+ */
 
     //Title doesn't change
     public void openMenu() {
