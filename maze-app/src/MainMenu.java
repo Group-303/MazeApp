@@ -49,9 +49,13 @@ public class MainMenu implements IMenu, ActionListener {
         }
     }
 
+    public void closeMenu() {
+        mainPanel.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        mainPanel.setVisible(false);
+        closeMenu();
 
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
@@ -61,11 +65,11 @@ public class MainMenu implements IMenu, ActionListener {
                 break;
             case "Generate New":
                 //componentList.get(1).setEnabled(false);
-                Main.generateMenu.generatePanel.setVisible(true);
+                Main.generateMenu.openMenu();
                 break;
             case "Browse Mazes":
                 //componentList.get(2).setEnabled(false);
-                Main.browseMenu.browsePanel.setVisible(true);
+                Main.browseMenu.openMenu();
                 break;
         }
     }

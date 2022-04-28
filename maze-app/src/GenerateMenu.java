@@ -12,21 +12,27 @@ public class GenerateMenu implements IMenu, ActionListener {
         Main.frame.add(generatePanel);
         JButton back = new JButton("Back");
         generatePanel.add(back);
-        //back.addActionListener(this);
-
-        openMenu();
+        back.addActionListener(this);
     }
 
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        generatePanel.setVisible(true);
 
         // Code that should be executed whenever a menu is opened
     }
 
+    public void closeMenu() {
+        generatePanel.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        //generatePanel.setVisible(false);
-        // Insert action events here
-        Main.mainMenu.openMenu();
+        switch (e.getActionCommand()) {
+            case "Back":
+                closeMenu();
+                Main.mainMenu.openMenu();
+                break;
+        }
     }
 }

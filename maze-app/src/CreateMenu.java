@@ -17,9 +17,6 @@ public class CreateMenu implements IMenu, ActionListener {
     private JButton generateSolution, regenerate, save, back;
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
-    //private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
-    //private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
-    private List<Component> componentList = new ArrayList<>();
     public JPanel createPanel;
     public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.5f);
 
@@ -70,14 +67,7 @@ public class CreateMenu implements IMenu, ActionListener {
         JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
         //buttonGroup.add(confirmRButton);
         createPanel.add(confirmRButton);
-        //bgroupList.add(guiHelper.newButtonGroup());
-        //radioButtonList.add(guiHelper.newRButton("Test", KeyEvent.VK_A, new Dimension(100, 100), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200), true));
 
-        //for (JRadioButton radioButton : radioButtonList) {
-        //    bgroupList.get(0).add(radioButton);
-        //}
-
-        //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
@@ -88,14 +78,6 @@ public class CreateMenu implements IMenu, ActionListener {
             button.addActionListener(this);
         }
 
-
-        //for (JRadioButton radioButton : radioButtonList) {
-        //    radioButton.addActionListener(this);
-        //}
-
-
-
-        //this.panelsVisible(false);
         createPanel.setVisible(false);
     }
 /* Moved to GUIHelper
@@ -140,9 +122,13 @@ public class CreateMenu implements IMenu, ActionListener {
         }
     }
 
+    public void closeMenu() {
+        createPanel.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        createPanel.setVisible(false);
+        closeMenu();
 
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
