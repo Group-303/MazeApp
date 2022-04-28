@@ -13,26 +13,6 @@ public class MazeGenerator {
         generate(0, 0);
     }
 
-    public void display() {
-        for (int i = 0; i < height; i++) {
-            // draw the north edge
-            for (int j = 0; j < width; j++) {
-                System.out.print((layout[j][i] & 1) == 0 ? "+---" : "+   ");
-            }
-            System.out.println("+");
-            // draw the west edge
-            for (int j = 0; j < width; j++) {
-                System.out.print((layout[j][i] & 8) == 0 ? "|   " : "    ");
-            }
-            System.out.println("|");
-        }
-        // draw the bottom line
-        for (int j = 0; j < width; j++) {
-            System.out.print("+---");
-        }
-        System.out.println("+");
-    }
-
     /***
      *
      * @return Returns 3D boolean array
@@ -43,7 +23,6 @@ public class MazeGenerator {
             for (int j = 0; j < width; j++) {
                 format[j][i][0] = ((layout[j][i] & 1) == 0);
             }
-
             for (int j = 0; j < width; j++) {
                 format[j][i][1] = ((layout[j][i] & 8) == 0);
             }
@@ -90,8 +69,6 @@ public class MazeGenerator {
     }
 
     public void clear() {
-        //this.layout = null;
-        //System.gc();
         this.layout = new int[this.width][this.height];
     }
 

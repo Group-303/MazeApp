@@ -33,8 +33,6 @@ public class Maze {
 
         this.generator = new MazeGenerator(this.width, this.height);
 
-        this.generator.display();
-
         this.layout = generator.getLayout();
 
         // Add to the temporary holder list
@@ -121,35 +119,5 @@ public class Maze {
 
     public int getHeight() {
         return height;
-    }
-
-    // Testing method
-    public void display() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (layout[j][i][0] == true) {
-                    System.out.print("+---");
-                }
-                else {
-                    System.out.print("+   ");
-                }
-            }
-
-
-            for (int j = 0; j < width; j++) {
-                if (layout[j][i][1] == true) {
-                    System.out.print("|   ");
-                }
-                else {
-                    System.out.print("    ");
-                }
-            }
-            System.out.println("|");
-        }
-        // draw the bottom line
-        for (int j = 0; j < width; j++) {
-            System.out.print("+-+-");
-        }
-        System.out.println("+");
     }
 }
