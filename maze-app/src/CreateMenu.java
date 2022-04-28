@@ -33,29 +33,30 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
-        JPanel panel1 = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
-        JPanel panel2 = guiHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
-        JPanel panel3 = guiHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
-        JPanel panel4 = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
-        //JPanel panel5 = panelLayout (panel2, Color.WHITE, BorderLayout.CENTER);
+        JPanel headerPanel = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel sidePanel = guiHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel contentPanel = guiHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
+        JPanel footerPanel = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
+        //JPanel panel5 = panelLayout (sidePanel, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
-        panel1.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        panel2.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
-        panel3.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
-        panel4.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        //panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
+        headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
+        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
+        footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
-        JLabel labelTitle = guiHelper.createLabel(TITLE,panel1);
-        JLabel label1 = guiHelper.createLabel("Title: ", panel2);
-        JLabel label2 = guiHelper.createLabel("Author: ", panel2);
-        JLabel label3 = guiHelper.createLabel("Created: ", panel2);
-        JLabel label4 = guiHelper.createLabel("Last Edited: ", panel2);
-        JLabel label5 = guiHelper.createLabel("Width: ", panel2);
-        JLabel label6 = guiHelper.createLabel("Height: ", panel2);
+        JLabel labelTitle = guiHelper.createLabel(TITLE,headerPanel);
+        JLabel label1 = guiHelper.createLabel("Title: ", sidePanel);
+        JLabel label2 = guiHelper.createLabel("Author: ", sidePanel);
+        JLabel label3 = guiHelper.createLabel("Created: ", sidePanel);
+        JLabel label4 = guiHelper.createLabel("Last Edited: ", sidePanel);
+        JLabel label5 = guiHelper.createLabel("Width: ", sidePanel);
+        JLabel label6 = guiHelper.createLabel("Height: ", sidePanel);
 
+        // Horizontal center and verticle center of sidePanel
 
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
@@ -76,9 +77,19 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
-        // Add buttons the panel4
+        // Add JButtons in buttonList to sidePanel
         for (JButton button : buttonList) {
-             panel2.add(button);
+            sidePanel.add(button);
+        }
+
+        //position Jbuttons in sidePanel to run down the page
+        int buttonHeight = (int) Math.round((sidePanel.getHeight()) * 0.1);
+        int buttonWidth = (int) Math.round((sidePanel.getWidth()) * 0.1);
+        int buttonX = (int) Math.round((sidePanel.getWidth()) * 0.1);
+        int buttonY = (int) Math.round((sidePanel.getHeight()) * 0.1);
+        for (JButton button : buttonList) {
+            button.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+            buttonY += buttonHeight;
         }
 
 
