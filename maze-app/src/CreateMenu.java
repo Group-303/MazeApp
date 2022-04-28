@@ -53,8 +53,8 @@ public class CreateMenu implements IMenu, ActionListener {
         JLabel label6 = GUIHelper.createLabel("Height: ", sidePanel);
 
         // sidePanel horizontal and vertical centers
-        int sidePanel_V_CENTER = (int) Math.round((sidePanel.getHeight()));
-        int sidePanel_H_CENTER = (int) Math.round((sidePanel.getWidth()));
+        int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
+        int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
@@ -62,12 +62,8 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
 
-
-
         JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
-        //buttonGroup.add(confirmRButton);
         createPanel.add(confirmRButton);
-
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
@@ -80,38 +76,10 @@ public class CreateMenu implements IMenu, ActionListener {
 
         createPanel.setVisible(false);
     }
-/* Moved to GUIHelper
-    public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
-        //create a JPanel object
-        JPanel panel = new JPanel();
 
-        //panel background color
-        panel.setBackground(c);
-
-        containerPanel.add(panel,layoutLocation);
-
-        return panel;
-        }
-
-    public JLabel createLabel(String text, JPanel container) {
-        //Create label
-        JLabel l = new JLabel(text);
-
-
-        //add label to panels
-        container.add(l);
-        return l;
-    }
-
- */
-
-    //Title doesn't change
     public void openMenu() {
-        createPanel.setVisible(true);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
-        for (JButton button : buttonList) {
-            button.setEnabled(true);
-        }
+        createPanel.setVisible(true);
 
         try {
             BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));

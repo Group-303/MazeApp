@@ -10,16 +10,14 @@ public class GenerateMenu implements IMenu, ActionListener {
         generatePanel = new JPanel();
         generatePanel.setVisible(false);
         Main.frame.add(generatePanel);
-        JButton back = new JButton("Back");
-        generatePanel.add(back);
-        back.addActionListener(this);
+        JButton test = new JButton("Back");
+        generatePanel.add(test);
+        test.addActionListener(this);
     }
 
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         generatePanel.setVisible(true);
-
-        // Code that should be executed whenever a menu is opened
     }
 
     public void closeMenu() {

@@ -12,7 +12,7 @@ public class MainMenu implements IMenu, ActionListener {
     public final static String TITLE = "Main Menu";
 
     public JPanel mainPanel;
-    private List<JButton> componentList = new ArrayList<>();
+    private List<JButton> buttonList = new ArrayList<>();
 
     public MainMenu() {
         // Create JPanel for MainGUIFrame
@@ -23,12 +23,12 @@ public class MainMenu implements IMenu, ActionListener {
         mainPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT);
 
         // Add buttons to components list
-        componentList.add(GUIHelper.newButton("Create New", new Dimension(300, 300), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
-        componentList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
-        componentList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
+        buttonList.add(GUIHelper.newButton("Create New", new Dimension(300, 300), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
+        buttonList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
+        buttonList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
         // Add all components into the main panel and add action listeners to each JButton component
-        for (JButton button : componentList) {
+        for (JButton button : buttonList) {
             mainPanel.add(button);
             button.addActionListener(this);
         }
@@ -36,17 +36,12 @@ public class MainMenu implements IMenu, ActionListener {
         // Add mainGUIPanel to mainGUIFrame
         Main.frame.add(mainPanel);
 
-
         openMenu();
-
     }
 
     public void openMenu() {
         mainPanel.setVisible(true);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
-        for (JButton button : componentList) {
-            button.setEnabled(true);
-        }
     }
 
     public void closeMenu() {
@@ -56,19 +51,14 @@ public class MainMenu implements IMenu, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         closeMenu();
-
-        // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Create New":
-                //componentList.get(0).setEnabled(false);
                 Main.createMenu.openMenu();
                 break;
             case "Generate New":
-                //componentList.get(1).setEnabled(false);
                 Main.generateMenu.openMenu();
                 break;
             case "Browse Mazes":
-                //componentList.get(2).setEnabled(false);
                 Main.browseMenu.openMenu();
                 break;
         }
