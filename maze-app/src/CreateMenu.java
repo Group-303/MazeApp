@@ -20,7 +20,6 @@ public class CreateMenu implements IMenu, ActionListener {
     //private ArrayList<ButtonGroup> bgroupList = new ArrayList<>();
     //private ArrayList<JRadioButton> radioButtonList = new ArrayList<>();
     private List<Component> componentList = new ArrayList<>();
-    private GUIHelper guiHelper = new GUIHelper();
     public JPanel createPanel;
     public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.5f);
 
@@ -33,10 +32,10 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
-        JPanel headerPanel = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
-        JPanel sidePanel = guiHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
-        JPanel contentPanel = guiHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
-        JPanel footerPanel = guiHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
+        JPanel headerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel sidePanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
+        JPanel footerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
         //JPanel panel5 = panelLayout (sidePanel, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
@@ -48,24 +47,27 @@ public class CreateMenu implements IMenu, ActionListener {
         //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
-        JLabel labelTitle = guiHelper.createLabel(TITLE,headerPanel);
-        JLabel label1 = guiHelper.createLabel("Title: ", sidePanel);
-        JLabel label2 = guiHelper.createLabel("Author: ", sidePanel);
-        JLabel label3 = guiHelper.createLabel("Created: ", sidePanel);
-        JLabel label4 = guiHelper.createLabel("Last Edited: ", sidePanel);
-        JLabel label5 = guiHelper.createLabel("Width: ", sidePanel);
-        JLabel label6 = guiHelper.createLabel("Height: ", sidePanel);
+        JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
+        JLabel label1 = GUIHelper.createLabel("Title: ", sidePanel);
+        JLabel label2 = GUIHelper.createLabel("Author: ", sidePanel);
+        JLabel label3 = GUIHelper.createLabel("Created: ", sidePanel);
+        JLabel label4 = GUIHelper.createLabel("Last Edited: ", sidePanel);
+        JLabel label5 = GUIHelper.createLabel("Width: ", sidePanel);
+        JLabel label6 = GUIHelper.createLabel("Height: ", sidePanel);
 
-        // Horizontal center and verticle center of sidePanel
+        // sidePanel horizontal and vertical centers
+        int sidePanel_V_CENTER = (int) Math.round((sidePanel.getHeight()));
+        int sidePanel_H_CENTER = (int) Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
-        buttonList.add(guiHelper.newButton("Regenerate", new Dimension(100, 50), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
-        buttonList.add(guiHelper.newButton("Save", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
-        buttonList.add(guiHelper.newButton("Back", new Dimension(100, 50), new Point(Frame.H_CENTER, Frame.V_CENTER - 200)));
+        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+        buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+        buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
 
 
-        JRadioButton confirmRButton = guiHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
+
+        JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
         //buttonGroup.add(confirmRButton);
         createPanel.add(confirmRButton);
         //bgroupList.add(guiHelper.newButtonGroup());
@@ -77,33 +79,21 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //createPanel.add(guiHelper.formButtonGroup(radioButtonList));
 
-        // Add JButtons in buttonList to sidePanel
+        //Adds panel to Main.frame
+        Main.frame.add(createPanel);
+
+        // Add JButtons in buttonList to sidePanel and add action listeners
         for (JButton button : buttonList) {
             sidePanel.add(button);
+            button.addActionListener(this);
         }
 
-        //position Jbuttons in sidePanel to run down the page
-        int buttonHeight = (int) Math.round((sidePanel.getHeight()) * 0.1);
-        int buttonWidth = (int) Math.round((sidePanel.getWidth()) * 0.1);
-        int buttonX = (int) Math.round((sidePanel.getWidth()) * 0.1);
-        int buttonY = (int) Math.round((sidePanel.getHeight()) * 0.1);
-        for (JButton button : buttonList) {
-            button.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
-            buttonY += buttonHeight;
-        }
-
-
-        // Add action listeners
-        for (JButton button : buttonList) {
-             button.addActionListener(this);
-        }
 
         //for (JRadioButton radioButton : radioButtonList) {
         //    radioButton.addActionListener(this);
         //}
 
-        //Adds panel to Main.frame
-        Main.frame.add(createPanel);
+
 
         //this.panelsVisible(false);
         createPanel.setVisible(false);
