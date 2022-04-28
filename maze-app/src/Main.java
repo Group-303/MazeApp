@@ -28,6 +28,10 @@ public class Main {
 
         Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
 
+        testMaze.addEdit(new Edit("Test Edit", "John Doe"));
+
+        System.out.println(testMaze.getEdits().get(0).getTime());
+
         //for (int i = 0; i < testMaze.getWidth(); i++) {
         //    for (int j = 0; j < testMaze.getHeight(); j++) {
         //            System.out.println("(" + i + ", " + j + ") North: " + testMaze.getLayout()[i][j][0] + " \nWest: " + testMaze.getLayout()[i][j][1] + "\n");
