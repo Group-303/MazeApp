@@ -61,7 +61,7 @@ public class MainMenu implements IMenu, ActionListener {
                 break;
             case "Generate New":
                 //componentList.get(1).setEnabled(false);
-                Main.generateMenu.generatePanel.setVisible(true);
+                Main.browseMenu.browsePanel.setVisible(true);
                 break;
             case "Browse Mazes":
                 //componentList.get(2).setEnabled(false);

@@ -6,7 +6,6 @@ public class Main {
     public static MainMenu mainMenu;
     public static BrowseMenu browseMenu;
     public static CreateMenu createMenu;
-    public static GenerateMenu generateMenu;
     public static List<Maze> mazeList = new ArrayList<>(); // Holds a list of mazes until the SQL DB can be implemented
     public static Integer[] recentMazes; // Stores ID of 10 most recent mazes viewed
 
@@ -40,7 +39,9 @@ public class Main {
         frame = new Frame();
         mainMenu = new MainMenu();
         createMenu = new CreateMenu();
-        generateMenu = new GenerateMenu();
         browseMenu = new BrowseMenu();
+
+
+
     }
 }
