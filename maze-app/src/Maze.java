@@ -21,12 +21,12 @@ public class Maze {
     /***
      * Maze class that stores the details of a maze.
      * @param title The title of the new maze
-     * @param author The full name of the author
+     * @param creator The full name of the author
      */
-    public Maze(String title, String author, int width, int height) {
+    public Maze(String title, String creator, int width, int height) {
         this.id = Main.mazeList.size();
         this.title = title;
-        this.creator = author;
+        this.creator = creator;
         this.width = width;
         this.height = height;
         this.creationTime = LocalDateTime.now();
