@@ -49,7 +49,12 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //Create labels
         JLabel labelTitle = createLabel(TITLE,panel1);
-        JLabel label1 = createLabel("", panel2);
+        JLabel label1 = createLabel("Title: ", panel2);
+        JLabel label2 = createLabel("Author: ", panel2);
+        JLabel label3 = createLabel("Created: ", panel2);
+        JLabel label4 = createLabel("Last Edited: ", panel2);
+        JLabel label5 = createLabel("Width: ", panel2);
+        JLabel label6 = createLabel("Height: ", panel2);
 
 
         // Create buttons and add buttons to button list using GUIHelper
@@ -73,7 +78,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Add buttons the panel4
         for (JButton button : buttonList) {
-             panel4.add(button);
+             panel2.add(button);
         }
 
 
