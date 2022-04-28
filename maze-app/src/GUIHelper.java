@@ -49,7 +49,7 @@ public class GUIHelper {
         return new ButtonGroup();
     }
 
-    public JRadioButton newRButton(String text, Dimension size, Point location) {
+    public static JRadioButton newRButton(String text, Dimension size, Point location) {
         JRadioButton radioButton = new JRadioButton(text);
         radioButton.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
         return radioButton;
@@ -148,7 +148,7 @@ public class GUIHelper {
         return menuBar;
     }
     // Remove above when dynamic menu has been implemented
-    public JPanel panelLayout (JPanel containerPanel, Color c, String layoutLocation){
+    public static JPanel panelLayout(JPanel containerPanel, Color c, String layoutLocation){
         //create a JPanel object
         JPanel panel = new JPanel();
 
@@ -160,7 +160,7 @@ public class GUIHelper {
         return panel;
     }
 
-    public JLabel createLabel(String text, JPanel container) {
+    public static JLabel createLabel(String text, JPanel container) {
         //Create label
         JLabel l = new JLabel(text);
 

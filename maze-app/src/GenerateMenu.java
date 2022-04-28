@@ -2,17 +2,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BrowseMenu implements IMenu, ActionListener {
-    public final static String TITLE = "Maze Browser";
-    public JPanel browsePanel;
+public class GenerateMenu implements IMenu, ActionListener {
+    public final static String TITLE = "Maze Generator";
+    public JPanel generatePanel;
 
-    public BrowseMenu() {
-        browsePanel = new JPanel();
-        browsePanel.setVisible(false);
-        Main.frame.add(browsePanel);
+    public GenerateMenu() {
+        generatePanel = new JPanel();
+        generatePanel.setVisible(false);
+        Main.frame.add(generatePanel);
         JButton back = new JButton("Back");
-        browsePanel.add(back);
-        back.addActionListener(this);
+        generatePanel.add(back);
+        //back.addActionListener(this);
 
         openMenu();
     }
@@ -25,7 +25,7 @@ public class BrowseMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        browsePanel.setVisible(false);
+        //generatePanel.setVisible(false);
         // Insert action events here
         Main.mainMenu.openMenu();
     }

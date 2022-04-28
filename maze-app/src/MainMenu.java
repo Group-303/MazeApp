@@ -12,7 +12,6 @@ public class MainMenu implements IMenu, ActionListener {
     public final static String TITLE = "Main Menu";
 
     public JPanel mainPanel;
-    private JButton CreateMazeButton, GenerateMazeButton, BrowseMazeButton;
     private List<JButton> componentList = new ArrayList<>();
 
     public MainMenu() {
@@ -28,18 +27,15 @@ public class MainMenu implements IMenu, ActionListener {
         componentList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         componentList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
 
-        // Add all components into the main panel
+        // Add all components into the main panel and add action listeners to each JButton component
         for (JButton button : componentList) {
             mainPanel.add(button);
+            button.addActionListener(this);
         }
 
         // Add mainGUIPanel to mainGUIFrame
         Main.frame.add(mainPanel);
 
-        // Add action listeners to each JButton component
-        for (JButton button : componentList) {
-            button.addActionListener(this);
-        }
 
         openMenu();
 
@@ -60,15 +56,15 @@ public class MainMenu implements IMenu, ActionListener {
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Create New":
-                componentList.get(0).setEnabled(false);
-                Main.createMenu.createPanel.setVisible(true);
-                break;
-            case "Generate New":
-                componentList.get(1).setEnabled(false);
+                //componentList.get(0).setEnabled(false);
                 Main.createMenu.openMenu();
                 break;
+            case "Generate New":
+                //componentList.get(1).setEnabled(false);
+                Main.generateMenu.generatePanel.setVisible(true);
+                break;
             case "Browse Mazes":
-                componentList.get(2).setEnabled(false);
+                //componentList.get(2).setEnabled(false);
                 Main.browseMenu.browsePanel.setVisible(true);
                 break;
         }
