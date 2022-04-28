@@ -46,26 +46,43 @@ public class MainMenu implements IMenu, ActionListener {
     }
 
     public void openMenu() {
+        mainPanel.setVisible(true);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        for (JButton button : componentList) {
+            button.setEnabled(true);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         mainPanel.setVisible(false);
 
-        switch (e.getSource().toString()) {
-            case "Create Maze":
-                Main.createMenu.createPanel.setVisible(true);
-                Main.frame.setTitle("MazeCo - Create New Maze");
-                break;
-            case "Generate Maze":
-                GenerateMazeButton.setEnabled(false);
-                Main.frame.setTitle("MazeCo - Generate A Maze");
-                break;
-            case "Browse Mazes":
-                Main.browseMenu.browsePanel.setVisible(true);
-                Main.frame.setTitle("MazeCo - Browse Mazes");
-                break;
+        if (e.getSource() == componentList.get(0)) {
+            componentList.get(0).setEnabled(false);
+            Main.createMenu.createPanel.setVisible(true);
         }
+        else if (e.getSource() == componentList.get(1)) {
+            componentList.get(1).setEnabled(false);
+            Main.createMenu.openMenu();
+        }
+        else if (e.getSource() == componentList.get(2)) {
+            componentList.get(2).setEnabled(false);
+            Main.browseMenu.browsePanel.setVisible(true);
+        }
+
+        //switch (e.getSource().toString()) {
+        //    case "Create Maze":
+        //        Main.createMenu.createPanel.setVisible(true);
+        //        Main.frame.setTitle("MazeCo - Create New Maze");
+        //        break;
+        //    case "Generate Maze":
+        //        GenerateMazeButton.setEnabled(false);
+        //        Main.frame.setTitle("MazeCo - Generate A Maze");
+        //        break;
+        //    case "Browse Mazes":
+        //        Main.browseMenu.browsePanel.setVisible(true);
+        //        Main.frame.setTitle("MazeCo - Browse Mazes");
+        //        break;
+        //}
     }
 }

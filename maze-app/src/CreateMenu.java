@@ -117,7 +117,11 @@ public class CreateMenu implements IMenu, ActionListener {
 
     //Title doesn't change
     public void openMenu() {
+        createPanel.setVisible(true);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        for (JButton button : buttonList) {
+            button.setEnabled(true);
+        }
 
 
     // Simple function to set the visibility of all panels
@@ -138,23 +142,38 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getSource().toString()) {
-            //generateSolution, regenerate, save, back
-            case "Generate Solution":
-                generateSolution.setEnabled(false);
-                break;
-            case "Regenerate":
-                regenerate.setEnabled(false);
-                break;
-            case "Save":
-                save.setEnabled(false);
-                break;
-            case "Back":
-                back.setEnabled(false);
-                Main.createMenu.createPanel.setVisible(false);
-                Main.mainMenu.mainPanel.setVisible(true);
-                break;
+        if (e.getSource() == buttonList.get(0)) {
+            buttonList.get(0).setEnabled(false);
         }
+        else if (e.getSource() == buttonList.get(1)) {
+            buttonList.get(1).setEnabled(false);
+        }
+        else if (e.getSource() == buttonList.get(2)) {
+            buttonList.get(2).setEnabled(false);
+        }
+        else if (e.getSource() == buttonList.get(3)) {
+            buttonList.get(3).setEnabled(false);
+            Main.mainMenu.openMenu();
+        }
+
+        //switch (e.getSource().toString()) {
+            //generateSolution, regenerate, save, back
+        //    case "":
+        //        generateSolution.setEnabled(false);
+        //        break;
+        //    case "Regenerate":
+        //        regenerate.setEnabled(false);
+        //        break;
+        //    case "Save":
+        //        save.setEnabled(false);
+        //        break;
+        //    case "Back":
+        //        JOptionPane.showMessageDialog(Main.frame, "Eggs are not supposed to be green.");
+        //        back.setEnabled(false);
+        //        Main.createMenu.createPanel.setVisible(false);
+        //        Main.mainMenu.mainPanel.setVisible(true);
+        //        break;
+        //}
 
     }
 
