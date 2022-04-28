@@ -50,6 +50,11 @@ public class MainMenu implements IMenu, ActionListener {
     }
 
     @Override
+    public void closeMenu() {
+        mainPanel.setVisible(false);
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         mainPanel.setVisible(false);
 
@@ -63,6 +68,7 @@ public class MainMenu implements IMenu, ActionListener {
                 //componentList.get(1).setEnabled(false);
                 Main.browseMenu.browsePanel.setVisible(true);
                 break;
+                //a change
             case "Browse Mazes":
                 //componentList.get(2).setEnabled(false);
                 Main.browseMenu.browsePanel.setVisible(true);
