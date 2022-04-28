@@ -6,6 +6,8 @@ public class RenderGUI extends JFrame {
     private Point point1;
     private Point point2;
 
+    // Currently unimplemented. Not shown in design document.
+    // Class may be depreciated!
     public RenderGUI(Point point1, Point point2) {
         this.point1 = point1;
         this.point2 = point2;
