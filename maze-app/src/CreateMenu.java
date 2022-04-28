@@ -149,6 +149,21 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        // Switch statement to detect which button is pressed
+        switch (e.getActionCommand()) {
+            case "New":
+                break;
+            case "Load":
+                break;
+            case "Save":
+                break;
+            case "Back":
+                Main.mainMenu.openMenu();
+                break;
+        }
+
+        /*
         if (e.getSource() == buttonList.get(0)) {
             buttonList.get(0).setEnabled(false);
         }
@@ -161,7 +176,7 @@ public class CreateMenu implements IMenu, ActionListener {
         else if (e.getSource() == buttonList.get(3)) {
             buttonList.get(3).setEnabled(false);
             Main.mainMenu.openMenu();
-        }
+        }*/
 
         //switch (e.getSource().toString()) {
             //generateSolution, regenerate, save, back
