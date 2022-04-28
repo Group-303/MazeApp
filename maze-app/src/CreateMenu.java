@@ -47,14 +47,10 @@ public class CreateMenu implements IMenu, ActionListener {
         panel4.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
         //panel5.setPreferredSize(new Dimension((int)Math.round((panel2.WIDTH) * 0.80), (int)Math.round((panel2.HEIGHT) * 0.80)));
 
-        //Create label
-        JLabel l = new JLabel(TITLE);
+        //Create labels
+        JLabel labelTitle = createLabel(TITLE,panel1);
+        JLabel label1 = createLabel("", panel2);
 
-
-        //add label to panels
-        panel1.add(l);
-
-        /* Just commented out button stuff to work out layout
 
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(guiHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
@@ -90,7 +86,6 @@ public class CreateMenu implements IMenu, ActionListener {
         //    radioButton.addActionListener(this);
         //}
 
-*/
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
 
@@ -109,6 +104,16 @@ public class CreateMenu implements IMenu, ActionListener {
 
         return panel;
         }
+
+    public JLabel createLabel(String text, JPanel container) {
+        //Create label
+        JLabel l = new JLabel(text);
+
+
+        //add label to panels
+        container.add(l);
+        return l;
+    }
 
     //Title doesn't change
     public void openMenu() {
