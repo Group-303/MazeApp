@@ -149,6 +149,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        createPanel.setVisible(false);
 
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
