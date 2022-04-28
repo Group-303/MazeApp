@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GenerateMenu implements IMenu, ActionListener {
-    public final static String TITLE = "Maze Generator";
+    public final static String TITLE = "Maze Browser";
     public JPanel generatePanel;
 
     public GenerateMenu() {
@@ -12,7 +12,7 @@ public class GenerateMenu implements IMenu, ActionListener {
         Main.frame.add(generatePanel);
         JButton back = new JButton("Back");
         generatePanel.add(back);
-        //back.addActionListener(this);
+        back.addActionListener(this);
 
         openMenu();
     }
@@ -25,7 +25,7 @@ public class GenerateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //generatePanel.setVisible(false);
+        generatePanel.setVisible(false);
         // Insert action events here
         Main.mainMenu.openMenu();
     }

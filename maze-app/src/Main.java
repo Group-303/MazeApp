@@ -39,8 +39,8 @@ public class Main {
 
         frame = new Frame();
         mainMenu = new MainMenu();
-        browseMenu = new BrowseMenu();
         createMenu = new CreateMenu();
         generateMenu = new GenerateMenu();
+        browseMenu = new BrowseMenu();
     }
 }
