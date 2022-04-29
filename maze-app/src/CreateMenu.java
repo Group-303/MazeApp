@@ -30,7 +30,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
-        JPanel headerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel headerPanel = GUIHelper.panelLayout(createPanel,customGreen , BorderLayout.NORTH); //Header
         JPanel sidePanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
         JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
@@ -54,7 +54,7 @@ public class CreateMenu implements IMenu, ActionListener {
         labelList.add(GUIHelper.createLabel("Width: ", sidePanel));
         labelList.add(GUIHelper.createLabel("Height: ", sidePanel));
 
-        //Label formatting
+        //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);
 
