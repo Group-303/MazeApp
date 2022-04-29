@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,8 +11,27 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel = new JPanel();
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
+
+        //creating panels for layout inside the container panel
+        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.customGreen, BorderLayout.NORTH); //Header
+        JPanel bodyPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, BorderLayout.CENTER);
+        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.customGreen, BorderLayout.SOUTH); //footer
+
+        //the dimension of the panels
+        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
+        headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+        bodyPanel.setPreferredSize(new Dimension(Frame.WIDTH, Frame.HEIGHT - (newHeight*2)));
+        footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+
+        //Create labels
+        JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
+
+        //Label formatting for the Header
+        labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
+        labelTitle.setForeground(Color.WHITE);
+
         JButton back = new JButton("Back");
-        browsePanel.add(back);
+        bodyPanel.add(back);
         back.addActionListener(this);
     }
 
