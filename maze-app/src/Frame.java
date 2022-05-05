@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class Frame extends JFrame {
 
         menu.addSeparator();
 
+
         // Browse all and recent mazes
         item = guiHelper.newMenuItem("Browse Mazes", new ImageIcon("images/middle.gif"));
         menu.add(item);
@@ -57,10 +59,29 @@ public class Frame extends JFrame {
         submenu.add(item);
         menu.add(submenu);
 
+        menu.addSeparator();
+
+        item = guiHelper.newMenuItem("Home", new ImageIcon("images/middle.gif"));
+        menu.add(item);
+
         menuList.add(menu);
 
         // Edit Section
-        menuList.add(guiHelper.newMenuTab("Edit", KeyEvent.VK_E));
+        menu = guiHelper.newMenuTab("Edit", KeyEvent.VK_F);
+
+        submenu = guiHelper.newMenuTab("Recent Maze", KeyEvent.VK_N);
+        item = guiHelper.newMenuItem("Maze001", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        item = guiHelper.newMenuItem("Maze002", new ImageIcon("images/middle.gif"));
+        submenu.add(item);
+        menu.add(submenu);
+
+        menu.addSeparator();
+
+        item = guiHelper.newMenuItem("Browse Mazes", new ImageIcon("images/middle.gif"));
+        menu.add(item);
+
+        menuList.add(menu);
 
         for (JMenu menuTab : menuList) {
             menuBar.add(menuTab);
