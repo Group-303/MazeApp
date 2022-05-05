@@ -66,6 +66,19 @@ public class Maze {
         this.title = title;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+        clearMaze();
+        System.out.println(this.generator);
+        regenerateMaze();
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+        clearMaze();
+        System.out.println(this.generator);
+        regenerateMaze();
+    }
     /***
      * Method for retrieving the ID of the maze
      * @return Returns an integer containing the ID of the maze
@@ -123,5 +136,17 @@ public class Maze {
 
     public int getHeight() {
         return height;
+    }
+
+    public MazeGenerator getGenerator() {
+        return this.generator;
+    }
+
+    public void clearMaze() {
+        this.generator = null;
+    }
+
+    public void regenerateMaze() {
+        this.generator = new MazeGenerator(this.width, this.height);
     }
 }

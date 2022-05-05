@@ -10,7 +10,7 @@ public class MazeGenerator {
         this.width = width;
         this.height = height;
         layout = new int[this.width][this.height];
-        generate(0, 0);
+        generate();
     }
 
     /***
@@ -72,7 +72,47 @@ public class MazeGenerator {
         this.layout = new int[this.width][this.height];
     }
 
-    public void setWidth() {
-        //
+    public void regenerateMaze() {
+        this.layout = new int[this.width][this.height];
+        generate(0, 0);
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+        int[][] newSize = new int[this.width][this.height];
+        //this.layout = newSize;
+
+        System.arraycopy(newSize, 0, this.layout, 0, newSize.length);
+        System.out.println(this.layout.length);
+        regenerateMaze();
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+        int[][] newSize = new int[this.width][this.height];
+        //this.layout = newSize;
+        System.arraycopy(newSize, 0, this.layout, 0, newSize.length);
+        System.out.println(this.layout.length);
+        regenerateMaze();
+    }
+
+    public void display() {
+        for (int i = 0; i < width; i++) {
+            // draw the north edge
+            for (int j = 0; j < height; j++) {
+                System.out.print((layout[j][i] & 1) == 0 ? "+---" : "+   ");
+            }
+            System.out.println("+");
+            // draw the west edge
+            for (int j = 0; j < height; j++) {
+                System.out.print((layout[j][i] & 8) == 0 ? "|   " : "    ");
+            }
+            System.out.println("|");
+        }
+        // draw the bottom line
+        for (int j = 0; j < height; j++) {
+            System.out.print("+---");
+        }
+        System.out.println("+");
     }
 }
