@@ -17,6 +17,7 @@ public class CreateMenu implements IMenu, ActionListener {
     private JButton generateSolution, regenerate, save, back;
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
+    private ArrayList<JLabel> labelList = new ArrayList<>();
     public JPanel createPanel;
     public Color customGreen = Color.getHSBColor(0.35f,0.6f,0.5f);
 
@@ -29,7 +30,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
-        JPanel headerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.NORTH); //Header
+        JPanel headerPanel = GUIHelper.panelLayout(createPanel,customGreen , BorderLayout.NORTH); //Header
         JPanel sidePanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
         JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, customGreen, BorderLayout.SOUTH); //footer
@@ -45,20 +46,30 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
-        JLabel label1 = GUIHelper.createLabel("Title: ", sidePanel);
-        JLabel label2 = GUIHelper.createLabel("Author: ", sidePanel);
-        JLabel label3 = GUIHelper.createLabel("Created: ", sidePanel);
-        JLabel label4 = GUIHelper.createLabel("Last Edited: ", sidePanel);
-        JLabel label5 = GUIHelper.createLabel("Width: ", sidePanel);
-        JLabel label6 = GUIHelper.createLabel("Height: ", sidePanel);
+        labelList.add( GUIHelper.createLabel("Title: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Title: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Author: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Created: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Width: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Height: ", sidePanel));
+
+        //Label formatting for the Header
+        labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
+        labelTitle.setForeground(Color.WHITE);
+
+        //for loop to format the JLabels in the SideBar
+        for (JLabel  text: labelList) {
+            text.setFont(new Font("Century Gothic", Font.BOLD, 14));
+        }
 
         // sidePanel horizontal and vertical centers
         int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
         int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
+        buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
-        buttonList.add(GUIHelper.newButton("Regenerate", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
 
@@ -100,9 +111,9 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
-            case "New":
-                break;
             case "Load":
+                break;
+            case "New":
                 break;
             case "Save":
                 break;
