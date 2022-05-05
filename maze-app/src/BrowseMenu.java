@@ -13,9 +13,9 @@ public class BrowseMenu implements IMenu, ActionListener {
         Main.frame.add(browsePanel);
 
         //creating panels for layout inside the container panel
-        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.customGreen, BorderLayout.NORTH); //Header
+        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.NORTH); //Header
         JPanel bodyPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, BorderLayout.CENTER);
-        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.customGreen, BorderLayout.SOUTH); //footer
+        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.SOUTH); //footer
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);

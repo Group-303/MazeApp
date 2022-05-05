@@ -51,16 +51,11 @@ public class MainMenu implements IMenu, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         closeMenu();
-        switch (e.getActionCommand()) {
-            case "Create New":
-                Main.createMenu.openMenu();
-                break;
-            case "Generate New":
-                Main.generateMenu.openMenu();
-                break;
-            case "Browse Mazes":
-                Main.browseMenu.openMenu();
-                break;
+        if (e.getSource() == buttonList.get(0) || e.getSource() == buttonList.get(1)) {
+            Main.createMenu.openMenu();
+        }
+        else if (e.getSource() == buttonList.get(2)) {
+            Main.browseMenu.openMenu();
         }
     }
 }
