@@ -82,6 +82,10 @@ public class Maze {
         return this.title;
     }
 
+    public String getCreator() {
+        return this.creator;
+    }
+
     /***
      * Method for retrieving the creation date and time of the maze in readable form
      * Uses "MMMM dd, yyyy" and "HH:mma" formatting patterns
