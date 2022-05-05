@@ -46,7 +46,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
-        labelList.add( GUIHelper.createLabel("Title: ", sidePanel));
+        labelList.add(GUIHelper.createLabel("Title: ", sidePanel));
         labelList.add(GUIHelper.createLabel("Title: ", sidePanel));
         labelList.add(GUIHelper.createLabel("Author: ", sidePanel));
         labelList.add(GUIHelper.createLabel("Created: ", sidePanel));
@@ -68,7 +68,7 @@ public class CreateMenu implements IMenu, ActionListener {
         int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+        buttonList.add(GUIHelper.newButton("Load Maze", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
         buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
@@ -107,10 +107,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        closeMenu();
-
-        // Switch statement to detect which button is pressed
-        switch (e.getActionCommand()) {
+        /*switch (e.getActionCommand()) {
             case "Load":
                 break;
             case "New":
@@ -120,6 +117,22 @@ public class CreateMenu implements IMenu, ActionListener {
             case "Back":
                 Main.mainMenu.openMenu();
                 break;
+        }*/
+
+        // Better implementation:
+        // Load button
+        if (e.getSource() == buttonList.get(0)) {
+            closeMenu();
+            Main.browseMenu.openMenu(true);
+        }
+        else if (e.getSource() == buttonList.get(1)) {
+            Main.testMaze.getGenerator().regenerateMaze();
+            Main.testMaze.getGenerator().display();
+        }
+        // Back button
+        else if (e.getSource() == buttonList.get(3)) {
+            closeMenu();
+            Main.mainMenu.openMenu();
         }
 
     }

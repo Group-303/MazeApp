@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class BrowseMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Browser";
     public JPanel browsePanel;
+    public boolean createReturn;
 
     public BrowseMenu() {
         browsePanel = new JPanel();
@@ -36,6 +37,13 @@ public class BrowseMenu implements IMenu, ActionListener {
     }
 
     public void openMenu() {
+        createReturn = false;
+        Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        browsePanel.setVisible(true);
+    }
+
+    public void openMenu(boolean fromCreate) {
+        createReturn = fromCreate;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         browsePanel.setVisible(true);
     }
@@ -49,8 +57,17 @@ public class BrowseMenu implements IMenu, ActionListener {
         switch (e.getActionCommand()) {
             case "Back":
                 closeMenu();
-                Main.mainMenu.openMenu();
+                if (createReturn) {
+                    Main.createMenu.openMenu();
+                }
+                else {
+                    Main.mainMenu.openMenu();
+                }
+
                 break;
         }
+        /*if (e.getSource() == back) {
+
+        }*/
     }
 }
