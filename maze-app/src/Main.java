@@ -18,34 +18,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Testing purposes! This will be incorporated inside of the Maze class
-        //Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
-        //testMaze.regenerateMaze();
-        //testMaze.display();
-
-        MazeGenerator test = new MazeGenerator(10, 10);
-
-
-        Maze testMaze = new Maze("Test Maze", "John Doe", 10, 10);
-
-        testMaze.addEdit(new Edit("Test Edit", "John Doe"));
-
-        System.out.println(testMaze.getEdits().get(0).getTime());
-
-        //for (int i = 0; i < testMaze.getWidth(); i++) {
-        //    for (int j = 0; j < testMaze.getHeight(); j++) {
-        //            System.out.println("(" + i + ", " + j + ") North: " + testMaze.getLayout()[i][j][0] + " \nWest: " + testMaze.getLayout()[i][j][1] + "\n");
-        //    }
-        //}
-
-        //Maze testMaze2 = new Maze("Test Maze 2", "John Doe", 10, 10);
-
         frame = new Frame();
         mainMenu = new MainMenu();
         createMenu = new CreateMenu();
         browseMenu = new BrowseMenu();
-
-
-
     }
 }
