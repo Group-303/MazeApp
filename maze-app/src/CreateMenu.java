@@ -23,7 +23,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
     public CreateMenu() {
         //panel code
-        createPanel = new JPanel();
+        createPanel = new JPanel(new BorderLayout());
 
         // Set boundary of panel
         createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+Frame.H_MENU);
@@ -39,20 +39,20 @@ public class CreateMenu implements IMenu, ActionListener {
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
         headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
-        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
+        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.3), (Frame.HEIGHT) - (newHeight * 2)));
+        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (Frame.HEIGHT) - (newHeight * 2)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
         //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
-        JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
-        labelList.add(GUIHelper.createLabel("Title: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Title: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Author: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Created: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Width: ", sidePanel));
-        labelList.add(GUIHelper.createLabel("Height: ", sidePanel));
+        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0.5);
+        labelList.add( GUIHelper.createLabel("Title: ", sidePanel, 0.1));
+        labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0.2));
+        labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0.3));
+        labelList.add(GUIHelper.createLabel("Created: ", sidePanel, 0.4));
+        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel, 0.5));
+        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0.6));
+        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0.7));
 
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
@@ -68,13 +68,13 @@ public class CreateMenu implements IMenu, ActionListener {
         int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Load Maze", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
-        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
-        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
-        buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 500), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+     //   buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 50), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+      //  buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+      //  buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
+      //  buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 50), new Point(sidePanel_H_CENTER, sidePanel_V_CENTER)));
 
-        JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(Frame.H_CENTER + 50, Frame.V_CENTER + 300));
-        createPanel.add(confirmRButton);
+       // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
+       // createPanel.add(confirmRButton);
 
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
@@ -107,7 +107,10 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*switch (e.getActionCommand()) {
+        closeMenu();
+
+        // Switch statement to detect which button is pressed
+        switch (e.getActionCommand()) {
             case "Load":
                 break;
             case "New":
@@ -117,22 +120,6 @@ public class CreateMenu implements IMenu, ActionListener {
             case "Back":
                 Main.mainMenu.openMenu();
                 break;
-        }*/
-
-        // Better implementation:
-        // Load button
-        if (e.getSource() == buttonList.get(0)) {
-            closeMenu();
-            Main.browseMenu.openMenu(true);
-        }
-        else if (e.getSource() == buttonList.get(1)) {
-            Main.testMaze.getGenerator().regenerateMaze();
-            Main.testMaze.getGenerator().display();
-        }
-        // Back button
-        else if (e.getSource() == buttonList.get(3)) {
-            closeMenu();
-            Main.mainMenu.openMenu();
         }
 
     }

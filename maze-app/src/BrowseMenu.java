@@ -15,24 +15,28 @@ public class BrowseMenu implements IMenu, ActionListener {
 
         //creating panels for layout inside the container panel
         JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.NORTH); //Header
-        JPanel bodyPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, BorderLayout.CENTER);
+        JPanel sidePanel = GUIHelper.panelLayout(browsePanel, Color.GRAY, null); //sidebar
+        JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.SOUTH); //footer
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
         headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        bodyPanel.setPreferredSize(new Dimension(Frame.WIDTH, Frame.HEIGHT - (newHeight*2)));
+        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
+        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
 
         //Create labels
-        JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
+        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel,  0.5);
 
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);
 
         JButton back = new JButton("Back");
-        bodyPanel.add(back);
+        sidePanel.add(back);
+        JButton foo = new JButton("Back");
+        sidePanel.add(foo);
         back.addActionListener(this);
     }
 
