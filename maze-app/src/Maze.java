@@ -126,28 +126,52 @@ public class Maze {
         return this.edits;
     }
 
+    /***
+     * Retrieves the current layout of the maze
+     * @return Returns a 3D boolean array of the north and west walls of the stored maze
+     */
     public boolean[][][] getLayout() {
         return layout;
     }
 
+    /***
+     * Retrieves current width of the maze
+     * @return Width of the maze in cells
+     */
     public int getWidth() {
         return width;
     }
 
+    /***
+     * Retrieves current height of the maze
+     * @return Height of the maze in cells
+     */
     public int getHeight() {
         return height;
     }
 
+    /***
+     * Retrieves the maze generator of this maze
+     * @return MazeGenerator object responsible for generation of the maze
+     */
     public MazeGenerator getGenerator() {
         return this.generator;
     }
 
+    /***
+     * Clears the current maze stored in the
+     */
     public void clearMaze() {
         this.generator = null;
+        this.layout = null;
     }
 
+    /***
+     * Generates a new maze
+     */
     public void regenerateMaze() {
         clearMaze();
         this.generator = new MazeGenerator(this.width, this.height);
+        this.layout = this.generator.getLayout();
     }
 }
