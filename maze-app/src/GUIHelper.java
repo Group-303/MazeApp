@@ -18,6 +18,7 @@ public class GUIHelper {
     public static JButton newButton(String text, Dimension size, Point location) {
         JButton button = new JButton(text);
         button.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
+       // button.setLocation((int) location.getX(), (int) location.getY());
         button.setSize(size);
         return button;
     }
@@ -150,7 +151,7 @@ public class GUIHelper {
     // Remove above when dynamic menu has been implemented
     public static JPanel panelLayout(JPanel containerPanel, Color c, String layoutLocation){
         //create a JPanel object
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
 
         //panel background color
         panel.setBackground(c);
@@ -160,13 +161,14 @@ public class GUIHelper {
         return panel;
     }
 
-    public static JLabel createLabel(String text, JPanel container) {
+    public static JLabel createLabel(String text, JPanel container, double vAlignment) {
         //Create label
         JLabel l = new JLabel(text);
-
-
+        l.setLayout(new BorderLayout());
+        l.setVerticalAlignment((int) Math.round(container.getHeight() * vAlignment));
+        l.setHorizontalAlignment((int) Math.round(container.getHeight() * vAlignment));
         //add label to panels
-        container.add(l);
+        container.add(l, BorderLayout.CENTER);
         return l;
     }
 }
