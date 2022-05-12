@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +16,11 @@ public class CreateMenu implements IMenu, ActionListener {
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
     private JButton generateSolution, regenerate, save, back;
+    private Maze currentMaze = Main.testMaze;
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
+
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.75f, 0.8f);
 
@@ -54,6 +57,8 @@ public class CreateMenu implements IMenu, ActionListener {
         labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0.6));
         labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0.7));
 
+        contentPanel.add(new TestingPanelGraphics.DrawStuff(), BorderLayout.CENTER);
+
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);
@@ -86,6 +91,43 @@ public class CreateMenu implements IMenu, ActionListener {
         }
 
         createPanel.setVisible(false);
+    }
+
+    public JButton[][] arrayItemToButtons(boolean[][][] inputArray, int index) {
+        JButton nwButton, northButton, westButton, centerButton;
+        JButton[][] buttons = new JButton[2][2];
+
+        nwButton = new JButton();
+        nwButton.setBackground(Color.BLACK);
+        nwButton.setEnabled(false);
+
+        northButton = new JButton();
+        if (inputArray[index][index][0] == false) {
+            northButton.setBackground(Color.WHITE);
+        }
+        else {
+            northButton.setBackground(Color.BLACK);
+        }
+        northButton.setEnabled(true);
+
+        westButton = new JButton();
+        if (inputArray[index][index][1] == false) {
+            westButton.setBackground(Color.WHITE);
+        }
+        else {
+            westButton.setBackground(Color.BLACK);
+        }
+        westButton.setEnabled(true);
+
+        centerButton = new JButton();
+        westButton.setBackground(Color.WHITE);
+        westButton.setEnabled(false);
+
+        buttons[0][0] = nwButton;
+        buttons[1][0] = northButton;
+        buttons[0][1] = westButton;
+        buttons[1][1] = centerButton;
+        return buttons;
     }
 
     public void openMenu() {
