@@ -26,6 +26,7 @@ public class MainMenu implements IMenu, ActionListener {
         buttonList.add(GUIHelper.newButton("Create New", new Dimension(300, 300), new Point(Frame.H_CENTER - 200, Frame.V_CENTER - 200)));
         buttonList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
+        buttonList.add(GUIHelper.newButton("Exit", new Dimension(200, 150), new Point(Frame.H_CENTER + 500, Frame.V_CENTER + 200)));
 
         // Add all components into the main panel and add action listeners to each JButton component
         for (JButton button : buttonList) {
@@ -56,6 +57,9 @@ public class MainMenu implements IMenu, ActionListener {
         }
         else if (e.getSource() == buttonList.get(2)) {
             Main.browseMenu.openMenu();
+        }
+        else if (e.getSource() == buttonList.get(3)) {
+            System.exit(0);
         }
     }
 }

@@ -147,6 +147,7 @@ public class Maze {
     }
 
     public void regenerateMaze() {
+        clearMaze();
         this.generator = new MazeGenerator(this.width, this.height);
     }
 }
