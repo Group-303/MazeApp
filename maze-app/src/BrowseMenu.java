@@ -25,7 +25,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
 
         //Create labels
-        JLabel labelTitle = GUIHelper.createLabel(TITLE,headerPanel);
+        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel,  0.5);
 
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
