@@ -151,7 +151,7 @@ public class GUIHelper {
     // Remove above when dynamic menu has been implemented
     public static JPanel panelLayout(JPanel containerPanel, Color c, String layoutLocation){
         //create a JPanel object
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
 
         //panel background color
         panel.setBackground(c);
@@ -161,14 +161,24 @@ public class GUIHelper {
         return panel;
     }
 
-    public static JLabel createLabel(String text, JPanel container, double vAlignment) {
+    public static JLabel createLabel(String text, JPanel container, int gridX, int gridY) {
         //Create label
         JLabel l = new JLabel(text);
-        l.setLayout(new BorderLayout());
-        l.setVerticalAlignment((int) Math.round(container.getHeight() * vAlignment));
-        l.setHorizontalAlignment((int) Math.round(container.getHeight() * vAlignment));
+        l.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        l.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
+
+        // set the label in a grid
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = gridX;
+        c.gridy = gridY;
+        c.ipadx = 10;
+        c.ipady = 10;
+
         //add label to panels
-        container.add(l, BorderLayout.CENTER);
+        container.add(l, c);
         return l;
     }
 }
