@@ -48,14 +48,13 @@ public class CreateMenu implements IMenu, ActionListener {
         //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
-        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0.5);
-        labelList.add( GUIHelper.createLabel("Title: ", sidePanel, 0.1));
-        labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0.2));
-        labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0.3));
-        labelList.add(GUIHelper.createLabel("Created: ", sidePanel, 0.4));
-        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel, 0.5));
-        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0.6));
-        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0.7));
+        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
+        labelList.add( GUIHelper.createLabel("Title: ", sidePanel, 0 ,1));
+        labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0,2));
+        labelList.add(GUIHelper.createLabel("Created: ", sidePanel,  0,3));
+        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel,  0,4));
+        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,5));
+        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,6));
 
         contentPanel.add(new TestingPanelGraphics.DrawStuff(), BorderLayout.CENTER);
 
