@@ -56,7 +56,7 @@ public class CreateMenu implements IMenu, ActionListener {
         labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,5));
         labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,6));
 
-        contentPanel.add(new TestingPanelGraphics.DrawStuff(), BorderLayout.CENTER);
+        contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
