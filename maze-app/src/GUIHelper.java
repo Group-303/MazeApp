@@ -18,7 +18,34 @@ public class GUIHelper {
     public static JButton newButton(String text, Dimension size, Point location) {
         JButton button = new JButton(text);
         button.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
-       // button.setLocation((int) location.getX(), (int) location.getY());
+        // button.setLocation((int) location.getX(), (int) location.getY());
+        button.setSize(size);
+        return button;
+    }
+
+    /***
+     * Overload of newButton for use in a grid bag layout
+     * @param text String to be displayed on button
+     * @param size Dimensions of the button
+     * @param container Container for button
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @return Returned a created JButton
+     */
+    public static JButton newButton(String text, Dimension size, JPanel container, int gridX, int gridY) {
+        JButton button = new JButton(text);
+        button.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
+
+        // set the label in a grid
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = gridX;
+        c.gridy = gridY;
+        c.ipadx = 10;
+        c.ipady = 10;
         button.setSize(size);
         return button;
     }
