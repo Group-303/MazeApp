@@ -35,18 +35,19 @@ public class GUIHelper {
     public static JButton newButton(String text, Dimension size, JPanel container, int gridX, int gridY) {
         JButton button = new JButton(text);
         button.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        GridBagConstraints constraint = new GridBagConstraints();
 
         button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
 
         // set the label in a grid
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = gridX;
-        c.gridy = gridY;
-        c.ipadx = 10;
-        c.ipady = 10;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.weightx = 0.5;
+        constraint.gridx = gridX;
+        constraint.gridy = gridY;
+        constraint.ipadx = 10;
+        constraint.ipady = 10;
         button.setSize(size);
+        container.add(button, constraint);
         return button;
     }
 

@@ -85,7 +85,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Add JButtons in buttonList to sidePanel and add action listeners
         for (JButton button : buttonList) {
-            sidePanel.add(button);
+            //sidePanel.add(button);
             button.addActionListener(this);
         }
 
