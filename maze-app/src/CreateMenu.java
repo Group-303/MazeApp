@@ -20,6 +20,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
+    private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
 
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.75f, 0.8f);
@@ -87,6 +88,17 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JButton button : buttonList) {
             //sidePanel.add(button);
             button.addActionListener(this);
+        }
+
+        for (int i = 0; i < currentMaze.getLayout().length; i++) {
+            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i));
+        }
+
+        for (JButton[][] button : mazeButtons) {
+            contentPanel.add(button[0][0]);
+            contentPanel.add(button[0][1]);
+            contentPanel.add(button[1][0]);
+            contentPanel.add(button[1][1]);
         }
 
         createPanel.setVisible(false);
