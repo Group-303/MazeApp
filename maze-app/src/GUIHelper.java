@@ -54,9 +54,9 @@ public class GUIHelper {
         return button;
     }
 
-    public JSeparator newSeparator(Dimension size, JPanel container, int gridX, int gridY, int ipadX, int ipadY) {
-        JSeparator separator = new JSeparator();
-        separator.setLayout(new GridBagLayout());
+    public static JTextField newTextField(Dimension size, JPanel container, int gridX, int gridY) {
+        JTextField textField = new JTextField();
+        textField.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
 
         //button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
@@ -67,11 +67,11 @@ public class GUIHelper {
         //constraint.weighty = 1;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
-        constraint.ipadx = ipadX;
-        constraint.ipady = ipadY;
-        separator.setSize(size);
-        container.add(separator, constraint);
-        return separator;
+        constraint.ipadx = 10;
+        constraint.ipady = 10;
+        textField.setSize(size);
+        container.add(textField, constraint);
+        return textField;
     }
 
     /***
