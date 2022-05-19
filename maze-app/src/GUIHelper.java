@@ -32,23 +32,46 @@ public class GUIHelper {
      * @param gridY Y Grid
      * @return Returned a created JButton
      */
-    public static JButton newButton(String text, Dimension size, JPanel container, int gridX, int gridY) {
+    public static JButton newButton(String text, Dimension size, JPanel container, int gridX, int gridY, int topInset, int leftInset, int bottomInset, int rightinset) {
         JButton button = new JButton(text);
         button.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
 
-        button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
+
+        //button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
 
         // set the label in a grid
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.weightx = 0.5;
+        //constraint.weighty = 1;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
         constraint.ipadx = 10;
         constraint.ipady = 10;
+        constraint.insets.set(topInset,leftInset, bottomInset,rightinset);
         button.setSize(size);
         container.add(button, constraint);
         return button;
+    }
+
+    public JSeparator newSeparator(Dimension size, JPanel container, int gridX, int gridY, int ipadX, int ipadY) {
+        JSeparator separator = new JSeparator();
+        separator.setLayout(new GridBagLayout());
+        GridBagConstraints constraint = new GridBagConstraints();
+
+        //button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
+
+        // set the label in a grid
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.weightx = 0.5;
+        //constraint.weighty = 1;
+        constraint.gridx = gridX;
+        constraint.gridy = gridY;
+        constraint.ipadx = ipadX;
+        constraint.ipady = ipadY;
+        separator.setSize(size);
+        container.add(separator, constraint);
+        return separator;
     }
 
     /***
