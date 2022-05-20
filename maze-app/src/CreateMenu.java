@@ -15,7 +15,7 @@ public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
-    private JButton generateSolution, regenerate, save, back;
+    //private JButton generateSolution, regenerate, save, back;
     private Maze currentMaze = Main.testMaze;
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
@@ -69,8 +69,8 @@ public class CreateMenu implements IMenu, ActionListener {
         }
 
         // sidePanel horizontal and vertical centers
-        int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
-        int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
+       // int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
+       // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 50), sidePanel, 0, 7, 500, 10, 5, 5));
