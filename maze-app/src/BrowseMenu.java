@@ -9,34 +9,42 @@ public class BrowseMenu implements IMenu, ActionListener {
     public boolean createReturn;
 
     public BrowseMenu() {
-        browsePanel = new JPanel();
+        browsePanel = new JPanel(new GridBagLayout());
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
 
+        //panelLayout(JPanel containerPanel, Color c, int gridX, int gridY)
+        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.05);
         //creating panels for layout inside the container panel
-        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.NORTH); //Header
-        JPanel sidePanel = GUIHelper.panelLayout(browsePanel, Color.GRAY, null); //sidebar
-        JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
-        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, BorderLayout.SOUTH); //footer
+        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight); //Header
+        JPanel searchPanel = GUIHelper.panelLayout(browsePanel, Color.GRAY, 0,1, (int) Math.round(Frame.HEIGHT*0.15)); //sidebar
+        JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.LIGHT_GRAY, 0,2,(int) Math.round(Frame.HEIGHT*0.63)); // where the maze goes
+        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,3,newHeight); //footer
 
         //the dimension of the panels
-        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
-        headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
-        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
-        footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+      //  int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
+       // headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
+       // searchPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.30), (Frame.HEIGHT) - (newHeight * 2)));
+       // contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.68), (Frame.HEIGHT) - (newHeight * 2)));
+       // footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
 
         //Create labels
-        //JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel,  0.5);
+        JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
 
         //Label formatting for the Header
-        //labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
-        //labelTitle.setForeground(Color.WHITE);
+        //Label formatting for the Header
+        labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
+        labelTitle.setForeground(Color.WHITE);
+
+        //for loop to format the JLabels in the SideBar
+       // for (JLabel  text: labelList) {
+       //     text.setFont(new Font("Century Gothic", Font.BOLD, 14));
+        // }
 
         JButton back = new JButton("Back");
-        sidePanel.add(back);
+        searchPanel.add(back);
         JButton foo = new JButton("Back");
-        sidePanel.add(foo);
+        searchPanel.add(foo);
         back.addActionListener(this);
     }
 

@@ -49,7 +49,8 @@ public class GUIHelper {
         constraint.ipadx = 10;
         constraint.ipady = 10;
         constraint.insets.set(topInset,leftInset, bottomInset,rightinset);
-        button.setSize(size);
+        constraint.insets.set(0,20,0,20);
+        //button.setSize(size.width, size.height);
         container.add(button, constraint);
         return button;
     }
@@ -212,6 +213,28 @@ public class GUIHelper {
         return panel;
     }
 
+    public static JPanel panelLayout(JPanel containerPanel, Color c, int gridX, int gridY, int padY){
+        //create a JPanel object
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraint = new GridBagConstraints();
+
+        // set the label in a grid
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.weightx = 0.5;
+        constraint.gridx = gridX;
+        constraint.gridy = gridY;
+        constraint.ipadx = 10;
+        constraint.ipady = padY;
+
+        //panel background color
+        panel.setBackground(c);
+
+        containerPanel.add(panel,constraint);
+
+
+        return panel;
+    }
+
     public static JLabel createLabel(String text, JPanel container, int gridX, int gridY) {
         //Create label
         JLabel l = new JLabel(text);
@@ -227,6 +250,7 @@ public class GUIHelper {
         c.gridy = gridY;
         c.ipadx = 10;
         c.ipady = 10;
+        c.insets.set(0,0,10,0);
 
         //add label to panels
         container.add(l, c);
