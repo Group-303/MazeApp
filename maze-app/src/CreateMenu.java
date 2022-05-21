@@ -15,12 +15,13 @@ public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
-    private JButton generateSolution, regenerate, save, back;
+    //private JButton generateSolution, regenerate, save, back;
     private Maze currentMaze = Main.testMaze;
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
     private ArrayList<JTextField> fieldlist = new ArrayList<>();
+    private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
 
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.75f, 0.8f);
@@ -76,6 +77,8 @@ public class CreateMenu implements IMenu, ActionListener {
         // sidePanel horizontal and vertical centers
         //int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
         //int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
+       // int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
+       // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
         buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 50), sidePanel, 0, 7, 500, 10, 5, 5));
@@ -93,6 +96,17 @@ public class CreateMenu implements IMenu, ActionListener {
         for (JButton button : buttonList) {
             //sidePanel.add(button);
             button.addActionListener(this);
+        }
+
+        for (int i = 0; i < currentMaze.getLayout().length; i++) {
+            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i));
+        }
+
+        for (JButton[][] button : mazeButtons) {
+            contentPanel.add(button[0][0]);
+            contentPanel.add(button[0][1]);
+            contentPanel.add(button[1][0]);
+            contentPanel.add(button[1][1]);
         }
 
         createPanel.setVisible(false);
