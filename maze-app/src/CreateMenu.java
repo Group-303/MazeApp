@@ -20,6 +20,7 @@ public class CreateMenu implements IMenu, ActionListener {
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
+    private ArrayList<JTextField> fieldlist = new ArrayList<>();
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
 
     public JPanel createPanel;
@@ -57,6 +58,11 @@ public class CreateMenu implements IMenu, ActionListener {
         labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,5));
         labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,6));
 
+        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 0));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 1));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 2));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 3));
+
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
         //Label formatting for the Header
@@ -69,6 +75,8 @@ public class CreateMenu implements IMenu, ActionListener {
         }
 
         // sidePanel horizontal and vertical centers
+        //int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
+        //int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
        // int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
        // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
