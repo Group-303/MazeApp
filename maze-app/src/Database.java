@@ -11,35 +11,42 @@ public class Database {
     /**
      * The singleton instance of the database connection.
      */
-    private static Connection instance = null;
+    private static Connection connection = null;
 
     /**
-     * Constructor intializes the connection.
+     * Constructor initializes the connection.
      */
-    private Database() {
-        Properties props = new Properties();
-        FileInputStream in = null;
+    public Database() {
         try {
-            in = new FileInputStream("./db.props");
-            props.load(in);
-            in.close();
-
-            // specify the data source, username and password
-            String url = props.getProperty("jdbc.url");
-            String username = props.getProperty("jdbc.username");
-            String password = props.getProperty("jdbc.password");
-            String schema = props.getProperty("jdbc.schema");
-
-            // get a connection
-            instance = DriverManager.getConnection(url + "/" + schema, username,
-                    password);
-        } catch (SQLException sqle) {
-            System.err.println(sqle);
-        } catch (FileNotFoundException fnfe) {
-            System.err.println(fnfe);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
+            System.out.println("Connection to Cartographer.db has been established.");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
+        //Properties props = new Properties();
+       //FileInputStream in = null;
+       //try {
+       //    in = new FileInputStream("./db.props");
+       //    props.load(in);
+       //    in.close();
+
+       //    // specify the data source, username and password
+       //    String url = props.getProperty("jdbc.url");
+       //    String username = props.getProperty("jdbc.username");
+       //    String password = props.getProperty("jdbc.password");
+       //    String schema = props.getProperty("jdbc.schema");
+
+       //    // get a connection
+       //    instance = DriverManager.getConnection(url + "/" + schema, username,
+       //            password);
+       //} catch (SQLException sqle) {
+       //    System.err.println(sqle);
+       //} catch (FileNotFoundException fnfe) {
+       //    System.err.println(fnfe);
+       //} catch (IOException ex) {
+       //    ex.printStackTrace();
+       //}
     }
 
     /**
@@ -47,10 +54,10 @@ public class Database {
      *
      * @return a handle to the singleton instance of the UrlSet.
      */
-    public static Connection getInstance() {
-        if (instance == null) {
-            new Database();
-        }
-        return instance;
-    }
+   //public static Connection getInstance() {
+   //    if (instance == null) {
+   //        new Database();
+   //    }
+   //    return instance;
+   //}
 }
