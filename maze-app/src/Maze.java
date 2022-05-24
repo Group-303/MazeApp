@@ -12,7 +12,7 @@ public class Maze {
     private int height;
     private String title;
     private String creator;
-    private LocalDateTime creationTime;
+    private Long creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
     private MazeGenerator generator;
@@ -29,7 +29,7 @@ public class Maze {
         this.creator = creator;
         this.width = width;
         this.height = height;
-        this.creationTime = LocalDateTime.now();
+        this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
 
         this.generator = new MazeGenerator(this.width, this.height);
 
@@ -104,17 +104,17 @@ public class Maze {
      * Uses "MMMM dd, yyyy" and "HH:mma" formatting patterns
      * @return Returns a String containing the date and time the maze was created
      */
-    public String getCreatedReadable() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
-        return dateFormatter.format(this.creationTime) + " at " + timeFormatter.format(this.creationTime);
-    }
+    //public String getCreatedReadable() {
+    //    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+    //    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
+    //    return dateFormatter.format(this.creationTime) + " at " + timeFormatter.format(this.creationTime);
+    //}
 
     /***
      * Method for retrieving the creation date and time of the maze
      * @return Returns a LocalDateTime object containing the date and time the maze was created
      */
-    public LocalDateTime getCreatedRaw() {
+    public Long getCreatedRaw() {
         return this.creationTime;
     }
 
@@ -173,5 +173,9 @@ public class Maze {
         clearMaze();
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = this.generator.getLayout();
+    }
+
+    public HashMap<Image, Point> getHashmap() {
+        return this.items;
     }
 }

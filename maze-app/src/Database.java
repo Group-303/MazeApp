@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class Database {
@@ -12,11 +13,13 @@ public class Database {
      * The singleton instance of the database connection.
      */
     private static Connection connection = null;
+    private static Statement statement = null;
+    private static String query = null;
 
     /**
      * Constructor initializes the connection.
      */
-    public Database() {
+    Database() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
@@ -47,6 +50,21 @@ public class Database {
        //} catch (IOException ex) {
        //    ex.printStackTrace();
        //}
+    }
+
+    public static boolean addMaze(Maze maze) throws SQLException {
+        try {
+            statement = connection.createStatement();
+            query = "INSERT INTO Mazes (Width, Height, Title, Creator, CreationTime, Hashmap, Layout ) VALUES ('" + maze.getWidth() + ", " + maze.getHeight() + maze.getTitle() + "', '" + maze.getCreator() + "', " + maze.getCreatedRaw() + "', " + maze.getHashmap() + "', " + maze.getLayout() + ")";
+            statement.executeUpdate(query);
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+            //System.out.println("Connection to Cartographer.db has been lost.");
+            //connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
+            //System.out.println("Connection to Cartographer.db has been reestablished.");
+        }
     }
 
     /**
