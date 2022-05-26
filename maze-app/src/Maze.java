@@ -171,8 +171,10 @@ public class Maze {
      */
     public void regenerateMaze() {
         clearMaze();
+        System.out.println(this.generator + " " + this.layout);
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = this.generator.getLayout();
+        this.generator.display();
     }
 
     public HashMap<Image, Point> getHashmap() {
