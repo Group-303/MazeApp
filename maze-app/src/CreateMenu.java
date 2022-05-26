@@ -97,10 +97,13 @@ public class CreateMenu implements IMenu, ActionListener {
             //sidePanel.add(button);
             button.addActionListener(this);
         }
+        System.out.println(currentMaze.getLayout().length);
 
         for (int i = 0; i < currentMaze.getLayout().length; i++) {
-            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i));
+            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i, contentPanel));
         }
+
+//        for (int i = 0; i < currentMaze.getWidth())
 
         for (JButton[][] button : mazeButtons) {
             contentPanel.add(button[0][0]);
@@ -112,40 +115,62 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel.setVisible(false);
     }
 
-    public JButton[][] arrayItemToButtons(boolean[][][] inputArray, int index) {
+    public JButton[][] arrayItemToButtons(boolean[][][] inputArray, int index, JPanel panel) {
         JButton nwButton, northButton, westButton, centerButton;
         JButton[][] buttons = new JButton[2][2];
 
-        nwButton = new JButton();
-        nwButton.setBackground(Color.BLACK);
-        nwButton.setEnabled(false);
+//        nwButton = new JButton();
+//        nwButton.setBackground(Color.BLACK);
+//        nwButton.setSize(new Dimension(50, 50));
+//        nwButton.setEnabled(false);
+//
+//        northButton = new JButton();
+//        if (inputArray[index][index][0] == false) {
+//            northButton.setBackground(Color.WHITE);
+//        }
+//        else {
+//            northButton.setBackground(Color.BLACK);
+//        }
+//        northButton.setSize(new Dimension(50, 50));
+//        northButton.setEnabled(true);
+//
+//        westButton = new JButton();
+//        if (inputArray[index][index][1] == false) {
+//            westButton.setBackground(Color.WHITE);
+//        }
+//        else {
+//            westButton.setBackground(Color.BLACK);
+//        }
+//        westButton.setSize(new Dimension(50, 50));
+//        westButton.setEnabled(true);
+//
+//        centerButton = new JButton();
+//        centerButton.setBackground(Color.WHITE);
+//        centerButton.setSize(new Dimension(50, 50));
+//        centerButton.setEnabled(false);
 
-        northButton = new JButton();
+        buttons[0][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index, 0, 0, 0, 0);;
+        buttons[1][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index, 0, 0, 0, 0);;
+        buttons[0][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index + 1, 0, 0, 0, 0);;
+        buttons[1][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index + 1, 0, 0, 0, 0);;
+
+        buttons[0][1].setBackground(Color.WHITE);
+
         if (inputArray[index][index][0] == false) {
-            northButton.setBackground(Color.WHITE);
+            buttons[1][0].setBackground(Color.WHITE);
         }
         else {
-            northButton.setBackground(Color.BLACK);
+            buttons[1][0].setBackground(Color.BLACK);
         }
-        northButton.setEnabled(true);
-
-        westButton = new JButton();
         if (inputArray[index][index][1] == false) {
-            westButton.setBackground(Color.WHITE);
+            buttons[0][1].setBackground(Color.WHITE);
         }
         else {
-            westButton.setBackground(Color.BLACK);
+            buttons[0][1].setBackground(Color.BLACK);
         }
-        westButton.setEnabled(true);
 
-        centerButton = new JButton();
-        westButton.setBackground(Color.WHITE);
-        westButton.setEnabled(false);
-
-        buttons[0][0] = nwButton;
-        buttons[1][0] = northButton;
-        buttons[0][1] = westButton;
-        buttons[1][1] = centerButton;
+        buttons[0][0].setEnabled(false);
+        buttons[1][1].setEnabled(false);
         return buttons;
     }
 
@@ -168,8 +193,6 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        closeMenu();
-
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Load":
@@ -178,7 +201,11 @@ public class CreateMenu implements IMenu, ActionListener {
                 break;
             case "Save":
                 break;
+            case "Generate Solution":
+                currentMaze.regenerateMaze();
+                break;
             case "Back":
+                closeMenu();
                 Main.mainMenu.openMenu();
                 break;
         }
