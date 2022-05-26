@@ -24,7 +24,8 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
 
     public JPanel createPanel;
-    public Color headerGreen = Color.getHSBColor(0.35f, 0.75f, 0.8f);
+    public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
+    public Color subheader = Color.getHSBColor(0.35f, 0.1f, 0.8f);
 
     public CreateMenu() {
         //panel code
@@ -36,7 +37,7 @@ public class CreateMenu implements IMenu, ActionListener {
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
         JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
-        JPanel sidePanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
         JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
         //JPanel panel5 = panelLayout (sidePanel, Color.WHITE, BorderLayout.CENTER);
@@ -81,10 +82,10 @@ public class CreateMenu implements IMenu, ActionListener {
        // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Upload maze", new Dimension(100, 50), sidePanel, 0, 7, 500, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Generate Solution", new Dimension(100, 50), sidePanel, 1, 7, 500, 5, 5, 10));
-        buttonList.add(GUIHelper.newButton("Save", new Dimension(100, 50), sidePanel, 0, 8, 5, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Back", new Dimension(100, 50), sidePanel, 1, 8, 5, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Upload maze", sidePanel, 0, 7, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 7, 10, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Save", sidePanel, 0, 8, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
        // createPanel.add(confirmRButton);
