@@ -33,10 +33,10 @@ public class BrowseMenu implements IMenu, ActionListener {
        //     text.setFont(new Font("Century Gothic", Font.BOLD, 14));
         // }
 
-        JButton back = new JButton("Back");
-        searchPanel.add(back);
-        JButton foo = new JButton("Back");
-        searchPanel.add(foo);
+       // JButton back = new JButton("Back");
+        //footerPanel.add(back);
+        JButton back = GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
+
         back.addActionListener(this);
     }
 

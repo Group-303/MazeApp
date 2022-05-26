@@ -26,13 +26,16 @@ public class GUIHelper {
     /***
      * Overload of newButton for use in a grid bag layout
      * @param text String to be displayed on button
-     * @param size Dimensions of the button
      * @param container Container for button
      * @param gridX X Grid
      * @param gridY Y Grid
+     * @param topInset
+     * @param leftInset
+     * @param bottomInset
+     * @param rightInset
      * @return Returned a created JButton
      */
-    public static JButton newButton(String text, Dimension size, JPanel container, int gridX, int gridY, int topInset, int leftInset, int bottomInset, int rightinset) {
+    public static JButton newButton(String text, JPanel container, int gridX, int gridY, int topInset, int leftInset, int bottomInset, int rightInset) {
         JButton button = new JButton(text);
         button.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -43,14 +46,11 @@ public class GUIHelper {
         // set the label in a grid
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.weightx = 0.5;
-        //constraint.weighty = 1;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
         constraint.ipadx = 10;
         constraint.ipady = 10;
-        constraint.insets.set(topInset,leftInset, bottomInset,rightinset);
-        constraint.insets.set(0,20,0,20);
-        //button.setSize(size.width, size.height);
+        constraint.insets.set(topInset,leftInset, bottomInset,rightInset);
         container.add(button, constraint);
         return button;
     }
