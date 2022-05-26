@@ -24,7 +24,8 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
 
     public JPanel createPanel;
-    public Color headerGreen = Color.getHSBColor(0.35f, 0.75f, 0.8f);
+    public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
+    public Color subheader = Color.getHSBColor(0.35f, 0.1f, 0.8f);
 
     public CreateMenu() {
         //panel code
@@ -36,7 +37,7 @@ public class CreateMenu implements IMenu, ActionListener {
         //creating panels for layout inside the container panel
         // colours for panels 2 and 3 will be different
         JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
-        JPanel sidePanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.WEST); //sidebar
+        JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
         JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
         //JPanel panel5 = panelLayout (sidePanel, Color.WHITE, BorderLayout.CENTER);
