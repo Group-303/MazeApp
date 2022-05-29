@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,11 @@ public class Main {
         // Push all other values to index + 1
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         testMaze = new Maze("Test Maze", "John Doe", 10, 10);
-
         testMaze.getGenerator().display();
 
         //testMaze.getGenerator().setWidth(5);
-
         //testMaze.getGenerator().display();
 
         frame = new Frame();

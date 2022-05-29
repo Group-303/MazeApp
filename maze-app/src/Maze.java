@@ -150,6 +150,16 @@ public class Maze {
         return height;
     }
 
+    public boolean setID(int id) {
+        if (this.id == 0) {
+            this.id = id;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /***
      * Retrieves the maze generator of this maze
      * @return MazeGenerator object responsible for generation of the maze
