@@ -55,8 +55,10 @@ public class Database {
     public static boolean addMaze(Maze maze) throws SQLException {
         try {
             statement = connection.createStatement();
-            query = "INSERT INTO Mazes (Width, Height, Title, Creator, CreationTime, Hashmap, Layout ) VALUES ('" + maze.getWidth() + ", " + maze.getHeight() + maze.getTitle() + "', '" + maze.getCreator() + "', " + maze.getCreatedRaw() + "', " + maze.getHashmap() + "', " + maze.getLayout() + ")";
+            query = "INSERT INTO Mazes (width, height, title, creator, creationTime, hashmap, layout ) VALUES ('" + maze.getWidth() + ", " + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + ")";//"', " + maze.getCreatedRaw() + "', " + maze.getHashmap() + "', " + maze.getLayout() + ")";
             statement.executeUpdate(query);
+            query = "SELECT id FROM Mazes WHERE title=" + maze.getTitle() + " AND creator=" + maze.getCreator();
+            maze.setID(statement.executeQuery(query).getInt(0));
             statement.close();
             return true;
         } catch (SQLException e) {
@@ -64,6 +66,19 @@ public class Database {
             //System.out.println("Connection to Cartographer.db has been lost.");
             //connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
             //System.out.println("Connection to Cartographer.db has been reestablished.");
+        }
+    }
+
+    public static boolean dropMaze(Maze maze) {
+        try {
+            statement = connection.createStatement();
+            query = "DELETE FROM Mazes WHERE id=" + maze.getId();
+            statement.executeUpdate(query);
+            statement.close();
+            return true;
+        }
+        catch (SQLException e) {
+            return false;
         }
     }
 

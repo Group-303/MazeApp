@@ -150,6 +150,16 @@ public class Maze {
         return height;
     }
 
+    public boolean setID(int id) {
+        if (this.id == 0) {
+            this.id = id;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /***
      * Retrieves the maze generator of this maze
      * @return MazeGenerator object responsible for generation of the maze
@@ -171,8 +181,10 @@ public class Maze {
      */
     public void regenerateMaze() {
         clearMaze();
+        System.out.println(this.generator + " " + this.layout);
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = this.generator.getLayout();
+        this.generator.display();
     }
 
     public HashMap<Image, Point> getHashmap() {

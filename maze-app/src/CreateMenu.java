@@ -168,8 +168,6 @@ public class CreateMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        closeMenu();
-
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Load":
@@ -177,6 +175,9 @@ public class CreateMenu implements IMenu, ActionListener {
             case "New":
                 break;
             case "Save":
+                break;
+            case "Generate Solution":
+                currentMaze.regenerateMaze();
                 break;
             case "Back":
                 Main.mainMenu.openMenu();
