@@ -150,10 +150,10 @@ public class CreateMenu implements IMenu, ActionListener {
 //        centerButton.setSize(new Dimension(50, 50));
 //        centerButton.setEnabled(false);
 
-        buttons[0][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index, 0, 0, 0, 0);;
-        buttons[1][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index, 0, 0, 0, 0);;
-        buttons[0][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index + 1, 0, 0, 0, 0);;
-        buttons[1][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index + 1, 0, 0, 0, 0);;
+        //buttons[0][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index, 0, 0, 0, 0);;
+        //buttons[1][0] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index, 0, 0, 0, 0);;
+        //buttons[0][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index, index + 1, 0, 0, 0, 0);;
+        //buttons[1][1] = GUIHelper.newButton(" ", new Dimension(50, 50), panel, index + 1, index + 1, 0, 0, 0, 0);;
 
         buttons[0][1].setBackground(Color.WHITE);
 
