@@ -56,6 +56,10 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel.setVisible(false);
     }
 
+    private void loadMazes() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {

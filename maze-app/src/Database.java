@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 
 public class Database {
 
@@ -78,9 +79,9 @@ public class Database {
     public static Maze getMaze(int mazeID) throws SQLException {
         try {
             statement =  connection.createStatement();
-            query = "SELECT FROM Mazes WHERE id=" + mazeID;
+            query = "SELECT maze FROM Mazes WHERE id=" + mazeID;
             ResultSet result = statement.executeQuery(query);
-            Maze maze = (Maze) result.getBlob(6);
+            Maze maze = (Maze) result;
             statement.close();
             return maze;
         }
@@ -88,6 +89,23 @@ public class Database {
             return null;
         }
 
+    }
+
+    public static List<Maze> getMazeInfo() throws SQLException {
+        List<Maze> mazes = null;
+
+        try {
+            statement = connection.createStatement();
+            query = "SELECT maze FROM Mazes";
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                mazes.add((Maze) result);
+            }
+            return mazes;
+        }
+        catch (SQLException e) {
+            return null;
+        }
     }
 
     /**
