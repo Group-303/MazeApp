@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Edit {
+    private int id;
+    private int mazeID;
     private String description;
     private String editor;
     private LocalDateTime time;
