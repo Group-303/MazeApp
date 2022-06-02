@@ -82,7 +82,7 @@ public class CreateMenu implements IMenu, ActionListener {
        // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Upload Maze", sidePanel, 0, 7, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Load", sidePanel, 0, 7, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Save", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Regenerate Maze", sidePanel, 1, 8, 10, 5, 5, 10));
@@ -95,10 +95,10 @@ public class CreateMenu implements IMenu, ActionListener {
         Main.frame.add(createPanel);
 
 //        // Add JButtons in buttonList to sidePanel and add action listeners
-//        for (JButton button : buttonList) {
+       for (JButton button : buttonList) {
 //            //sidePanel.add(button);
-//            button.addActionListener(this);
-//        }
+            button.addActionListener(this);
+       }
 //        System.out.println(currentMaze.getLayout().length);
 //
 //        for (int i = 0; i < currentMaze.getLayout().length; i++) {
@@ -138,6 +138,35 @@ public class CreateMenu implements IMenu, ActionListener {
 
         }
 
+        buttons[0][0] = GUIHelper.newButton("­", panel, index, index, 0, 0, 0, 0);
+        buttons[0][0].setFocusPainted(false);
+        buttons[0][0].setEnabled(false);
+
+        buttons[1][0] = GUIHelper.newButton("­", panel, index + 1, index, 0, 0, 0, 0);
+        buttons[1][0].setFocusPainted(false);
+
+        buttons[0][1] = GUIHelper.newButton("­", panel, index, index + 1, 0, 0, 0, 0);
+        buttons[0][1].setFocusPainted(false);
+
+        buttons[1][1] = GUIHelper.newButton("­", panel, index + 1, index + 1, 0, 0, 0, 0);
+        buttons[1][1].setFocusPainted(false);
+        buttons[1][1].setEnabled(false);
+
+        buttons[0][1].setBackground(Color.WHITE);
+
+        if (inputArray[index][index][0] == false) {
+            buttons[1][0].setBackground(Color.WHITE);
+        }
+        else {
+            buttons[1][0].setBackground(Color.BLACK);
+        }
+        if (inputArray[index][index][1] == false) {
+            buttons[0][1].setBackground(Color.WHITE);
+        }
+        else {
+            buttons[0][1].setBackground(Color.BLACK);
+        }
+
         for (JButton[][] button : mazeButtons) {
             panel.add(button[0][0]);
             panel.add(button[0][1]);
@@ -174,37 +203,6 @@ public class CreateMenu implements IMenu, ActionListener {
 //        centerButton.setBackground(Color.WHITE);
 //        centerButton.setSize(new Dimension(50, 50));
 //        centerButton.setEnabled(false);
-
-        buttons[0][0] = GUIHelper.newButton("­", panel, index, index, 0, 0, 0, 0);
-        buttons[0][0].setFocusPainted(false);
-        buttons[0][0].setEnabled(false);
-
-        buttons[1][0] = GUIHelper.newButton("­", panel, index + 1, index, 0, 0, 0, 0);
-        buttons[1][0].setFocusPainted(false);
-
-        buttons[0][1] = GUIHelper.newButton("­", panel, index, index + 1, 0, 0, 0, 0);
-        buttons[0][1].setFocusPainted(false);
-
-        buttons[1][1] = GUIHelper.newButton("­", panel, index + 1, index + 1, 0, 0, 0, 0);
-        buttons[1][1].setFocusPainted(false);
-        buttons[1][1].setEnabled(false);
-
-        buttons[0][1].setBackground(Color.WHITE);
-
-        if (inputArray[index][index][0] == false) {
-            buttons[1][0].setBackground(Color.WHITE);
-        }
-        else {
-            buttons[1][0].setBackground(Color.BLACK);
-        }
-        if (inputArray[index][index][1] == false) {
-            buttons[0][1].setBackground(Color.WHITE);
-        }
-        else {
-            buttons[0][1].setBackground(Color.BLACK);
-        }
-
-
         return buttons;
     }
 
@@ -230,6 +228,8 @@ public class CreateMenu implements IMenu, ActionListener {
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Load":
+                closeMenu();
+                Main.browseMenu.openMenu(true);
                 break;
             case "New":
                 break;

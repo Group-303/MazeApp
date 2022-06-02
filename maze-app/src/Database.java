@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,11 +21,19 @@ public class Database {
      * Constructor initializes the connection.
      */
     Database() {
+        Properties properties = new Properties();
+        FileInputStream inputStream = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
-            System.out.println("Connection to Cartographer.db has been established.");
-        } catch (ClassNotFoundException | SQLException e) {
+            inputStream = new FileInputStream("E:\\CAB302\\Assignment\\out\\db.props");
+//            inputStream = new FileInputStream("..\\out\\db.props");
+            properties.load(inputStream);
+            String url = properties.getProperty("jdbc.url");
+            String username = properties.getProperty("jdbc.username");
+            String password = properties.getProperty("jdbc.password");
+            String schema = properties.getProperty("jdbc.schema");
+            connection = DriverManager.getConnection(String.format("%s/%s", url, schema), username, password);
+        } catch (ClassNotFoundException | SQLException | IOException e) {
             e.printStackTrace();
         }
         //Properties props = new Properties();
@@ -63,11 +72,23 @@ public class Database {
             return true;
         } catch (SQLException e) {
             return false;
-            //System.out.println("Connection to Cartographer.db has been lost.");
-            //connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
-            //System.out.println("Connection to Cartographer.db has been reestablished.");
         }
     }
+
+//    public static boolean addEdit(Edit edit) throws SQLException {
+//        try {
+//            statement = connection.createStatement();
+//            query = "INSERT INTO Mazes (id, height, title, creator, creationTime, hashmap, layout ) VALUES ('" + maze.getWidth() + ", " + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + ")";//"', " + maze.getCreatedRaw() + "', " + maze.getHashmap() + "', " + maze.getLayout() + ")";
+//            statement.executeUpdate(query);
+//            query = "SELECT id FROM Mazes WHERE title=" + edit.getDescription() + " AND creator=" + edit.getEditor();
+//            edit.setId(statement.executeQuery(query).getInt(0));
+//            statement.close();
+//            return true;
+//        }
+//        catch (SQLException e) {
+//            return false;
+//        }
+//    }
 
     public static boolean dropMaze(Maze maze) {
         try {

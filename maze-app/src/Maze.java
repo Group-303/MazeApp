@@ -42,11 +42,12 @@ public class Maze {
 
 
     /***
-     * Adds a new Edit object into the list of edits on the maze
-     * @param newEdit Object containing information on the edit
+     * Creates a new edit on the maze
+     * @param description Description of changes made to the maze
+     * @param editAuthor Author of the edit
      */
-    public void addEdit(Edit newEdit) {
-        this.edits.add(newEdit);
+    public void addEdit(String description, String editAuthor) {
+        this.edits.add(new Edit(this.getEdits().size(), this.id, description, editAuthor));
     }
 
     /***

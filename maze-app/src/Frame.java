@@ -1,11 +1,9 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements ActionListener, ItemListener {
     public final static int WIDTH = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getWidth());
     public final static int HEIGHT = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getHeight());
     public final static int H_CENTER = WIDTH / 2;
@@ -47,7 +45,6 @@ public class Frame extends JFrame {
 
         menu.addSeparator();
 
-
         // Browse all and recent mazes
         item = guiHelper.newMenuItem("Browse Mazes", new ImageIcon("images/middle.gif"));
         menu.add(item);
@@ -61,7 +58,7 @@ public class Frame extends JFrame {
 
         menu.addSeparator();
 
-        item = guiHelper.newMenuItem("Home", new ImageIcon("images/middle.gif"));
+        item = guiHelper.newMenuItem("Home");
         menu.add(item);
 
         menuList.add(menu);
@@ -70,15 +67,17 @@ public class Frame extends JFrame {
         menu = guiHelper.newMenuTab("Edit", KeyEvent.VK_F);
 
         submenu = guiHelper.newMenuTab("Recent Maze", KeyEvent.VK_N);
-        item = guiHelper.newMenuItem("Maze001", new ImageIcon("images/middle.gif"));
+        item = guiHelper.newMenuItem("Maze001");
         submenu.add(item);
-        item = guiHelper.newMenuItem("Maze002", new ImageIcon("images/middle.gif"));
+        item = guiHelper.newMenuItem("Maze002");
+        item.addActionListener(this);
         submenu.add(item);
         menu.add(submenu);
 
         menu.addSeparator();
 
-        item = guiHelper.newMenuItem("Browse Mazes", new ImageIcon("images/middle.gif"));
+        item = guiHelper.newMenuItem("Browse Mazes");
+        item.addActionListener(this);
         menu.add(item);
 
         menuList.add(menu);
@@ -88,5 +87,30 @@ public class Frame extends JFrame {
         }
 
         return menuBar;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "Empty Maze":
+                Main.createMenu.openMenu();
+                Main.browseMenu.closeMenu();
+                Main.mainMenu.closeMenu();
+                System.out.println("Working!");
+                break;
+            case "Home":
+                Main.createMenu.closeMenu();
+                Main.browseMenu.closeMenu();
+                Main.mainMenu.openMenu();
+                break;
+            case "Save":
+                break;
+
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
     }
 }

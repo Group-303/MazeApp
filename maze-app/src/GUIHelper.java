@@ -39,7 +39,7 @@ public class GUIHelper {
         JButton button = new JButton(text);
         button.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
-        // Set the label in a grid
+        // Set the label in a gridh
         constraint.fill = GridBagConstraints.HORIZONTAL;
 //        constraint.gridwidth = (int)size.getWidth();
 //        constraint.gridheight = (int)size.getHeight();
@@ -88,11 +88,19 @@ public class GUIHelper {
     /***
      * Creates and returns a new JMenuItem object
      * @param text String to be displayed as the menu item's label
+     * @return Returns a JMenuItem object with the provided fields
+     */
+    public JMenuItem newMenuItem(String text) {
+        return new JMenuItem(text);
+    }
+
+    /***
+     * Creates and returns a new JMenuItem object
+     * @param text String to be displayed as the menu item's label
      * @param icon Icon to be displayed next to the text
      * @return Returns a JMenuItem object with the provided fields
      */
     public JMenuItem newMenuItem(String text, ImageIcon icon) {
-        //menuItem.setAccelerator(key); Functionality for key press shortcuts if possible
         return new JMenuItem(text, icon);
     }
 
