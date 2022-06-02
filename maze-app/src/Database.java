@@ -1,11 +1,4 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
+import java.sql.*;
 
 public class Database {
 
@@ -80,6 +73,21 @@ public class Database {
         catch (SQLException e) {
             return false;
         }
+    }
+
+    public static Maze getMaze(int mazeID) throws SQLException {
+        try {
+            statement =  connection.createStatement();
+            query = "SELECT FROM Mazes WHERE id=" + mazeID;
+            ResultSet result = statement.executeQuery(query);
+            Maze maze = (Maze) result.getBlob(6);
+            statement.close();
+            return maze;
+        }
+        catch (SQLException e) {
+            return null;
+        }
+
     }
 
     /**
