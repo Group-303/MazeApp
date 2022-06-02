@@ -189,6 +189,7 @@ public class CreateMenu implements IMenu, ActionListener {
         buttons[1][1].setFocusPainted(false);
         buttons[1][1].setEnabled(false);
 
+
         buttons[0][1].setBackground(Color.WHITE);
 
         if (inputArray[index][index][0] == false) {
