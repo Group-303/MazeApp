@@ -45,7 +45,7 @@ public class BrowseMenu implements IMenu, ActionListener {
     public void openMenu() {
         createReturn = false;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
-        loadMazes();
+        //loadMazes();
         browsePanel.setVisible(true);
     }
 

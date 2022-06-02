@@ -73,9 +73,7 @@ public class Database {
             statement.close();
             connection.close();
             return true;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -91,9 +89,7 @@ public class Database {
             statement.close();
             return true;
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return false;
@@ -110,9 +106,7 @@ public class Database {
             statement.close();
             return maze;
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -120,7 +114,7 @@ public class Database {
 
     public static List<Maze> getAllMazes() throws SQLException {
         List<Maze> mazes = null;
-        Blob blob = null;
+        Blob blob;
         ObjectInputStream ois;
 
         try {
@@ -134,17 +128,19 @@ public class Database {
                 blob = result.getBlob("maze");
                 ois = new ObjectInputStream(blob.getBinaryStream());
                 mazes.add((Maze) ois.readObject());
+                ois.close();
             }
 
         }
-        catch (SQLException e) {
+        catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+
+            return mazes;
         }
-        return mazes;
+
     }
 
     /**
