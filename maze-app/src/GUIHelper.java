@@ -41,8 +41,6 @@ public class GUIHelper {
         GridBagConstraints constraint = new GridBagConstraints();
         // Set the label in a grid
         constraint.fill = GridBagConstraints.HORIZONTAL;
-//        constraint.gridwidth = (int)size.getWidth();
-//        constraint.gridheight = (int)size.getHeight();
         constraint.weightx = 0.5;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
@@ -58,16 +56,14 @@ public class GUIHelper {
         textField.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
 
-        //button.setHorizontalAlignment((int) Math.round(container.getHeight() * 0.5));
-
         // set the label in a grid
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.weightx = 0.5;
         //constraint.weighty = 1;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
-        constraint.ipadx = 10;
         constraint.ipady = 10;
+        constraint.insets.set(0,0,10,20);
         textField.setSize(size);
         container.add(textField, constraint);
         return textField;
@@ -211,7 +207,7 @@ public class GUIHelper {
         return panel;
     }
 
-    public static JPanel panelLayout(JPanel containerPanel, Color c, int gridX, int gridY, int padY){
+    public static JPanel panelLayout(JPanel containerPanel, Color c, int gridX, int gridY, int padY, int span){
         //create a JPanel object
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
@@ -223,12 +219,12 @@ public class GUIHelper {
         constraint.gridy = gridY;
         constraint.ipadx = 10;
         constraint.ipady = padY;
+        constraint.gridwidth = span;
 
         //panel background color
         panel.setBackground(c);
 
         containerPanel.add(panel,constraint);
-
 
         return panel;
     }
