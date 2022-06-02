@@ -34,5 +34,7 @@ public class Main {
         createMenu = new CreateMenu();
         browseMenu = new BrowseMenu();
         database = new Database();
+
+
     }
 }

@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.*;
 import java.util.List;
 
@@ -9,18 +11,30 @@ public class Database {
     private static Connection connection = null;
     private static Statement statement = null;
     private static String query = null;
+    private static int mazeCount = 0;
 
     /**
      * Constructor initializes the connection.
      */
     Database() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
-            System.out.println("Connection to Cartographer.db has been established.");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        while(connection == null) {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
+                statement = connection.createStatement();
+                String sql = "CREATE TABLE Mazes " +
+                        "(ID INTEGER PRIMARY KEY NOT NULL," +
+                        " MAZE           BLOB    NOT NULL)";
+                statement.executeUpdate(sql);
+                statement.close();
+                connection.close();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        System.out.println("Table created successfully");
         //Properties props = new Properties();
        //FileInputStream in = null;
        //try {
@@ -48,23 +62,29 @@ public class Database {
 
     public static boolean addMaze(Maze maze) throws SQLException {
         try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-            query = "INSERT INTO Mazes (width, height, title, creator, creationTime, hashmap, layout ) VALUES ('" + maze.getWidth() + ", " + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + ")";//"', " + maze.getCreatedRaw() + "', " + maze.getHashmap() + "', " + maze.getLayout() + ")";
+            query = "INSERT INTO Mazes (maze) VALUES ('" + mazeCount + maze + "')";
+            mazeCount++;
             statement.executeUpdate(query);
-            query = "SELECT id FROM Mazes WHERE title=" + maze.getTitle() + " AND creator=" + maze.getCreator();
-            maze.setID(statement.executeQuery(query).getInt(0));
+            //query = "SELECT id FROM Mazes WHERE maze=" + maze;
+            //maze.setID(statement.executeQuery(query).getInt(1));
             statement.close();
+            connection.close();
             return true;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } catch (SQLException e) {
-            return false;
-            //System.out.println("Connection to Cartographer.db has been lost.");
-            //connection = DriverManager.getConnection("jdbc:sqlite:Cartographer.db");
-            //System.out.println("Connection to Cartographer.db has been reestablished.");
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static boolean dropMaze(Maze maze) {
         try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
             query = "DELETE FROM Mazes WHERE id=" + maze.getId();
             statement.executeUpdate(query);
@@ -72,12 +92,17 @@ public class Database {
             return true;
         }
         catch (SQLException e) {
-            return false;
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public static Maze getMaze(int mazeID) throws SQLException {
         try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement =  connection.createStatement();
             query = "SELECT maze FROM Mazes WHERE id=" + mazeID;
             ResultSet result = statement.executeQuery(query);
@@ -86,26 +111,40 @@ public class Database {
             return maze;
         }
         catch (SQLException e) {
-            return null;
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
+        return null;
     }
 
-    public static List<Maze> getMazeInfo() throws SQLException {
+    public static List<Maze> getAllMazes() throws SQLException {
         List<Maze> mazes = null;
+        Blob blob = null;
+        ObjectInputStream ois;
 
         try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
             query = "SELECT maze FROM Mazes";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                mazes.add((Maze) result);
+                // convert the result blob into a maze
+                blob = result.getBlob("maze");
+                ois = new ObjectInputStream(blob.getBinaryStream());
+                mazes.add((Maze) ois.readObject());
             }
-            return mazes;
+
         }
         catch (SQLException e) {
-            return null;
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return mazes;
     }
 
     /**
