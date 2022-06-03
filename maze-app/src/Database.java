@@ -33,7 +33,7 @@ public class Database {
                         "(ID INTEGER PRIMARY KEY NOT NULL," +
                         " WIDTH INTEGER NOT NULL," +
                         " HEIGHT INTEGER NOT NULL," +
-                        " TITLE TEXT NOT NULL," +
+                        " TITLE TEXT UNIQUE NOT NULL," +
                         " CREATOR TEXT NOT NULL," +
                         " CREATION_TIME INTEGER," +
                         " EDITS TEXT," +
@@ -73,24 +73,30 @@ public class Database {
        //}
     }
 
-    public static boolean addMaze(Maze maze) throws SQLException {
+    public static boolean addMaze(Maze maze) {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-            query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + mazeCount + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
-            maze.setID(mazeCount);
-            mazeCount++;
-            statement.executeUpdate(query);
-            //query = "SELECT id FROM Mazes WHERE maze=" + maze;
-            //maze.setID(statement.executeQuery(query).getInt(1));
-            statement.close();
-            connection.close();
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
+            //Add maze to database if maze does not already exist
+            query = "SELECT * FROM Mazes WHERE TITLE = '" + maze.getTitle() + "'";
+            ResultSet result = statement.executeQuery(query);
+            if (result.next()) {
+                throw new Exception("Maze already exists");
+            }
+            else {
+                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + mazeCount + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
+                maze.setID(mazeCount);
+                mazeCount++;
+                statement.executeUpdate(query);
+                statement.close();
+                connection.close();
+                return true;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public static boolean dropMaze(Maze maze) {
