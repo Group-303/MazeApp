@@ -63,12 +63,10 @@ public class BrowseMenu implements IMenu, ActionListener {
     }
 
     private void loadMazes() {
-        List<Maze> mazes;
-        Main.database.addMaze(Main.testMaze);
-        Main.database.addMaze(Main.testMaze2);
-        mazes = Main.database.getAllMazes();
-        if (mazes != null) {
-            for (Maze maze : mazes) {
+        List<Maze> mazeList;
+        mazeList = Main.database.getAllMazes();
+        if (mazeList != null) {
+            for (Maze maze : mazeList) {
                 buttonList.add(GUIHelper.newButton(maze.getTitle(), contentPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
             }
             for (JButton button : buttonList) {

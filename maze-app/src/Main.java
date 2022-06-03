@@ -8,7 +8,6 @@ public class Main {
     public static BrowseMenu browseMenu;
     public static CreateMenu createMenu;
     public static Database database;
-    public static List<Maze> mazeList = new ArrayList<>(); // Holds a list of mazes until the SQL DB can be implemented
     public static Integer[] recentMazes; // Stores ID of 10 most recent mazes viewed
 
     // Testing
@@ -24,9 +23,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
+        database = new Database();
         testMaze = new Maze("Test Maze", "John Doe", 10, 10);
         testMaze.getGenerator().display();
-        testMaze2 = new Maze("Test Maze2", "John Doe", 10, 10);
+        testMaze2 = new Maze("Test Maze", "John Doe", 10, 10);
         testMaze2.getGenerator().display();
 
         //testMaze.getGenerator().setWidth(5);
@@ -36,7 +36,7 @@ public class Main {
         mainMenu = new MainMenu();
         createMenu = new CreateMenu();
         browseMenu = new BrowseMenu();
-        database = new Database();
+
 
 
     }
