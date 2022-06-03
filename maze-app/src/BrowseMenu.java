@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 public class BrowseMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Browser";
@@ -43,6 +45,7 @@ public class BrowseMenu implements IMenu, ActionListener {
     public void openMenu() {
         createReturn = false;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        loadMazes();
         browsePanel.setVisible(true);
     }
 
@@ -57,6 +60,18 @@ public class BrowseMenu implements IMenu, ActionListener {
     }
 
     private void loadMazes() {
+        List<Maze> mazes = null;
+        try {
+            Main.database.addMaze(Main.testMaze);
+            mazes = Main.database.getAllMazes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (Maze maze : mazes) {
+            JButton button = new JButton(maze.getTitle());
+            button.addActionListener(this);
+            browsePanel.add(button);
+        }
 
     }
 
