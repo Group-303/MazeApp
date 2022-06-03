@@ -8,6 +8,7 @@ import java.util.List;
 public class BrowseMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Browser";
     public JPanel browsePanel;
+    private JPanel contentPanel;
     public boolean createReturn;
 
     public BrowseMenu() {
@@ -19,7 +20,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         //creating panels for layout inside the container panel
         JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight); //Header
         JPanel searchPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.subheader, 0,1, (int) Math.round(Frame.HEIGHT*0.15)); //sidebar
-        JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.63)); // where the maze goes
+        contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.63)); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,3,newHeight); //footer
 
         //Create labels
@@ -60,19 +61,18 @@ public class BrowseMenu implements IMenu, ActionListener {
     }
 
     private void loadMazes() {
-        List<Maze> mazes = null;
-        try {
-            Main.database.addMaze(Main.testMaze);
-            mazes = Main.database.getAllMazes();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<Maze> mazes;
+        //Main.database.addMaze(Main.testMaze);
+        mazes = Main.database.getAllMazes();
+        if (mazes == null) {
+            //print message that there are no mazes to the console
+            System.out.println("No mazes to display");
         }
         for (Maze maze : mazes) {
-            JButton button = new JButton(maze.getTitle());
+            JButton button = GUIHelper.newButton(maze.getTitle(), contentPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
             button.addActionListener(this);
-            browsePanel.add(button);
+            contentPanel.add(button);
         }
-
     }
 
     @Override
