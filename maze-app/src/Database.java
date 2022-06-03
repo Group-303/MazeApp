@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.*;
@@ -24,7 +25,13 @@ public class Database {
                 statement = connection.createStatement();
                 String sql = "CREATE TABLE Mazes " +
                         "(ID INTEGER PRIMARY KEY NOT NULL," +
-                        " MAZE           BLOB    NOT NULL)";
+                        " WIDTH INTEGER NOT NULL," +
+                        " HEIGHT INTEGER NOT NULL," +
+                        " TITLE TEXT NOT NULL," +
+                        " CREATOR TEXT NOT NULL," +
+                        " CREATION_TIME INTEGER," +
+                        " EDITS TEXT," +
+                        " LAYOUT TEXT)";
                 statement.executeUpdate(sql);
                 statement.close();
                 connection.close();
@@ -65,7 +72,8 @@ public class Database {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-            query = "INSERT INTO Mazes (maze) VALUES ('" + mazeCount + maze + "')";
+            query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + mazeCount + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
+            maze.setID(mazeCount);
             mazeCount++;
             statement.executeUpdate(query);
             //query = "SELECT id FROM Mazes WHERE maze=" + maze;
@@ -84,7 +92,7 @@ public class Database {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-            query = "DELETE FROM Mazes WHERE id=" + maze.getId();
+            query = "DELETE FROM Mazes WHERE ID=" + maze.getId();
             statement.executeUpdate(query);
             statement.close();
             return true;
@@ -96,13 +104,14 @@ public class Database {
     }
 
     public static Maze getMaze(int mazeID) throws SQLException {
+        Maze maze;
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement =  connection.createStatement();
-            query = "SELECT maze FROM Mazes WHERE id=" + mazeID;
+            query = "SELECT * FROM Mazes WHERE id=" + mazeID;
             ResultSet result = statement.executeQuery(query);
-            Maze maze = (Maze) result;
+            maze = new Maze(result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT"));
             statement.close();
             return maze;
         }
@@ -114,25 +123,22 @@ public class Database {
 
     public static List<Maze> getAllMazes() throws SQLException {
         List<Maze> mazes = null;
-        Blob blob;
-        ObjectInputStream ois;
+        Maze maze;
+        //ObjectInputStream ois;
 
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-            query = "SELECT maze FROM Mazes";
+            query = "SELECT * FROM Mazes";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                // convert the result blob into a maze
-                blob = result.getBlob("maze");
-                ois = new ObjectInputStream(blob.getBinaryStream());
-                mazes.add((Maze) ois.readObject());
-                ois.close();
+                maze = new Maze(result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT"));
+                mazes.add(maze);
             }
 
         }
-        catch (SQLException | ClassNotFoundException | IOException e) {
+        catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             statement.close();
