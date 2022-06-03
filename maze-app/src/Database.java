@@ -23,7 +23,12 @@ public class Database {
                 Class.forName("org.sqlite.JDBC");
                 connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
                 statement = connection.createStatement();
-                String sql = "CREATE TABLE Mazes " +
+
+                // Clears the maze table to prevent errors, comment out if you want to keep the data
+                //String sql = "DROP TABLE IF EXISTS Mazes";
+                //statement.executeUpdate(sql);
+
+                query = "CREATE TABLE IF NOT EXISTS Mazes " +
                         "(ID INTEGER PRIMARY KEY NOT NULL," +
                         " WIDTH INTEGER NOT NULL," +
                         " HEIGHT INTEGER NOT NULL," +
@@ -32,7 +37,7 @@ public class Database {
                         " CREATION_TIME INTEGER," +
                         " EDITS TEXT," +
                         " LAYOUT TEXT)";
-                statement.executeUpdate(sql);
+                statement.executeUpdate(query);
                 statement.close();
                 connection.close();
             } catch (ClassNotFoundException e) {
@@ -121,10 +126,9 @@ public class Database {
         return null;
     }
 
-    public static List<Maze> getAllMazes() throws SQLException {
+    public static List<Maze> getAllMazes() {
         List<Maze> mazes = null;
         Maze maze;
-        //ObjectInputStream ois;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -136,13 +140,16 @@ public class Database {
                 maze = new Maze(result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT"));
                 mazes.add(maze);
             }
+            if (mazes == null) {
+                throw new SQLException("No mazes found");
+            }
+            statement.close();
+            connection.close();
 
         }
         catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            statement.close();
-            connection.close();
 
             return mazes;
         }
