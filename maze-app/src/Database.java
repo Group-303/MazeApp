@@ -2,6 +2,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
@@ -127,7 +128,7 @@ public class Database {
     }
 
     public static List<Maze> getAllMazes() {
-        List<Maze> mazes = null;
+        List<Maze> mazes = new ArrayList<>();
         Maze maze;
 
         try {
@@ -145,15 +146,12 @@ public class Database {
             }
             statement.close();
             connection.close();
-
+            return mazes;
         }
         catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-
-            return mazes;
+            return null;
         }
-
     }
 
     /**
