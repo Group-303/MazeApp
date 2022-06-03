@@ -19,33 +19,31 @@ public class Database {
      * Constructor initializes the connection.
      */
     Database() {
-        while(connection == null) {
-            try {
-                Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
-                statement = connection.createStatement();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
+            statement = connection.createStatement();
 
-                // Clears the maze table to prevent errors, comment out if you want to keep the data
-                //String sql = "DROP TABLE IF EXISTS Mazes";
-                //statement.executeUpdate(sql);
+            // Clears the maze table to prevent errors, comment out if you want to keep the data
+            //String sql = "DROP TABLE IF EXISTS Mazes";
+            //statement.executeUpdate(sql);
 
-                query = "CREATE TABLE IF NOT EXISTS Mazes " +
-                        "(ID INTEGER PRIMARY KEY NOT NULL," +
-                        " WIDTH INTEGER NOT NULL," +
-                        " HEIGHT INTEGER NOT NULL," +
-                        " TITLE TEXT UNIQUE NOT NULL," +
-                        " CREATOR TEXT NOT NULL," +
-                        " CREATION_TIME INTEGER," +
-                        " EDITS TEXT," +
-                        " LAYOUT TEXT)";
-                statement.executeUpdate(query);
-                statement.close();
-                connection.close();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            query = "CREATE TABLE IF NOT EXISTS Mazes " +
+                    "(ID INTEGER PRIMARY KEY NOT NULL," +
+                    " WIDTH INTEGER NOT NULL," +
+                    " HEIGHT INTEGER NOT NULL," +
+                    " TITLE TEXT UNIQUE NOT NULL," +
+                    " CREATOR TEXT NOT NULL," +
+                    " CREATION_TIME INTEGER," +
+                    " EDITS TEXT," +
+                    " LAYOUT TEXT)";
+            statement.executeUpdate(query);
+            statement.close();
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         System.out.println("Table created successfully");
         //Properties props = new Properties();
@@ -82,12 +80,12 @@ public class Database {
             query = "SELECT * FROM Mazes WHERE TITLE = '" + maze.getTitle() + "'";
             ResultSet result = statement.executeQuery(query);
             if (result.next()) {
+                statement.close();
+                connection.close();
                 throw new Exception("Maze already exists");
             }
             else {
-                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + mazeCount + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
-                maze.setID(mazeCount);
-                mazeCount++;
+                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + maze.getId() + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
                 statement.executeUpdate(query);
                 statement.close();
                 connection.close();
@@ -134,8 +132,7 @@ public class Database {
     }
 
     public static List<Maze> getAllMazes() {
-        List<Maze> mazes = new ArrayList<>();
-        Maze maze;
+        List<Maze> mazeList = new ArrayList<>();
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -144,19 +141,38 @@ public class Database {
             query = "SELECT * FROM Mazes";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                maze = new Maze(result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT"));
-                mazes.add(maze);
+                mazeList.add(new Maze(result.getInt("ID"), result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT")));
             }
-            if (mazes == null) {
+            if (mazeList == null) {
+                statement.close();
+                connection.close();
                 throw new SQLException("No mazes found");
             }
             statement.close();
             connection.close();
-            return mazes;
+            return mazeList;
         }
         catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int getNextID() {
+        int nextID = 0;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
+            statement =  connection.createStatement();
+            query = "SELECT MAX(ID) FROM Mazes";
+            ResultSet result = statement.executeQuery(query);
+            nextID = result.getInt(1) + 1;
+            statement.close();
+            return nextID;
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
