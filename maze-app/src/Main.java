@@ -13,6 +13,7 @@ public class Main {
 
     // Testing
     public static Maze testMaze;
+    public static Maze testMaze2;
 
     // Here for storage! Use this whenever a maze is saved or viewed.
     public static void viewMaze(int mazeID) {
@@ -25,6 +26,8 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         testMaze = new Maze("Test Maze", "John Doe", 10, 10);
         testMaze.getGenerator().display();
+        testMaze2 = new Maze("Test Maze2", "John Doe", 10, 10);
+        testMaze2.getGenerator().display();
 
         //testMaze.getGenerator().setWidth(5);
         //testMaze.getGenerator().display();

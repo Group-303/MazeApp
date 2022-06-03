@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrowseMenu implements IMenu, ActionListener {
@@ -10,6 +11,7 @@ public class BrowseMenu implements IMenu, ActionListener {
     public JPanel browsePanel;
     private JPanel contentPanel;
     public boolean createReturn;
+    private List<JButton> buttonList = new ArrayList<>();
 
     public BrowseMenu() {
         browsePanel = new JPanel(new GridBagLayout());
@@ -62,17 +64,23 @@ public class BrowseMenu implements IMenu, ActionListener {
 
     private void loadMazes() {
         List<Maze> mazes;
-        //Main.database.addMaze(Main.testMaze);
+        Main.database.addMaze(Main.testMaze);
+        Main.database.addMaze(Main.testMaze2);
         mazes = Main.database.getAllMazes();
-        if (mazes == null) {
+        if (mazes != null) {
+            for (Maze maze : mazes) {
+                buttonList.add(GUIHelper.newButton(maze.getTitle(), contentPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
+            }
+            for (JButton button : buttonList) {
+                button.addActionListener(this);
+                contentPanel.add(button);
+            }
+        }
+        else {
             //print message that there are no mazes to the console
             System.out.println("No mazes to display");
         }
-        for (Maze maze : mazes) {
-            JButton button = GUIHelper.newButton(maze.getTitle(), contentPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
-            button.addActionListener(this);
-            contentPanel.add(button);
-        }
+
     }
 
     @Override
