@@ -18,12 +18,13 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
         //panelLayout(JPanel containerPanel, Color c, int gridX, int gridY)
-        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.05);
+        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.01);
         //creating panels for layout inside the container panel
-        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight); //Header
-        JPanel searchPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.subheader, 0,1, (int) Math.round(Frame.HEIGHT*0.15)); //sidebar
-        contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.63)); // where the maze goes
-        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,3,newHeight); //footer
+
+        JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight, 1); //Header
+        JPanel searchPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.subheader, 0,1, (int) Math.round(Frame.HEIGHT*0.16), 1); //sidebar
+        JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.67), 1); // where the maze goes
+        JPanel footerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,3,newHeight, 1); //footer
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
