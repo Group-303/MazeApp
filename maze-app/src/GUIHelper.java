@@ -46,6 +46,7 @@ public class GUIHelper {
         constraint.gridy = gridY;
         constraint.ipadx = 10;
         constraint.ipady = 10;
+        constraint.insets.set(topInset,leftInset, bottomInset,rightInset);
         constraint.insets.set(topInset,leftInset, bottomInset, rightInset);
         container.add(button, constraint);
         return button;

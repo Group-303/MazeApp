@@ -2,11 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BrowseMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Browser";
     public JPanel browsePanel;
+    private JPanel contentPanel;
     public boolean createReturn;
+    private List<JButton> buttonList = new ArrayList<>();
 
     public BrowseMenu() {
         browsePanel = new JPanel(new GridBagLayout());
@@ -15,6 +20,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         //panelLayout(JPanel containerPanel, Color c, int gridX, int gridY)
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.01);
         //creating panels for layout inside the container panel
+
         JPanel headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight, 1); //Header
         JPanel searchPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.subheader, 0,1, (int) Math.round(Frame.HEIGHT*0.16), 1); //sidebar
         JPanel contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.67), 1); // where the maze goes
@@ -43,6 +49,7 @@ public class BrowseMenu implements IMenu, ActionListener {
     public void openMenu() {
         createReturn = false;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        loadMazes();
         browsePanel.setVisible(true);
     }
 
@@ -54,6 +61,25 @@ public class BrowseMenu implements IMenu, ActionListener {
 
     public void closeMenu() {
         browsePanel.setVisible(false);
+    }
+
+    private void loadMazes() {
+        List<Maze> mazeList;
+        mazeList = Main.database.getAllMazes();
+        if (mazeList != null) {
+            for (Maze maze : mazeList) {
+                buttonList.add(GUIHelper.newButton(maze.getTitle(), contentPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
+            }
+            for (JButton button : buttonList) {
+                button.addActionListener(this);
+                contentPanel.add(button);
+            }
+        }
+        else {
+            //print message that there are no mazes to the console
+            System.out.println("No mazes to display");
+        }
+
     }
 
     @Override
