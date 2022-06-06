@@ -47,7 +47,21 @@ public class GUIHelper {
         constraint.ipadx = 10;
         constraint.ipady = 10;
         constraint.insets.set(topInset,leftInset, bottomInset,rightInset);
-        constraint.insets.set(topInset,leftInset, bottomInset, rightInset);
+        container.add(button, constraint);
+        return button;
+    }
+
+    public static JButton newButton(String text, JPanel container, int gridX, int gridY) {
+        JButton button = new JButton(text);
+        button.setLayout(new GridBagLayout());
+        GridBagConstraints constraint = new GridBagConstraints();
+        // Set the label in a grid
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.weightx = 0.5;
+        constraint.gridx = gridX;
+        constraint.gridy = gridY;
+        constraint.ipadx = 0;
+        constraint.ipady = 10;
         container.add(button, constraint);
         return button;
     }
