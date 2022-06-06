@@ -22,6 +22,7 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JLabel> labelList = new ArrayList<>();
     private ArrayList<JTextField> fieldlist = new ArrayList<>();
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
+    private ArrayList<JButton> mazeButtonList = new ArrayList<>();
 
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
@@ -47,16 +48,6 @@ public class CreateMenu implements IMenu, ActionListener {
         contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (int) Math.round(Frame.HEIGHT*0.5)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
         //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
-
-        /*
-        int bodyHeight = (int) Math.round((Frame.HEIGHT*0.3));
-
-        JPanel headerPanel = GUIHelper.panelLayout(createPanel, headerGreen, 0,0, newHeight, 2); //Header
-        JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, 0,1, bodyHeight,1); //sidebar
-        JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.WHITE, 1,1,bodyHeight,1); // where the maze goes
-        JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, 0,2,newHeight, 2); //footer
-
-        */
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
@@ -105,10 +96,20 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Add JButtons in buttonList to sidePanel and add action listeners
         for (JButton button : buttonList) {
-            //sidePanel.add(button);
             button.addActionListener(this);
         }
-        System.out.println(currentMaze.getLayout().length);
+
+        //10 is a dumpy variable just to test
+        for(int x = 0; x < 15; x++){
+            for (int y = 0; y<15; y++){
+                    mazeButtonList.add(GUIHelper.newButton("", contentPanel, x, y));
+            }
+        }
+
+        for (JButton button : mazeButtonList) {
+            button.addActionListener(this);
+        }
+       /* System.out.println(currentMaze.getLayout().length);
 
         for (int i = 0; i < currentMaze.getLayout().length; i++) {
             mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i, contentPanel));
@@ -122,7 +123,7 @@ public class CreateMenu implements IMenu, ActionListener {
             contentPanel.add(button[1][0]);
             contentPanel.add(button[1][1]);
         }
-
+*/
         createPanel.setVisible(false);
     }
 
