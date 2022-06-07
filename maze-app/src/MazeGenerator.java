@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -108,6 +111,42 @@ public class MazeGenerator {
                 System.out.print((layout[j][i] & 8) == 0 ? "|   " : "    ");
             }
             System.out.println("|");
+        }
+        // draw the bottom line
+        for (int j = 0; j < height; j++) {
+            System.out.print("+---");
+        }
+        System.out.println("+");
+    }
+
+    public void render(JPanel container) {
+        ArrayList<JButton> mazeButtons = new ArrayList<>();
+        Color colour;
+        for (int i = 0; i < width; i++) {
+            // draw the north edge
+            for (int j = 0; j < height; j++) {
+                if ((layout[j][i] & 1) == 0) {
+                    colour = Color.BLACK;
+
+                }
+                else {
+                    colour = Color.WHITE;
+                }
+                mazeButtons.add(GUIHelper.newButton("", container, colour, i, j));
+            }
+            //System.out.println("+");
+            // draw the west edge
+            for (int j = 0; j < height; j++) {
+                if ((layout[j][i] & 8) == 0) {
+                    colour = Color.BLACK;
+
+                }
+                else {
+                    colour = Color.WHITE;
+                }
+                mazeButtons.add(GUIHelper.newButton("", container, colour, i, j));
+            }
+            //System.out.println("|");
         }
         // draw the bottom line
         for (int j = 0; j < height; j++) {

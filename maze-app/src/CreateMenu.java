@@ -99,16 +99,18 @@ public class CreateMenu implements IMenu, ActionListener {
             button.addActionListener(this);
         }
 
-        //10 is a dumpy variable just to test
-        for(int x = 0; x < 15; x++){
-            for (int y = 0; y<15; y++){
-                    mazeButtonList.add(GUIHelper.newButton("", contentPanel, x, y));
-            }
-        }
+        Main.testMaze.render(contentPanel);
 
-        for (JButton button : mazeButtonList) {
-            button.addActionListener(this);
-        }
+       ////10 is a dumpy variable just to test
+       //for(int x = 0; x < 15; x++){
+       //    for (int y = 0; y<15; y++){
+       //            mazeButtonList.add(GUIHelper.newButton("", contentPanel, x, y));
+       //    }
+       //}
+
+       //for (JButton button : mazeButtonList) {
+       //    button.addActionListener(this);
+       //}
        /* System.out.println(currentMaze.getLayout().length);
 
         for (int i = 0; i < currentMaze.getLayout().length; i++) {

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 import java.time.LocalDateTime;
@@ -47,6 +48,9 @@ public class Maze {
         this.layout = generator.getLayout();
     }
 
+    public void render(JPanel container) {
+        this.generator.render(container);
+    }
 
     /***
      * Adds a new Edit object into the list of edits on the maze
