@@ -24,6 +24,8 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
     private ArrayList<JButton> mazeButtonList = new ArrayList<>();
 
+    private JPanel contentPanel;
+
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
     public Color subheader = Color.getHSBColor(0.35f, 0.1f, 0.8f);
@@ -38,7 +40,7 @@ public class CreateMenu implements IMenu, ActionListener {
         //creating panels for layout inside the container panel
         JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
         JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
-        JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.WHITE, BorderLayout.EAST); // where the maze goes
+        contentPanel = GUIHelper.panelLayout(createPanel, Color.WHITE, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
 
         //the dimension of the panels
@@ -99,7 +101,7 @@ public class CreateMenu implements IMenu, ActionListener {
             button.addActionListener(this);
         }
 
-        Main.testMaze.render(contentPanel);
+        currentMaze.render(contentPanel);
 
        ////10 is a dumpy variable just to test
        //for(int x = 0; x < 15; x++){
@@ -226,6 +228,7 @@ public class CreateMenu implements IMenu, ActionListener {
                 break;
             case "Generate Solution":
                 currentMaze.regenerateMaze();
+                currentMaze.render(contentPanel);
                 break;
             case "Back":
                 closeMenu();
