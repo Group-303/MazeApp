@@ -8,8 +8,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
@@ -60,10 +64,12 @@ public class CreateMenu implements IMenu, ActionListener {
         labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,4));
         labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,5));
 
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 0));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 1));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 2));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 0, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 1, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 2, false));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3, false));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
 
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
@@ -84,9 +90,9 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Create buttons and add buttons to button list using GUIHelper
 
-        buttonList.add(GUIHelper.newButton("Upload Maze", sidePanel, 0, 6, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 6, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
-        buttonList.add(GUIHelper.newButton("Save", sidePanel, 0, 7, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Regenerate Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
@@ -199,6 +205,16 @@ public class CreateMenu implements IMenu, ActionListener {
         return buttons;
     }
 
+    private void setCreated() {
+        if (fieldlist.get(2).getText().isEmpty()) {
+            fieldlist.get(2).setText(Long.toString(System.currentTimeMillis()));
+        }
+    }
+
+    private void setEdited() {
+        fieldlist.get(3).setText(Long.toString(System.currentTimeMillis()));
+    }
+
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         createPanel.setVisible(true);
@@ -216,15 +232,22 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel.setVisible(false);
     }
 
+    private void createMaze() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
-            case "Load":
+            case "Load Maze":
                 break;
             case "New":
                 break;
-            case "Save":
+            case "Save Maze":
+                createMaze();
+                setCreated();
+                setEdited();
                 break;
             case "Generate Solution":
                 currentMaze.regenerateMaze();

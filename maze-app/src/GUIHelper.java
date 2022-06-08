@@ -84,6 +84,26 @@ public class GUIHelper {
 
     public static JTextField newTextField(Dimension size, JPanel container, int gridX, int gridY) {
         JTextField textField = new JTextField();
+        textField.setEnabled(true);
+        textField.setLayout(new GridBagLayout());
+        GridBagConstraints constraint = new GridBagConstraints();
+
+        // set the label in a grid
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.weightx = 0.5;
+        //constraint.weighty = 1;
+        constraint.gridx = gridX;
+        constraint.gridy = gridY;
+        constraint.ipady = 10;
+        constraint.insets.set(0,0,10,20);
+        textField.setSize(size);
+        container.add(textField, constraint);
+        return textField;
+    }
+
+    public static JTextField newTextField(Dimension size, JPanel container, int gridX, int gridY, boolean enabled) {
+        JTextField textField = new JTextField();
+        textField.setEnabled(enabled);
         textField.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
 
