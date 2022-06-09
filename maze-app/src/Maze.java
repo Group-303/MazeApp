@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 import java.time.LocalDateTime;
@@ -24,22 +25,32 @@ public class Maze {
      * @param creator The full name of the author
      */
     public Maze(String title, String creator, int width, int height) {
-        this.id = Main.mazeList.size();
+        this.id = Main.database.getNextID();
         this.title = title;
         this.creator = creator;
         this.width = width;
         this.height = height;
         this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
-
         this.generator = new MazeGenerator(this.width, this.height);
-
         this.layout = generator.getLayout();
-
-        // Add to the temporary holder list
-        // Replace this with the method to add to the SQL DB once implemented
-        Main.mazeList.add(this);
+        Main.database.addMaze(this);
     }
 
+    //Overloaded constructor for loading a maze from the database
+    public Maze(int ID, String title, String creator, int width, int height) {
+        this.id = ID;
+        this.title = title;
+        this.creator = creator;
+        this.width = width;
+        this.height = height;
+        this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
+        this.generator = new MazeGenerator(this.width, this.height);
+        this.layout = generator.getLayout();
+    }
+
+    public void render(JPanel container) {
+        this.generator.render(container);
+    }
 
     /***
      * Creates a new edit on the maze

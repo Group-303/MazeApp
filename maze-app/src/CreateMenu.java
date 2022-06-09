@@ -8,8 +8,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CreateMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
@@ -22,6 +26,9 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JLabel> labelList = new ArrayList<>();
     private ArrayList<JTextField> fieldlist = new ArrayList<>();
     private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
+    private ArrayList<JButton> mazeButtonList = new ArrayList<>();
+
+    private JPanel contentPanel;
 
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
@@ -32,37 +39,37 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel = new JPanel(new BorderLayout());
 
         // Set boundary of panel
-        createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+Frame.H_MENU);
+        createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+10);
 
         //creating panels for layout inside the container panel
-        // colours for panels 2 and 3 will be different
         JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
         JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
-        JPanel contentPanel = GUIHelper.panelLayout(createPanel, Color.LIGHT_GRAY, BorderLayout.EAST); // where the maze goes
+        contentPanel = GUIHelper.panelLayout(createPanel, Color.WHITE, BorderLayout.EAST); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
-        //JPanel panel5 = panelLayout (sidePanel, Color.WHITE, BorderLayout.CENTER);
 
         //the dimension of the panels
-        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.1);
+        int newHeight = (int) Math.round((Frame.HEIGHT) * 0.08);
         headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.3), (Frame.HEIGHT) - (newHeight * 2)));
-        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (Frame.HEIGHT) - (newHeight * 2)));
+        sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.3), (int) Math.round(Frame.HEIGHT*0.5)));
+        contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (int) Math.round(Frame.HEIGHT*0.5)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
         //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
-        labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0 ,1));
-        labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0,2));
-        labelList.add(GUIHelper.createLabel("Created: ", sidePanel,  0,3));
-        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel,  0,4));
-        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,5));
-        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,6));
+        labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0 ,0));
+        labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0,1));
+        labelList.add(GUIHelper.createLabel("Created: ", sidePanel,  0,2));
+        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel,  0,3));
+        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,4));
+        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,5));
 
-        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 0));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 1));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 2));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(100, 50), sidePanel, 1, 3));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 0, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 1, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 2, false));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3, false));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
 
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
@@ -82,10 +89,11 @@ public class CreateMenu implements IMenu, ActionListener {
        // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
 
         // Create buttons and add buttons to button list using GUIHelper
-        buttonList.add(GUIHelper.newButton("Load", sidePanel, 0, 7, 10, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 7, 10, 5, 5, 10));
-        buttonList.add(GUIHelper.newButton("Save", sidePanel, 0, 8, 10, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Regenerate Maze", sidePanel, 1, 8, 10, 5, 5, 10));
+
+        buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 6, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Regenerate Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -94,85 +102,44 @@ public class CreateMenu implements IMenu, ActionListener {
         //Adds panel to Main.frame
         Main.frame.add(createPanel);
 
-//        // Add JButtons in buttonList to sidePanel and add action listeners
-       for (JButton button : buttonList) {
-//            //sidePanel.add(button);
+        // Add JButtons in buttonList to sidePanel and add action listeners
+        for (JButton button : buttonList) {
             button.addActionListener(this);
-       }
-//        System.out.println(currentMaze.getLayout().length);
-//
-//        for (int i = 0; i < currentMaze.getLayout().length; i++) {
-//            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i, contentPanel));
-//        }
-//
-////        for (int i = 0; i < currentMaze.getWidth())
-//
-//        for (JButton[][] button : mazeButtons) {
-//            contentPanel.add(button[0][0]);
-//            contentPanel.add(button[0][1]);
-//            contentPanel.add(button[1][0]);
-//            contentPanel.add(button[1][1]);
-//        }
+        }
 
+        currentMaze.render(contentPanel);
+
+       ////10 is a dumpy variable just to test
+       //for(int x = 0; x < 15; x++){
+       //    for (int y = 0; y<15; y++){
+       //            mazeButtonList.add(GUIHelper.newButton("", contentPanel, x, y));
+       //    }
+       //}
+
+       //for (JButton button : mazeButtonList) {
+       //    button.addActionListener(this);
+       //}
+       /* System.out.println(currentMaze.getLayout().length);
+
+        for (int i = 0; i < currentMaze.getLayout().length; i++) {
+            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i, contentPanel));
+        }
+
+//        for (int i = 0; i < currentMaze.getWidth())
+
+        for (JButton[][] button : mazeButtons) {
+            contentPanel.add(button[0][0]);
+            contentPanel.add(button[0][1]);
+            contentPanel.add(button[1][0]);
+            contentPanel.add(button[1][1]);
+        }
+*/
         createPanel.setVisible(false);
     }
 
     public JButton[][] arrayItemToButtons(boolean[][][] inputArray, int index, JPanel panel) {
         JButton nwButton, northButton, westButton, centerButton;
         JButton[][] buttons = new JButton[2][2];
-
-        // Add JButtons in buttonList to sidePanel and add action listeners
-        for (JButton button : buttonList) {
-            //sidePanel.add(button);
-            button.addActionListener(this);
-        }
-        System.out.println(currentMaze.getLayout().length);
-
-//        for (int i = 0; i < currentMaze.getLayout().length; i++) {
-//            mazeButtons.add(arrayItemToButtons(currentMaze.getLayout(), i, contentPanel));
-//        }
-
-//        for (int i = 0; i < currentMaze.getWidth())
-        for (int i = 0; i < currentMaze.getWidth(); i++)
-        {
-
-        }
-
-        buttons[0][0] = GUIHelper.newButton("­", panel, index, index, 0, 0, 0, 0);
-        buttons[0][0].setFocusPainted(false);
-        buttons[0][0].setEnabled(false);
-
-        buttons[1][0] = GUIHelper.newButton("­", panel, index + 1, index, 0, 0, 0, 0);
-        buttons[1][0].setFocusPainted(false);
-
-        buttons[0][1] = GUIHelper.newButton("­", panel, index, index + 1, 0, 0, 0, 0);
-        buttons[0][1].setFocusPainted(false);
-
-        buttons[1][1] = GUIHelper.newButton("­", panel, index + 1, index + 1, 0, 0, 0, 0);
-        buttons[1][1].setFocusPainted(false);
-        buttons[1][1].setEnabled(false);
-
-        buttons[0][1].setBackground(Color.WHITE);
-
-        if (inputArray[index][index][0] == false) {
-            buttons[1][0].setBackground(Color.WHITE);
-        }
-        else {
-            buttons[1][0].setBackground(Color.BLACK);
-        }
-        if (inputArray[index][index][1] == false) {
-            buttons[0][1].setBackground(Color.WHITE);
-        }
-        else {
-            buttons[0][1].setBackground(Color.BLACK);
-        }
-
-        for (JButton[][] button : mazeButtons) {
-            panel.add(button[0][0]);
-            panel.add(button[0][1]);
-            panel.add(button[1][0]);
-            panel.add(button[1][1]);
-        }
 
 //        nwButton = new JButton();
 //        nwButton.setBackground(Color.BLACK);
@@ -203,7 +170,49 @@ public class CreateMenu implements IMenu, ActionListener {
 //        centerButton.setBackground(Color.WHITE);
 //        centerButton.setSize(new Dimension(50, 50));
 //        centerButton.setEnabled(false);
+
+        buttons[0][0] = GUIHelper.newButton("­", panel, index, index, 0, 0, 0, 0);
+        buttons[0][0].setFocusPainted(false);
+        buttons[0][0].setEnabled(false);
+
+        buttons[1][0] = GUIHelper.newButton("­", panel, index + 1, index, 0, 0, 0, 0);
+        buttons[1][0].setFocusPainted(false);
+
+        buttons[0][1] = GUIHelper.newButton("­", panel, index, index + 1, 0, 0, 0, 0);
+        buttons[0][1].setFocusPainted(false);
+
+        buttons[1][1] = GUIHelper.newButton("­", panel, index + 1, index + 1, 0, 0, 0, 0);
+        buttons[1][1].setFocusPainted(false);
+        buttons[1][1].setEnabled(false);
+
+        buttons[0][1].setBackground(Color.WHITE);
+
+        if (inputArray[index][index][0] == false) {
+            buttons[1][0].setBackground(Color.WHITE);
+        }
+        else {
+            buttons[1][0].setBackground(Color.BLACK);
+        }
+        if (inputArray[index][index][1] == false) {
+            buttons[0][1].setBackground(Color.WHITE);
+        }
+        else {
+            buttons[0][1].setBackground(Color.BLACK);
+        }
+
+        buttons[0][0].setEnabled(false);
+        buttons[1][1].setEnabled(false);
         return buttons;
+    }
+
+    private void setCreated() {
+        if (fieldlist.get(2).getText().isEmpty()) {
+            fieldlist.get(2).setText(Long.toString(System.currentTimeMillis()));
+        }
+    }
+
+    private void setEdited() {
+        fieldlist.get(3).setText(Long.toString(System.currentTimeMillis()));
     }
 
     public void openMenu() {
@@ -223,26 +232,33 @@ public class CreateMenu implements IMenu, ActionListener {
         createPanel.setVisible(false);
     }
 
+    private void createMaze() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
-            case "Load":
-                closeMenu();
-                Main.browseMenu.openMenu(true);
+            case "Load Maze":
                 break;
             case "New":
                 break;
-            case "Save":
+            case "Save Maze":
+                createMaze();
+                setCreated();
+                setEdited();
                 break;
-            case "Regenerate Maze":
+            case "Generate Solution":
                 currentMaze.regenerateMaze();
+                currentMaze.render(contentPanel);
                 break;
             case "Back":
                 closeMenu();
                 Main.mainMenu.openMenu();
                 break;
         }
+
     }
 
 }
