@@ -36,8 +36,5 @@ public class Main {
         mainMenu = new MainMenu();
         createMenu = new CreateMenu();
         browseMenu = new BrowseMenu();
-
-
-
     }
 }
