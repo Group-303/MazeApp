@@ -70,8 +70,8 @@ public class Maze {
                 } else {
                     colour = Color.WHITE;
                 }
-                mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion)); //NW
-                mazeButtons.add(GUIHelper.newButton("", container, colour, xRegion, yRegion + 1)); //SW
+                mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
+                mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
                 xRegion++;
 
                 if (layout[i][j][1]) {
@@ -80,17 +80,26 @@ public class Maze {
                     colour = Color.WHITE;
                 }
 
-                mazeButtons.add(GUIHelper.newButton("", container, colour, xRegion, yRegion)); //NE
-                mazeButtons.add(GUIHelper.newButton("", container, Color.WHITE, xRegion, yRegion + 1)); //SE
+                mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
+                mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
                 xRegion++;
             }
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion)); //NE Border
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
+            mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
+            mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
             yRegion += 2;
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
-           mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j, yRegion)); //S Border
+           mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
+       }
+
+       for (JButton button : mazeButtons) {
+           if (button.getText().equals("1,1")) {
+               button.setBackground(Color.GREEN);
+           }
+           if (button.getText().equals(Integer.toString(width * 2 - 1) + "," + Integer.toString(height * 2 - 1))) {
+               button.setBackground(Color.RED);
+           }
        }
     }
 

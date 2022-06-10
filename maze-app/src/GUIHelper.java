@@ -51,14 +51,17 @@ public class GUIHelper {
         return button;
     }
 
-    public static JButton newButton(String text, JPanel container, Color colour, int gridX, int gridY) {
+    public static JButton newButton(JPanel container, Color colour, int gridX, int gridY) {
+        String text = Integer.toString(gridX) + "," + Integer.toString(gridY);
         JButton button = new JButton(text);
+        //set button text size to 1
+        button.setFont(new Font("Arial", Font.PLAIN, 1));
+        button.setForeground(colour);
         button.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
         // Set the label in a grid
         //constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.fill = GridBagConstraints.VERTICAL;
-        //constraint.weightx = 0.5;
         constraint.weighty = 0.5;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
@@ -112,7 +115,6 @@ public class GUIHelper {
         // set the label in a grid
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.weightx = 0.5;
-        //constraint.weighty = 1;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
         constraint.ipady = 10;
