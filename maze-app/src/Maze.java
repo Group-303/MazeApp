@@ -49,7 +49,36 @@ public class Maze {
     }
 
     public void render(JPanel container) {
-        this.generator.render(container);
+        ArrayList<JButton> mazeButtons = new ArrayList<>();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                Color colour;
+                if (layout[i][j][0]) {
+                    colour = Color.BLACK;
+                } else {
+                    colour = Color.WHITE;
+                }
+                mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j * 2, i * 2));
+                mazeButtons.add(GUIHelper.newButton("", container, colour, j * 2, (i * 2) + 1));
+            }
+            for (int j = 0; j < height; j++) {
+                Color colour;
+                if (layout[i][j][1]) {
+                    colour = Color.BLACK;
+                } else {
+                    colour = Color.WHITE;
+                }
+                mazeButtons.add(GUIHelper.newButton("", container, colour, (j * 2) + 1, i));
+                mazeButtons.add(GUIHelper.newButton("", container, Color.WHITE, (j * 2) + 1, (i * 2) + 1));
+            }
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (i * 2)));
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (i * 2) + 1));
+        }
+        for (int j = 0; j < height; j++) {
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j * 2, width * 2));
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (j * 2) + 1, (width * 2)));
+        }
+        mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (width * 2)));
     }
 
     /***
