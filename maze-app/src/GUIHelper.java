@@ -56,12 +56,14 @@ public class GUIHelper {
         button.setLayout(new GridBagLayout());
         GridBagConstraints constraint = new GridBagConstraints();
         // Set the label in a grid
-        constraint.fill = GridBagConstraints.HORIZONTAL;
-        constraint.weightx = 0.5;
+        //constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.fill = GridBagConstraints.VERTICAL;
+        //constraint.weightx = 0.5;
+        constraint.weighty = 0.5;
         constraint.gridx = gridX;
         constraint.gridy = gridY;
         constraint.ipadx = 0;
-        constraint.ipady = 10;
+        constraint.ipady = 0;
         button.setBackground(colour);
         container.add(button, constraint);
         return button;

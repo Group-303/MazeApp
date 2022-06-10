@@ -93,7 +93,7 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 6, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Regenerate Maze", sidePanel, 1, 7, 10, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -148,8 +148,8 @@ public class CreateMenu implements IMenu, ActionListener {
         // Switch statement to detect which button is pressed
         switch (e.getActionCommand()) {
             case "Load Maze":
-                break;
-            case "New":
+                closeMenu();
+                Main.browseMenu.openMenu();
                 break;
             case "Save Maze":
                 createMaze();
@@ -157,6 +157,8 @@ public class CreateMenu implements IMenu, ActionListener {
                 setEdited();
                 break;
             case "Generate Solution":
+                break;
+            case "Generate New Maze":
                 currentMaze.regenerateMaze();
                 contentPanel.removeAll();
                 contentPanel.revalidate();

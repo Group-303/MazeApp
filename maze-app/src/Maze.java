@@ -57,6 +57,7 @@ public class Maze {
     //}
 
     public void render(JPanel container) {
+        Dimension size;
         ArrayList<JButton> mazeButtons = new ArrayList<>();
         int xRegion = 0;
         int yRegion = 0;
@@ -89,7 +90,7 @@ public class Maze {
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
-           mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j, yRegion));
+           mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j, yRegion)); //S Border
        }
     }
 
