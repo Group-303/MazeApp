@@ -106,16 +106,17 @@ public class Maze {
     public void solve() {
         int depth = 0;
 
-        while (!BFS(depth, 1, 1)) {
+        while (BFS(depth, 1, 1, 0, 0) != 0) {
             depth++;
         }
 
     }
 
-    private boolean BFS(int depth, int currentx, int currenty) {
+    private int BFS(int depth, int currentx, int currenty, int prevx, int prevy) {
         int commaIndex;
         int x;
         int y;
+        int result;
         String buttonText;
         ArrayList<Integer> neighbours = new ArrayList<>();
         JButton currentButton;
@@ -127,11 +128,15 @@ public class Maze {
             x = Integer.parseInt(buttonText.substring(0, commaIndex));
             y = Integer.parseInt(buttonText.substring(commaIndex + 1));
             //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
-            if ((x == currentx || x == currentx + 1 || x == currentx - 1 || y == currenty || y == currenty + 1 || y == currenty - 1) && (x != currentx ^ y != currenty)) {
+            if ((x == currentx || x == currentx + 1 || x == currentx - 1 || y == currenty || y == currenty + 1 || y == currenty - 1) && (x != currentx ^ y != currenty) && (!button.getBackground().equals(Color.BLACK) || !button.getBackground().equals(Color.GRAY))) {
                 //add the button index to the neighbours array
                 neighbours.add(mazeButtons.indexOf(button));
             }
 
+        }
+
+        if (neighbours.size() == 0) {
+            return 2;
         }
 
         for (Integer neighbour : neighbours) {
@@ -146,16 +151,28 @@ public class Maze {
                     //end found
                     //Set current button to green
                     currentButton.setBackground(Color.GREEN);
-                    return true;
+                    return 0;
                 }
                 else if (currentButton.getBackground() == Color.WHITE) {
                     buttonText = currentButton.getText();
                     commaIndex = buttonText.indexOf(",");
                     x = Integer.parseInt(buttonText.substring(0, commaIndex));
                     y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-                    if (BFS(depth - 1, x, y)) {
+                    if (x == prevx && y == prevy) {
+                        //Set current button to gray
+                        currentButton.setBackground(Color.GRAY);
+                    }
+                    else {
+                        result = BFS(depth - 1, x, y, currentx, currenty);
+                        if (result == 0) {
                         currentButton.setBackground(Color.GREEN);
-                        return true;
+                        return 0;
+                        }
+                        else if (result == 2) {
+                            currentButton.setBackground(Color.GRAY);
+                            return 2;
+                        }
+
                     }
 
                 }
@@ -163,7 +180,7 @@ public class Maze {
             }
         
         }
-        return false;
+        return 1;
     }
 
     /***
