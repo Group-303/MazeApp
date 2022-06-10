@@ -1,4 +1,8 @@
 import javax.swing.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+
 import java.awt.*;
 
 import java.time.LocalDateTime;
@@ -177,6 +181,11 @@ public class Maze {
      */
     public boolean[][][] getLayout() {
         return layout;
+    }
+
+    public String getLayoutJsonString() {
+        Gson gson = new Gson();
+        return gson.toJson(layout);
     }
 
     /***
