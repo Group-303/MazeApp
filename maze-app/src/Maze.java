@@ -116,71 +116,65 @@ public class Maze {
         int commaIndex;
         int x;
         int y;
+        int returnint = 2;
         int result;
         String buttonText;
-        ArrayList<Integer> neighbours = new ArrayList<>();
-        JButton currentButton;
 
 
         for (JButton button : this.mazeButtons) {
+            System.out.println("bfs");
             buttonText = button.getText();
             commaIndex = buttonText.indexOf(",");
             x = Integer.parseInt(buttonText.substring(0, commaIndex));
             y = Integer.parseInt(buttonText.substring(commaIndex + 1));
             //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
             if ((x == currentx || x == currentx + 1 || x == currentx - 1 || y == currenty || y == currenty + 1 || y == currenty - 1) && (x != currentx ^ y != currenty) && (!button.getBackground().equals(Color.BLACK) || !button.getBackground().equals(Color.GRAY))) {
+                returnint = 1;
                 //add the button index to the neighbours array
-                neighbours.add(mazeButtons.indexOf(button));
-            }
-
-        }
-
-        if (neighbours.size() == 0) {
-            return 2;
-        }
-
-        for (Integer neighbour : neighbours) {
-            if (depth == 0) {
-                break;
-            }
-            //If the neighbour is not a wall
-            else {
-                currentButton = mazeButtons.get(neighbour.intValue());
-
-                if (currentButton.getBackground() == Color.RED) {
-                    //end found
-                    //Set current button to green
-                    currentButton.setBackground(Color.GREEN);
-                    return 0;
+                if (depth == 0) {
+                    break;
                 }
-                else if (currentButton.getBackground() == Color.WHITE) {
-                    buttonText = currentButton.getText();
-                    commaIndex = buttonText.indexOf(",");
-                    x = Integer.parseInt(buttonText.substring(0, commaIndex));
-                    y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-                    if (x == prevx && y == prevy) {
-                        //Set current button to gray
-                        currentButton.setBackground(Color.GRAY);
-                    }
-                    else {
-                        result = BFS(depth - 1, x, y, currentx, currenty);
-                        if (result == 0) {
-                        currentButton.setBackground(Color.GREEN);
+                //If the neighbour is not a wall
+                else {
+    
+                    if (button.getBackground() == Color.RED) {
+                        //end found
+                        //Set current button to green
+                        System.out.println("found");
+                        button.setBackground(Color.GREEN);
                         return 0;
-                        }
-                        else if (result == 2) {
-                            currentButton.setBackground(Color.GRAY);
-                            return 2;
-                        }
-
                     }
-
+                    else if (button.getBackground() == Color.WHITE) {
+                        buttonText = button.getText();
+                        commaIndex = buttonText.indexOf(",");
+                        x = Integer.parseInt(buttonText.substring(0, commaIndex));
+                        y = Integer.parseInt(buttonText.substring(commaIndex + 1));
+                        if (x == prevx && y == prevy) {
+                            //Set current button to gray
+                            button.setBackground(Color.GRAY);
+                        }
+                        else {
+                            result = BFS(depth - 1, x, y, currentx, currenty);
+                            if (result == 0) {
+                            button.setBackground(Color.GREEN);
+                            System.out.println("green");
+                            return 0;
+                            }
+                            else if (result == 2) {
+                                button.setBackground(Color.GRAY);
+                                System.out.println("gray");
+                                return 2;
+                            }
+    
+                        }
+    
+                    }
+    
                 }
-
             }
-        
+
         }
-        return 1;
+        return returnint;
     }
 
     /***
