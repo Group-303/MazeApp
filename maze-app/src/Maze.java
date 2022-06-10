@@ -58,35 +58,39 @@ public class Maze {
 
     public void render(JPanel container) {
         ArrayList<JButton> mazeButtons = new ArrayList<>();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        int xRegion = 0;
+        int yRegion = 0;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 Color colour;
                 if (layout[i][j][0]) {
                     colour = Color.BLACK;
                 } else {
                     colour = Color.WHITE;
                 }
-                mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j * 2, i * 2));
-                mazeButtons.add(GUIHelper.newButton("", container, colour, j * 2, (i * 2) + 1));
-            }
-            for (int j = 0; j < height; j++) {
-                Color colour;
+                mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion)); //NW
+                mazeButtons.add(GUIHelper.newButton("", container, colour, xRegion, yRegion + 1)); //SW
+                xRegion++;
+
                 if (layout[i][j][1]) {
                     colour = Color.BLACK;
                 } else {
                     colour = Color.WHITE;
                 }
-                mazeButtons.add(GUIHelper.newButton("", container, colour, (j * 2) + 1, i));
-                mazeButtons.add(GUIHelper.newButton("", container, Color.WHITE, (j * 2) + 1, (i * 2) + 1));
+
+                mazeButtons.add(GUIHelper.newButton("", container, colour, xRegion, yRegion)); //NE
+                mazeButtons.add(GUIHelper.newButton("", container, Color.WHITE, xRegion, yRegion + 1)); //SE
+                xRegion++;
             }
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (i * 2)));
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (i * 2) + 1));
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion)); //NE Border
+            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
+            yRegion += 2;
+            xRegion = 0;
         }
-        for (int j = 0; j < height; j++) {
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j * 2, width * 2));
-            mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (j * 2) + 1, (width * 2)));
-        }
-        mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, (height * 2) + 1, (width * 2)));
+       for (int j = 0; j < width * 2 + 1; j++) {
+           mazeButtons.add(GUIHelper.newButton("", container, Color.BLACK, j, yRegion));
+       }
     }
 
     /***
