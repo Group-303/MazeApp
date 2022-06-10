@@ -48,6 +48,10 @@ public class Maze {
         this.layout = generator.getLayout();
     }
 
+    //public void render(JPanel container) {
+        //this.generator.render(container);
+    //}
+
     public void render(JPanel container) {
         ArrayList<JButton> mazeButtons = new ArrayList<>();
         for (int i = 0; i < width; i++) {
