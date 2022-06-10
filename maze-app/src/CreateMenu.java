@@ -169,6 +169,7 @@ public class CreateMenu implements IMenu, ActionListener {
                 currentMaze.render(contentPanel);
                 break;
             case "Generate Solution":
+                currentMaze.solve();
                 break;
             case "Generate New Maze":
                 break;

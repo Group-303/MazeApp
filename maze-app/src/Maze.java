@@ -21,6 +21,7 @@ public class Maze {
     private HashMap<Image, Point> items = new HashMap<>();
     private List<Edit> edits = new ArrayList<>();
     private MazeGenerator generator;
+    private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
 
     /***
@@ -56,8 +57,7 @@ public class Maze {
     //}
 
     public void render(JPanel container) {
-        Dimension size;
-        ArrayList<JButton> mazeButtons = new ArrayList<>();
+        this.mazeButtons = new ArrayList<>();
         int xRegion = 0;
         int yRegion = 0;
 
@@ -69,8 +69,8 @@ public class Maze {
                 } else {
                     colour = Color.WHITE;
                 }
-                mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
-                mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
+                this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
+                this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
                 xRegion++;
 
                 if (layout[i][j][1]) {
@@ -79,20 +79,20 @@ public class Maze {
                     colour = Color.WHITE;
                 }
 
-                mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
-                mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
+                this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
+                this.mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
                 xRegion++;
             }
-            mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
-            mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
+            this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
+            this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
             yRegion += 2;
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
-           mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
+           this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
        }
 
-       for (JButton button : mazeButtons) {
+       for (JButton button : this.mazeButtons) {
             //Find the start and end points and set them to green and red respectively
            if (button.getText().equals("1,1")) {
                button.setBackground(Color.GREEN);
@@ -101,6 +101,69 @@ public class Maze {
                button.setBackground(Color.RED);
            }
        }
+    }
+
+    public void solve() {
+        int depth = 0;
+
+        while (!BFS(depth, 1, 1)) {
+            depth++;
+        }
+
+    }
+
+    private boolean BFS(int depth, int currentx, int currenty) {
+        int commaIndex;
+        int x;
+        int y;
+        String buttonText;
+        ArrayList<Integer> neighbours = new ArrayList<>();
+        JButton currentButton;
+
+
+        for (JButton button : this.mazeButtons) {
+            buttonText = button.getText();
+            commaIndex = buttonText.indexOf(",");
+            x = Integer.parseInt(buttonText.substring(0, commaIndex));
+            y = Integer.parseInt(buttonText.substring(commaIndex + 1));
+            //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
+            if ((x == currentx || x == currentx + 1 || x == currentx - 1 || y == currenty || y == currenty + 1 || y == currenty - 1) && (x != currentx ^ y != currenty)) {
+                //add the button index to the neighbours array
+                neighbours.add(mazeButtons.indexOf(button));
+            }
+
+        }
+
+        for (Integer neighbour : neighbours) {
+            if (depth == 0) {
+                break;
+            }
+            //If the neighbour is not a wall
+            else {
+                currentButton = mazeButtons.get(neighbour.intValue());
+
+                if (currentButton.getBackground() == Color.RED) {
+                    //end found
+                    //Set current button to green
+                    currentButton.setBackground(Color.GREEN);
+                    return true;
+                }
+                else if (currentButton.getBackground() == Color.WHITE) {
+                    buttonText = currentButton.getText();
+                    commaIndex = buttonText.indexOf(",");
+                    x = Integer.parseInt(buttonText.substring(0, commaIndex));
+                    y = Integer.parseInt(buttonText.substring(commaIndex + 1));
+                    if (BFS(depth - 1, x, y)) {
+                        currentButton.setBackground(Color.GREEN);
+                        return true;
+                    }
+
+                }
+
+            }
+        
+        }
+        return false;
     }
 
     /***
