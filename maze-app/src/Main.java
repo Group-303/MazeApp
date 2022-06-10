@@ -24,10 +24,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         database = new Database();
-        testMaze = new Maze("Test Maze", "John Doe", 10, 10);
-        testMaze.getGenerator().display();
-        testMaze2 = new Maze("Test Maze 2", "John Doe", 50, 50);
-        testMaze2.getGenerator().display();
+        //testMaze = new Maze("Test Maze", "John Doe", 10, 10);
+        //testMaze.getGenerator().display();
+        //testMaze2 = new Maze("Test Maze 2", "John Doe", 50, 50);
+        //testMaze2.getGenerator().display();
 
         //testMaze.getGenerator().setWidth(5);
         //testMaze.getGenerator().display();

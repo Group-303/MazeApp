@@ -20,7 +20,7 @@ public class CreateMenu implements IMenu, ActionListener {
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
     //private JButton generateSolution, regenerate, save, back;
-    private Maze currentMaze = Main.testMaze;
+    private Maze currentMaze = new Maze("", "", 10, 10);
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
@@ -90,10 +90,11 @@ public class CreateMenu implements IMenu, ActionListener {
 
         // Create buttons and add buttons to button list using GUIHelper
 
-        buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 6, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Update Maze", sidePanel, 0, 6, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -156,14 +157,20 @@ public class CreateMenu implements IMenu, ActionListener {
                 setCreated();
                 setEdited();
                 break;
-            case "Generate Solution":
-                break;
-            case "Generate New Maze":
+            case "Update Maze":
+                currentMaze.setTitle(fieldlist.get(0).getText());
+                currentMaze.setCreator(fieldlist.get(1).getText());
+                currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
+                currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
                 currentMaze.regenerateMaze();
                 contentPanel.removeAll();
                 contentPanel.revalidate();
                 contentPanel.repaint();
                 currentMaze.render(contentPanel);
+                break;
+            case "Generate Solution":
+                break;
+            case "Generate New Maze":
                 break;
             case "Back":
                 closeMenu();

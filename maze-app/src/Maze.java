@@ -37,7 +37,6 @@ public class Maze {
         this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = generator.getLayout();
-        Main.database.addMaze(this);
     }
 
     //Overloaded constructor for loading a maze from the database
@@ -94,6 +93,7 @@ public class Maze {
        }
 
        for (JButton button : mazeButtons) {
+            //Find the start and end points and set them to green and red respectively
            if (button.getText().equals("1,1")) {
                button.setBackground(Color.GREEN);
            }
@@ -127,6 +127,14 @@ public class Maze {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /***
+     * Sets the creator of the maze
+     * @param creator String containing the full name of the creator
+     */
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public void setWidth(int width) {
@@ -252,7 +260,7 @@ public class Maze {
         System.out.println(this.generator + " " + this.layout);
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = this.generator.getLayout();
-        this.generator.display();
+        //this.generator.display();
     }
 
     public HashMap<Image, Point> getHashmap() {
