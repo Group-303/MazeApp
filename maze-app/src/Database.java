@@ -85,7 +85,9 @@ public class Database {
                 throw new Exception("Maze already exists");
             }
             else {
-                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR) VALUES ('" + maze.getId() + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "')";
+                //Convert maze.layout to JSON
+                String layout = maze.getLayout().toString();
+                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR, LAYOUT) VALUES ('" + maze.getId() + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "', '" + maze.getLayout().toString() + "')";
                 statement.executeUpdate(query);
                 statement.close();
                 connection.close();
