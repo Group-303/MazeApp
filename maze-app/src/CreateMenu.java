@@ -46,28 +46,25 @@ public class CreateMenu implements IMenu, ActionListener {
         sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.3), (int) Math.round(Frame.HEIGHT*0.5)));
         contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (int) Math.round(Frame.HEIGHT*0.5)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels for sidePanel
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
         labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0 ,0));
         labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0,1));
         labelList.add(GUIHelper.createLabel("Created: ", sidePanel,  0,2));
-        labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel,  0,3));
-        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,4));
-        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,5));
+        labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,3));
+        labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,4));
 
         //Create text fields for sidePanel
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 0, true));
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 1, true));
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 2, false));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3, false));
+        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3, true));
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
-        fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
 
         // Set the width and height text fields to the default mazes width and height
-        fieldlist.get(4).setText("20");
-        fieldlist.get(5).setText("10");
+        fieldlist.get(3).setText("20");
+        fieldlist.get(4).setText("10");
 
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
@@ -85,7 +82,6 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Play", sidePanel, 1, 8, 10, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Clear", sidePanel, 0, 9, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
         //Adds panel to Main.frame
@@ -111,7 +107,7 @@ public class CreateMenu implements IMenu, ActionListener {
             JLabel imageLabel = new JLabel(new ImageIcon(picture));
             createPanel.add(imageLabel);
         } catch (IOException e) {
-            //System.out.println("Invalid");
+            System.out.println("Invalid - Not Implemented");
         }
     }
 
@@ -121,8 +117,8 @@ public class CreateMenu implements IMenu, ActionListener {
         fieldlist.get(0).setText(currentMaze.getTitle());
         fieldlist.get(1).setText(currentMaze.getCreator());
         fieldlist.get(2).setText(currentMaze.getCreatedRaw().toString());	
-        fieldlist.get(4).setText(currentMaze.getWidth() + "");
-        fieldlist.get(5).setText(currentMaze.getHeight() + "");
+        fieldlist.get(3).setText(currentMaze.getWidth() + "");
+        fieldlist.get(4).setText(currentMaze.getHeight() + "");
         contentPanel.removeAll();
         currentMaze.render(contentPanel);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
@@ -133,7 +129,7 @@ public class CreateMenu implements IMenu, ActionListener {
             JLabel imageLabel = new JLabel(new ImageIcon(picture));
             createPanel.add(imageLabel);
         } catch (IOException e) {
-            //System.out.println("Invalid");
+            System.out.println("Invalid - Not Implemented");
         }
     }
 
@@ -151,11 +147,11 @@ public class CreateMenu implements IMenu, ActionListener {
                 Main.browseMenu.openMenu(true);
                 break;
             case "Save Maze": // Saves the current maze to the database
-                if (!fieldlist.get(0).getText().isEmpty() && !fieldlist.get(1).getText().isEmpty() && !fieldlist.get(4).getText().isEmpty() && !fieldlist.get(5).getText().isEmpty()) {
+                if (!fieldlist.get(0).getText().isEmpty() && !fieldlist.get(1).getText().isEmpty() && !fieldlist.get(3).getText().isEmpty() && !fieldlist.get(4).getText().isEmpty()) {
                     currentMaze.setTitle(fieldlist.get(0).getText());
                     currentMaze.setCreator(fieldlist.get(1).getText());
-                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
-                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
+                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(3).getText()));
+                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(4).getText()));
                     Database.addMaze(currentMaze);
                     System.out.println("Maze saved");
                 }                
@@ -164,9 +160,9 @@ public class CreateMenu implements IMenu, ActionListener {
                 currentMaze.setTitle(fieldlist.get(0).getText());
                 currentMaze.setCreator(fieldlist.get(1).getText());
                 currentMaze.setID(Main.database.getNextID());
-                if (currentMaze.getWidth() != Integer.parseInt(fieldlist.get(4).getText()) && currentMaze.getHeight() != Integer.parseInt(fieldlist.get(5).getText())) {
-                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
-                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
+                if (currentMaze.getWidth() != Integer.parseInt(fieldlist.get(3).getText()) && currentMaze.getHeight() != Integer.parseInt(fieldlist.get(4).getText())) {
+                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(3).getText()));
+                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(4).getText()));
                     currentMaze.regenerateMaze();
                     contentPanel.removeAll();
                     contentPanel.revalidate();
@@ -188,8 +184,8 @@ public class CreateMenu implements IMenu, ActionListener {
                 solved = !solved;
                 break;
             case "Generate New Maze": // Generates a new maze with the current values in the text fields and renders it so long as the width and height are valid
-                if (!fieldlist.get(4).getText().isEmpty() && !fieldlist.get(5).getText().isEmpty()) {
-                    currentMaze = new Maze(fieldlist.get(0).getText(), fieldlist.get(1).getText(), Integer.parseInt(fieldlist.get(4).getText()), Integer.parseInt(fieldlist.get(5).getText()));
+                if (!fieldlist.get(3).getText().isEmpty() && !fieldlist.get(4).getText().isEmpty()) {
+                    currentMaze = new Maze(fieldlist.get(0).getText(), fieldlist.get(1).getText(), Integer.parseInt(fieldlist.get(3).getText()), Integer.parseInt(fieldlist.get(4).getText()));
                     contentPanel.removeAll();
                     contentPanel.revalidate();
                     contentPanel.repaint();
@@ -201,12 +197,6 @@ public class CreateMenu implements IMenu, ActionListener {
                 PlayMenu playMenu = new PlayMenu(currentMaze);
                 playMenu.openMenu();
                 break;
-            case "Clear": // Clears the current maze
-                currentMaze.clearLayout();
-                contentPanel.removeAll();
-                currentMaze.render(contentPanel);
-                break;
-
             case "Back":    // Closes the createMenu and opens the mainMenu
                 closeMenu();
                 Main.mainMenu.openMenu();
