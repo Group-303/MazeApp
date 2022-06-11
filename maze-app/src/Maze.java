@@ -124,7 +124,8 @@ public class Maze implements ActionListener {
        }
     }
 
-    public void solve() {
+    public void solve(boolean generated) {
+        Color colour;
         Point root = new Point(1, 1);
         Point goal = new Point(width * 2 - 1, height * 2 - 1);
         //int count;
@@ -188,10 +189,17 @@ public class Maze implements ActionListener {
         
         System.out.println("JUNCTIONS: " + junctions.size());
 
+        if (generated) {
+            colour = Color.WHITE;
+        }
+        else {
+            colour = Color.GREEN;
+        }
+
         for (JButton button : this.mazeButtons) {
             for (Point point : path) {
                 if (button.getText().equals(point.x + "," + point.y)) {
-                    button.setBackground(Color.GREEN);
+                    button.setBackground(colour);
                 }
             }
         }

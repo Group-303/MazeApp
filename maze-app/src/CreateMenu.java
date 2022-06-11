@@ -20,7 +20,7 @@ public class CreateMenu implements IMenu, ActionListener {
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
     //private JButton generateSolution, regenerate, save, back;
-    private Maze currentMaze = new Maze("", "", 20, 10);
+    private Maze currentMaze = new Maze("", "", 10, 10);
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
@@ -29,6 +29,8 @@ public class CreateMenu implements IMenu, ActionListener {
     private ArrayList<JButton> mazeButtonList = new ArrayList<>();
 
     private JPanel contentPanel;
+
+    private boolean generated = false;
 
     public JPanel createPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
@@ -94,12 +96,13 @@ public class CreateMenu implements IMenu, ActionListener {
         // Create buttons and add buttons to button list using GUIHelper
 
         buttonList.add(GUIHelper.newButton("Update Maze", sidePanel, 0, 6, 10, 10, 5, 5));
-        buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
+        buttonList.add(GUIHelper.newButton("Show Solution", sidePanel, 1, 6, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Play", sidePanel, 1, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Clear", sidePanel, 0, 9, 10, 10, 5, 5));
+
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -195,10 +198,18 @@ public class CreateMenu implements IMenu, ActionListener {
                     currentMaze.render(contentPanel);
                 }
                 break;
-            case "Generate Solution":
-                currentMaze.solve();
+            case "Show Solution":
+            case "Hide Solution":
+                if (!generated) {
+                    buttonList.get(1).setText("Hide Solution");
+                }
+                else {
+                    buttonList.get(1).setText("Show Solution");
+                }
+                currentMaze.solve(generated);
                 contentPanel.revalidate();
                 contentPanel.repaint();
+                generated = !generated;
                 break;
             case "Generate New Maze":
                 //if fields in fieldlist arnt empty
@@ -220,6 +231,7 @@ public class CreateMenu implements IMenu, ActionListener {
                 contentPanel.removeAll();
                 currentMaze.render(contentPanel);
                 break;
+
             case "Back":
                 closeMenu();
                 Main.mainMenu.openMenu();
