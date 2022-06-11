@@ -25,7 +25,6 @@ public class Maze {
     private boolean[][][] layout;
     
     private boolean[][] grid;
-    private ArrayList<Point> visited = new ArrayList<>();
 
     /***
      * Maze class that stores the details of a maze.
@@ -123,11 +122,13 @@ public class Maze {
     public void solve() {
         Point root = new Point(1, 1);
         Point goal = new Point(width * 2 - 1, height * 2 - 1);
+        //int count;
 
         //find the path from root to goal in this.grid using BFS adding each point on the most direct route
         Point lastJunction = root;
         Point current;
         ArrayList<Point> path = new ArrayList<>();
+        ArrayList<Point> visited = new ArrayList<>();
         ArrayList<Point> queue = new ArrayList<>();
         ArrayList<Point> neighbours = new ArrayList<>();
         ArrayList<Point> junctions = new ArrayList<>();
@@ -150,16 +151,35 @@ public class Maze {
         }
 
         path = visited;
-        queue = new ArrayList<>();
+        System.out.println("JUNCTIONS: " + junctions.size());
 
         for (Point junction : junctions) {
+            visited = new ArrayList<>();
+            queue = new ArrayList<>();
             queue.add(junction);
             while (!queue.isEmpty()) {
                 current = queue.remove(0);
                 visited.add(current);
                 neighbours = getNeighbours(current);
-                if ((neighbours.size() == 1 && (neighbours.get(0) != root && neighbours.get(0) != goal)) || (neighbours.size() == 2 && (!path.contains(neighbours.get(0)) || !path.contains(neighbours.get(1))))) {
+                if ((neighbours.size() == 1 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
+                    System.out.println("Junction1: " + current.x + "," + current.y);
                     path.remove(current);
+                }
+                else if ((neighbours.size() == 2 && (!path.containsAll(neighbours))) && (!neighbours.contains(root) && !neighbours.contains(goal))) {
+                    System.out.println("Junction2: " + current.x + "," + current.y);
+                    path.remove(current);
+                }
+                else if ((neighbours.size() == 3 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
+                    int count = 0;
+                    for (Point neighbour : neighbours) {
+                        if (!path.contains(neighbour)) {
+                            count++;
+                        }
+                    }
+                    if (count == 2) {
+                        System.out.println("Junction3: " + current.x + "," + current.y);
+                        path.remove(current);
+                    }
                 }
                 for (Point neighbour : neighbours) {
                     if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
@@ -168,15 +188,16 @@ public class Maze {
                 }
             }
 
-            for (JButton button : this.mazeButtons) {
-                for (Point point : path) {
+        }
 
-                    if (button.getText().equals(point.x + "," + point.y)) {
-                        button.setBackground(Color.GREEN);
-                    }
+        for (JButton button : this.mazeButtons) {
+            for (Point point : path) {
+                if (button.getText().equals(point.x + "," + point.y)) {
+                    button.setBackground(Color.GREEN);
                 }
             }
         }
+        
 
         //while (!visited.isEmpty()) {
         //    current = visited.remove(0);
@@ -209,17 +230,6 @@ public class Maze {
         }
         return neighbours;
     }
-
-    //private void prune(Point point) {
-    //    ArrayList<Point> neighbours = getNeighbours(point);
-    //    ArrayList<Point> neighbours2 = new ArrayList<>();
-    //    for (Point neighbour : neighbours) {
-    //        neighbours2 = getNeighbours(neighbour);
-    //        if (neighbours2.size() == 1 && visited.contains(neighbours2.get(0))) {
-    //            visited.remove(neighbour);
-    //        }
-    //    }
-    //}
 
     /***
      * Creates a new edit on the maze
