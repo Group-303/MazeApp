@@ -59,22 +59,7 @@ public class PlayMenu implements IMenu, ActionListener {
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
-        //labelList.add(GUIHelper.createLabel("Title: ", sidePanel, 0 ,0));
-        //labelList.add(GUIHelper.createLabel("Author: ", sidePanel, 0,1));
-        //labelList.add(GUIHelper.createLabel("Created: ", sidePanel,  0,2));
-        //labelList.add(GUIHelper.createLabel("Last Edited: ", sidePanel,  0,3));
-        //labelList.add(GUIHelper.createLabel("Width: ", sidePanel, 0,4));
-        //labelList.add(GUIHelper.createLabel("Height: ", sidePanel, 0,5));
 
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 0, true));
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 1, true));
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 2, false));
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 3, false));
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
-        //fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
-
-        //fieldlist.get(4).setText("20");
-        //fieldlist.get(5).setText("10");
 
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
@@ -87,19 +72,6 @@ public class PlayMenu implements IMenu, ActionListener {
             text.setFont(new Font("Century Gothic", Font.BOLD, 14));
         }
 
-        // sidePanel horizontal and vertical centers
-        //int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
-        //int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
-       // int sidePanel_V_CENTER = Math.round((sidePanel.getHeight()));
-       // int sidePanel_H_CENTER = Math.round((sidePanel.getWidth()));
-
-        // Create buttons and add buttons to button list using GUIHelper
-
-        //buttonList.add(GUIHelper.newButton("Update Maze", sidePanel, 0, 6, 10, 10, 5, 5));
-        //buttonList.add(GUIHelper.newButton("Generate Solution", sidePanel, 1, 6, 10, 5, 5, 10));
-        //buttonList.add(GUIHelper.newButton("Save Maze", sidePanel, 0, 7, 10, 10, 5, 5));
-        //buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
-        //buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -138,49 +110,8 @@ public class PlayMenu implements IMenu, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Switch statement to detect which button is pressed
-        switch (e.getActionCommand()) {
-            case "Load Maze":
-                closeMenu();
-                Main.browseMenu.openMenu();
-                break;
-            case "Save Maze":
-                Database.addMaze(currentMaze);
-                break;
-            case "Update Maze":
-                currentMaze.setTitle(fieldlist.get(0).getText());
-                currentMaze.setCreator(fieldlist.get(1).getText());
-                currentMaze.setID(Main.database.getNextID());
-                if (currentMaze.getWidth() != Integer.parseInt(fieldlist.get(4).getText()) && currentMaze.getHeight() != Integer.parseInt(fieldlist.get(5).getText())) {
-                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
-                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
-                    currentMaze.regenerateMaze();
-                    contentPanel.removeAll();
-                    contentPanel.revalidate();
-                    contentPanel.repaint();
-                    currentMaze.render(contentPanel);
-                }
-                break;
-            case "Generate Solution":
-                currentMaze.solve();
-                contentPanel.revalidate();
-                contentPanel.repaint();
-                break;
-            case "Generate New Maze":
-                //if fields in fieldlist arnt empty
-                if (!fieldlist.get(0).getText().isEmpty() && !fieldlist.get(1).getText().isEmpty() && !fieldlist.get(4).getText().isEmpty() && !fieldlist.get(5).getText().isEmpty()) {
-                    currentMaze = new Maze(fieldlist.get(0).getText(), fieldlist.get(1).getText(), Integer.parseInt(fieldlist.get(4).getText()), Integer.parseInt(fieldlist.get(5).getText()));
-                    contentPanel.removeAll();
-                    contentPanel.revalidate();
-                    contentPanel.repaint();
-                    currentMaze.render(contentPanel);
-                }                
-                break;
-            case "Back":
-                closeMenu();
-                Main.mainMenu.openMenu();
-                break;
-        }
-
+        closeMenu();
+        Main.createMenu.openMenu();
     }
 
 }

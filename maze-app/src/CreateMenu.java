@@ -140,6 +140,25 @@ public class CreateMenu implements IMenu, ActionListener {
         }
     }
 
+    public void openMenu(Maze maze) {
+        currentMaze = maze;
+        fieldlist.get(0).setText(currentMaze.getTitle());
+        fieldlist.get(1).setText(currentMaze.getCreator());
+        //fieldlist.get(2).setText(currentMaze.getCreated().toString());	
+        fieldlist.get(4).setText(currentMaze.getWidth() + "");
+        fieldlist.get(5).setText(currentMaze.getHeight() + "");
+        Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
+        createPanel.setVisible(true);
+
+        try {
+            BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
+            JLabel imageLabel = new JLabel(new ImageIcon(picture));
+            createPanel.add(imageLabel);
+        } catch (IOException e) {
+            //System.out.println("Invalid");
+        }
+    }
+
     public void closeMenu() {
         createPanel.setVisible(false);
     }
@@ -154,7 +173,7 @@ public class CreateMenu implements IMenu, ActionListener {
         switch (e.getActionCommand()) {
             case "Load Maze":
                 closeMenu();
-                Main.browseMenu.openMenu();
+                Main.browseMenu.openMenu(true);
                 break;
             case "Save Maze":
                 Database.addMaze(currentMaze);

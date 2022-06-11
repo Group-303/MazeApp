@@ -396,6 +396,10 @@ public class Maze implements ActionListener {
         return height;
     }
 
+    public int getID() {
+        return id;
+    }
+
     public boolean setID(int newid) {
         if (this.id == 0) {
             this.id = newid;
