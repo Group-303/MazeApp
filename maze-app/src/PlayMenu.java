@@ -17,20 +17,11 @@ import java.util.TimeZone;
 
 public class PlayMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
-    //private ButtonGroup buttonGroup = new ButtonGroup();
-
-    //private JButton generateSolution, regenerate, save, back;
     private Maze currentMaze;
-
-    private ArrayList<JButton> buttonList = new ArrayList<>();
+    private JButton backButton;
     private ArrayList<JLabel> labelList = new ArrayList<>();
-    private ArrayList<JTextField> fieldlist = new ArrayList<>();
-    private ArrayList<JButton[][]> mazeButtons = new ArrayList<>();
-    private ArrayList<JButton> mazeButtonList = new ArrayList<>();
-
     private JPanel contentPanel;
-
-    public JPanel createPanel;
+    public JPanel playPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
     public Color subheader = Color.getHSBColor(0.35f, 0.1f, 0.8f);
 
@@ -38,24 +29,21 @@ public class PlayMenu implements IMenu, ActionListener {
         this.currentMaze = maze;
         
         //panel code
-        createPanel = new JPanel(new BorderLayout());
+        playPanel = new JPanel(new BorderLayout());
 
         // Set boundary of panel
-        createPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+10);
+        playPanel.setBounds(0, 0, Frame.WIDTH, Frame.HEIGHT+10);
 
         //creating panels for layout inside the container panel
-        JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
-        //JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
-        contentPanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.CENTER); // where the maze goes
-        JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
+        JPanel headerPanel = GUIHelper.panelLayout(playPanel,headerGreen , BorderLayout.NORTH); //Header
+        contentPanel = GUIHelper.panelLayout(playPanel, Color.GRAY, BorderLayout.CENTER); // where the maze goes
+        JPanel footerPanel = GUIHelper.panelLayout(playPanel, headerGreen, BorderLayout.SOUTH); //footer
 
         //the dimension of the panels
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.08);
         headerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        //sidePanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.3), (int) Math.round(Frame.HEIGHT*0.5)));
         contentPanel.setPreferredSize(new Dimension((int) Math.round((Frame.WIDTH)*0.7), (int) Math.round(Frame.HEIGHT*0.5)));
         footerPanel.setPreferredSize(new Dimension(Frame.WIDTH, newHeight));
-        //panel5.setPreferredSize(new Dimension((int)Math.round((sidePanel.WIDTH) * 0.80), (int)Math.round((sidePanel.HEIGHT) * 0.80)));
 
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
@@ -69,39 +57,37 @@ public class PlayMenu implements IMenu, ActionListener {
             text.setFont(new Font("Century Gothic", Font.BOLD, 14));
         }
 
-        buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
-
-       // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
-       // createPanel.add(confirmRButton);
+        //Adds back button to the footer
+        backButton = GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
+        backButton.addActionListener(this);
 
         //Adds panel to Main.frame
-        Main.frame.add(createPanel);
+        Main.frame.add(playPanel);
 
-        // Add JButtons in buttonList to sidePanel and add action listeners
-        for (JButton button : buttonList) {
-            button.addActionListener(this);
-        }
-
+        // Render the current maze
         currentMaze.render(contentPanel);
 
-        createPanel.setVisible(false);
+        // Open the menu
+        playPanel.setVisible(false);
     }
 
+    @Override
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
-        createPanel.setVisible(true);
+        playPanel.setVisible(true);
 
         try {
             BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
             JLabel imageLabel = new JLabel(new ImageIcon(picture));
-            createPanel.add(imageLabel);
+            playPanel.add(imageLabel);
         } catch (IOException e) {
             //System.out.println("Invalid");
         }
     }
 
+    @Override
     public void closeMenu() {
-        createPanel.setVisible(false);
+        playPanel.setVisible(false);
     }
 
     @Override

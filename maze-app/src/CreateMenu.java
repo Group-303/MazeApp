@@ -101,14 +101,6 @@ public class CreateMenu implements IMenu, ActionListener {
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         createPanel.setVisible(true);
-
-        try {
-            BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
-            JLabel imageLabel = new JLabel(new ImageIcon(picture));
-            createPanel.add(imageLabel);
-        } catch (IOException e) {
-            System.out.println("Invalid - Not Implemented");
-        }
     }
 
     // openMenu override for use with browsemenu
@@ -123,14 +115,6 @@ public class CreateMenu implements IMenu, ActionListener {
         currentMaze.render(contentPanel);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         createPanel.setVisible(true);
-
-        try {
-            BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
-            JLabel imageLabel = new JLabel(new ImageIcon(picture));
-            createPanel.add(imageLabel);
-        } catch (IOException e) {
-            System.out.println("Invalid - Not Implemented");
-        }
     }
 
     // Standard close menu method
