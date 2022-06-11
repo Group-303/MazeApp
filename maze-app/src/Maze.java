@@ -151,6 +151,13 @@ public class Maze {
             }
         }
 
+        // This is a really stupid way of doing this, but its the only way i can see to get it to work
+        // While loop doesnt work... Ive tried
+        // Hours wasted: 9
+        path = cullJunctions(junctions, visited);
+        path = cullJunctions(junctions, visited);
+        path = cullJunctions(junctions, visited);
+        path = cullJunctions(junctions, visited);
         path = cullJunctions(junctions, visited);
 
         //while (junctionsFound) {
