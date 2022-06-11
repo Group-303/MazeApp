@@ -45,6 +45,12 @@ public class Database {
         System.out.println("Table created successfully");
     }
 
+    /**
+     * Creates a new maze in the database.
+     *
+     * @param maze The maze to be created.
+     * @return The true if the maze was passed to database successfully, false otherwise.
+     */
     public static boolean addMaze(Maze maze) {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -72,6 +78,13 @@ public class Database {
         }
     }
 
+    /**
+     * Deletes a maze from the database.
+     *
+     * @param maze The maze to be deleted.
+     * @return The true if the maze was deleted from the database successfully, false otherwise.
+     * @throws SQLException
+     */
     public static boolean dropMaze(Maze maze) {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -88,6 +101,12 @@ public class Database {
         return false;
     }
 
+    /**
+     * Gets a maze from the database.
+     *
+     * @param mazeID The ID of the maze to be retrieved.
+     * @return The maze if it exists in the database, null otherwise.
+     */
     public static Maze getMaze(int mazeID) throws SQLException {
         Maze maze;
         try {
@@ -106,6 +125,13 @@ public class Database {
         return null;
     }
 
+    /**
+     * Gets all mazes from the database.
+     *
+     * @return A list of all mazes in the database.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public List<Maze> getAllMazes() {
         List<Maze> mazeList = new ArrayList<>();
 
@@ -134,6 +160,13 @@ public class Database {
         }
     }
 
+    /**
+     * Gets the next available maze ID.
+     *
+     * @return The next available maze ID.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public int getNextID() {
         int nextID = 0;
         try {
@@ -151,16 +184,4 @@ public class Database {
             return 0;
         }
     }
-
-    /**
-     * Provides global access to the singleton instance of the UrlSet.
-     *
-     * @return a handle to the singleton instance of the UrlSet.
-     */
-   //public static Connection getInstance() {
-   //    if (instance == null) {
-   //        new Database();
-   //    }
-   //    return instance;
-   //}
 }
