@@ -23,6 +23,11 @@ public class Maze {
     private MazeGenerator generator;
     private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
+    
+    private ArrayList<JButton> visited;
+    private ArrayList<JButton> path;
+    private int startx;
+    private int starty;
 
     /***
      * Maze class that stores the details of a maze.
@@ -104,12 +109,76 @@ public class Maze {
     }
 
     public void solve() {
+        this.visited = new ArrayList<>();
         int depth = 0;
 
-        while (BFS(depth, 1, 1, 0, 0) != 0) {
+        while (!DFS(startx, startx, 0, 0)) {
             depth++;
         }
 
+    }
+
+    private boolean DFS(int currentx, int currenty, int prevx, int prevy) {
+        int commaIndex;
+        int x;
+        int y;
+        String buttonText;
+        ArrayList<JButton> visitedNeighbours = new ArrayList<>();
+        boolean newFound = false;
+
+
+        for (JButton button : this.mazeButtons) {
+            System.out.println("dfs");
+            buttonText = button.getText();
+            commaIndex = buttonText.indexOf(",");
+            x = Integer.parseInt(buttonText.substring(0, commaIndex));
+            y = Integer.parseInt(buttonText.substring(commaIndex + 1));
+            //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
+            if (((x == currentx + 1 || x == currentx - 1) ^ (y == currenty + 1 || y == currenty - 1)) && !button.getBackground().equals(Color.BLACK)) {
+                
+                if ((!path.contains(button)) && (visited.contains(button))) {
+                    visitedNeighbours.add(button);
+                } 
+                else {
+                    newFound = true;
+                    visited.add(button);
+                    path.add(button);
+                    if (DFS(x, y, currentx, currenty)) {
+                        return true;
+                    }
+                    else {
+                        path.remove(button);
+                    }
+                }
+                
+            }
+            else if (x == currentx && y == currenty) {
+                button.setBackground(Color.GREEN);
+            }
+
+        }
+
+        if (visitedNeighbours.size() == 0) {
+            return false;
+        }
+        else {
+            if (!newFound) {
+                startx = currentx;
+                starty = currenty;
+            }
+            
+            for (JButton button : visitedNeighbours) {
+                buttonText = button.getText();
+                commaIndex = buttonText.indexOf(",");
+                x = Integer.parseInt(buttonText.substring(0, commaIndex));
+                y = Integer.parseInt(buttonText.substring(commaIndex + 1));
+                if (DFS(x, y, currentx, currenty)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private int BFS(int depth, int currentx, int currenty, int prevx, int prevy) {
@@ -128,7 +197,7 @@ public class Maze {
             x = Integer.parseInt(buttonText.substring(0, commaIndex));
             y = Integer.parseInt(buttonText.substring(commaIndex + 1));
             //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
-            if ((x == currentx || x == currentx + 1 || x == currentx - 1 || y == currenty || y == currenty + 1 || y == currenty - 1) && (x != currentx ^ y != currenty) && (!button.getBackground().equals(Color.BLACK) || !button.getBackground().equals(Color.GRAY))) {
+            if (((x == currentx + 1 || x == currentx - 1) ^ (y == currenty + 1 || y == currenty - 1)) && !button.getBackground().equals(Color.BLACK)) {
                 returnint = 1;
                 //add the button index to the neighbours array
                 if (depth == 0) {
