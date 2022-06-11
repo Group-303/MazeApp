@@ -60,9 +60,6 @@ public class PlayMenu implements IMenu, ActionListener {
         //Create labels
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
 
-
-        contentPanel.add(new TestingPanelGraphics.DrawStuff());
-
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);

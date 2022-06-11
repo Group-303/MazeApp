@@ -20,7 +20,6 @@ public class Maze implements ActionListener {
     private String creator;
     private Long creationTime;
     private HashMap<Image, Point> items = new HashMap<>();
-    private List<Edit> edits = new ArrayList<>();
     private MazeGenerator generator;
     private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
@@ -293,15 +292,6 @@ public class Maze implements ActionListener {
     }
 
     /***
-     * Creates a new edit on the maze
-     * @param description Description of changes made to the maze
-     * @param editAuthor Author of the edit
-     */
-    public void addEdit(String description, String editAuthor) {
-        this.edits.add(new Edit(this.getEdits().size(), this.id, description, editAuthor));
-    }
-
-    /***
      * Adds an Image and Position object into the maze item list
      * @param image Image object that will be displayed on the Maze
      * @param point Point object that contains the X and Y of the Image object
@@ -376,14 +366,6 @@ public class Maze implements ActionListener {
      */
     public Long getCreatedRaw() {
         return this.creationTime;
-    }
-
-    /***
-     * Method for retrieving the list of edits on the maze
-     * @return Returns a list of Edit objects
-     */
-    public List<Edit> getEdits() {
-        return this.edits;
     }
 
     /***
