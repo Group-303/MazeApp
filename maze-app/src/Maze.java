@@ -4,14 +4,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Maze {
+public class Maze implements ActionListener {
     private int id;
     private int width;
     private int height;
@@ -25,6 +26,7 @@ public class Maze {
     private boolean[][][] layout;
     
     private boolean[][] grid;
+    private Point cursor = new Point(1, 1);
 
     /***
      * Maze class that stores the details of a maze.
@@ -116,6 +118,8 @@ public class Maze {
            if (button.getText().equals(Integer.toString(width * 2 - 1) + "," + Integer.toString(height * 2 - 1))) {
                button.setBackground(Color.RED);
            }
+           // add action listeners to each button
+              button.addActionListener(this);
        }
     }
 
@@ -152,7 +156,7 @@ public class Maze {
         }
 
         // This is a really stupid way of doing this, but its the only way i can see to get it to work
-        // While loop doesnt work... Ive tried
+        // While / For loop doesnt work... Ive tried
         // Hours wasted: 9
         path = cullJunctions(junctions, visited);
         path = cullJunctions(junctions, visited);
@@ -431,5 +435,82 @@ public class Maze {
 
     public HashMap<Image, Point> getHashmap() {
         return this.items;
+    }
+
+    private void drawLine(Point point, char axis) {
+        ArrayList<Point> colouredCells = new ArrayList<Point>();
+        
+        if (axis == 'x') {
+            if (cursor.y > point.y) {
+                System.out.println("1");
+                for (int i = cursor.y; i > point.y; i--) {
+                    if (grid[cursor.x][i]) {
+                        colouredCells.add(new Point(cursor.x, i));
+                    }
+                    else return;
+                }
+            }
+            else if (cursor.y < point.y) {
+                
+                for (int i = cursor.y; i < point.y; i++) {
+                    System.out.println("2");
+                    if (grid[cursor.x][i]) {
+                        colouredCells.add(new Point(cursor.x, i));
+                    }
+                    else return;
+                }
+            }
+        }
+        else if (axis == 'y') {
+            if (cursor.x > point.x) {
+                System.out.println("3");
+                for (int i = cursor.x; i > point.x; i--) {
+                    if (grid[i][cursor.y]) {
+                        colouredCells.add(new Point(i, cursor.y));
+                    }
+                    else return;
+                }
+            }
+            else if (cursor.x < point.x) {
+                
+                for (int i = cursor.x; i < point.x; i++) {
+                    System.out.println("4");
+                    if (grid[i][cursor.y]) {
+                        colouredCells.add(new Point(i, cursor.y));
+                    }
+                    else return;
+                }
+            }
+        }
+        else return;
+
+        colouredCells.add(point);
+
+        for (Point p : colouredCells) {
+            for (JButton b : mazeButtons) {
+                if (b.getText().equals(p.x + "," + p.y)) {
+                    b.setBackground(Color.GREEN);
+                }
+            }
+        }
+
+        this.cursor = point;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        String command = e.getActionCommand();
+        // position of comma in command
+        int comma = command.indexOf(",");
+        Point point = new Point(Integer.parseInt(command.substring(0, comma)), Integer.parseInt(command.substring(comma + 1)));
+        if (this.cursor.x == point.x) {
+            char axis = 'x';
+            drawLine(point, axis);
+        }
+        else if (this.cursor.y == point.y) {
+            char axis = 'y';
+            drawLine(point, axis);
+        }
     }
 }
