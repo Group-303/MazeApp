@@ -46,7 +46,7 @@ public class PlayMenu implements IMenu, ActionListener {
         //creating panels for layout inside the container panel
         JPanel headerPanel = GUIHelper.panelLayout(createPanel,headerGreen , BorderLayout.NORTH); //Header
         //JPanel sidePanel = GUIHelper.panelLayout(createPanel, subheader, BorderLayout.WEST); //sidebar
-        contentPanel = GUIHelper.panelLayout(createPanel, Color.WHITE, BorderLayout.CENTER); // where the maze goes
+        contentPanel = GUIHelper.panelLayout(createPanel, Color.GRAY, BorderLayout.CENTER); // where the maze goes
         JPanel footerPanel = GUIHelper.panelLayout(createPanel, headerGreen, BorderLayout.SOUTH); //footer
 
         //the dimension of the panels

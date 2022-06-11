@@ -24,7 +24,7 @@ public class Maze implements ActionListener {
     private MazeGenerator generator;
     private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
-    
+    private Color bgcolour;
     private boolean[][] grid;
     private Point cursor = new Point(1, 1);
 
@@ -63,6 +63,7 @@ public class Maze implements ActionListener {
     //}
 
     public void render(JPanel container) {
+        this.bgcolour = container.getBackground();
         this.mazeButtons = new ArrayList<>();
         boolean white = false;
         int xRegion = 0;
@@ -503,18 +504,24 @@ public class Maze implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        //get container of JButtons //get border of JPanel, playMenu is grey, createMenu is white
         String command = e.getActionCommand();
-        // position of comma in command
-        int comma = command.indexOf(",");
-        Point point = new Point(Integer.parseInt(command.substring(0, comma)), Integer.parseInt(command.substring(comma + 1)));
-        if (this.cursor.x == point.x) {
-            char axis = 'x';
-            drawLine(point, axis);
+        
+        if (this.bgcolour == Color.GRAY) {
+            // position of comma in command
+            int comma = command.indexOf(",");
+            Point point = new Point(Integer.parseInt(command.substring(0, comma)), Integer.parseInt(command.substring(comma + 1)));
+            if (this.cursor.x == point.x) {
+                char axis = 'x';
+                drawLine(point, axis);
+            }
+            else if (this.cursor.y == point.y) {
+                char axis = 'y';
+                drawLine(point, axis);
+            }
         }
-        else if (this.cursor.y == point.y) {
-            char axis = 'y';
-            drawLine(point, axis);
+        else if (this.bgcolour == Color.WHITE) {
+            
         }
     }
 }
