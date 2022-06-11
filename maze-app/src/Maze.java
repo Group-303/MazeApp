@@ -24,7 +24,7 @@ public class Maze {
     private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
     
-    private boolean[][] grid = new boolean[width*2][height*2];
+    private boolean[][] grid;
     private ArrayList<Point> visited = new ArrayList<>();
 
     /***
@@ -41,6 +41,7 @@ public class Maze {
         this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = generator.getLayout();
+        this.grid = new boolean[width*2+1][height*2+1];
     }
 
     //Overloaded constructor for loading a maze from the database
@@ -53,6 +54,7 @@ public class Maze {
         this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
         this.generator = new MazeGenerator(this.width, this.height);
         this.layout = generator.getLayout();
+        this.grid = new boolean[width*2 + 1][height*2 + 1];
     }
 
     //public void render(JPanel container) {
@@ -61,6 +63,7 @@ public class Maze {
 
     public void render(JPanel container) {
         this.mazeButtons = new ArrayList<>();
+        boolean white = false;
         int xRegion = 0;
         int yRegion = 0;
 
@@ -69,30 +72,41 @@ public class Maze {
                 Color colour;
                 if (layout[j][i][1]) {
                     colour = Color.BLACK;
+                    white = false;
                 } else {
                     colour = Color.WHITE;
+                    white = true;
                 }
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
+                this.grid[xRegion][yRegion] = false;
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
+                this.grid[xRegion][yRegion + 1] = white;
                 xRegion++;
 
                 if (layout[j][i][0]) {
                     colour = Color.BLACK;
+                    white = false;
                 } else {
                     colour = Color.WHITE;
+                    white = true;
                 }
 
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
+                this.grid[xRegion][yRegion] = white;
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
+                this.grid[xRegion][yRegion + 1] = true;
                 xRegion++;
             }
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
+            this.grid[xRegion][yRegion] = false;
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
+            this.grid[xRegion][yRegion + 1] = false;
             yRegion += 2;
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
            this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
+              this.grid[j][yRegion] = false;
        }
 
        for (JButton button : this.mazeButtons) {
@@ -109,6 +123,7 @@ public class Maze {
     public void solve() {
         Point root = new Point(1, 1);
         Point goal = new Point(width * 2 - 1, height * 2 - 1);
+        System.out.println(goal.x + "," + goal.y);
         //find the path from root to goal in this.grid using BFS adding each point on the most direct route
         Point lastJunction = root;
         Point current;
@@ -123,61 +138,69 @@ public class Maze {
             }
             visited.add(current);
             neighbours = getNeighbours(current);
-            if (visited.containsAll(neighbours)) {
-                continue;       
-            }
             for (Point neighbour : neighbours) {
+                System.out.println("N:" + neighbour.x + "," + neighbour.y);
                 if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
                     queue.add(neighbour);
                 }
             }
         }
 
-        while (!visited.isEmpty()) {
-            current = visited.remove(0);
-            neighbours = getNeighbours(current);
-            if (current.x == goal.x && current.y == goal.y) {
-                break;
-            }
-            if (neighbours.size() > 2) {
-                lastJunction = current;
-                
-            }
-            
+        for (Point point : visited) {
+            System.out.println("V:" + point.x + "," + point.y);
         }
 
+        for (JButton button : this.mazeButtons) {
+            for (Point point : visited) {
+                
+                if (button.getText().equals(point.x + "," + point.y)) {
+                    button.setBackground(Color.GREEN);
+                }
+            }
+        }
 
-
+        //while (!visited.isEmpty()) {
+        //    current = visited.remove(0);
+        //    neighbours = getNeighbours(current);
+        //    if (current.x == goal.x && current.y == goal.y) {
+        //        break;
+        //    }
+        //    if (neighbours.size() > 2) {
+        //        lastJunction = current;
+        //        
+        //    }
+        //    
+        //}
 
     }
 
     private ArrayList<Point> getNeighbours(Point current)  {
         ArrayList<Point> neighbours = new ArrayList<>();
-        if (!this.grid[current.x - 1][current.y]) {
+        if (this.grid[current.x - 1][current.y]) {
             neighbours.add(new Point(current.x - 1, current.y));
         }
-        if (!this.grid[current.x + 1][current.y]) {
+        if (this.grid[current.x + 1][current.y]) {
             neighbours.add(new Point(current.x + 1, current.y));
         }
-        if (!this.grid[current.x][current.y - 1]) {
+        if (this.grid[current.x][current.y - 1]) {
             neighbours.add(new Point(current.x, current.y - 1));
         }
-        if (!this.grid[current.x][current.y - 1]) {
+        if (this.grid[current.x][current.y + 1]) {
             neighbours.add(new Point(current.x, current.y + 1));
         }
         return neighbours;
     }
 
-    private void prune(Point point) {
-        ArrayList<Point> neighbours = getNeighbours(point);
-        ArrayList<Point> neighbours2 = new ArrayList<>();
-        for (Point neighbour : neighbours) {
-            neighbours2 = getNeighbours(neighbour);
-            if (neighbours2.size() == 1 && visited.contains(neighbours2.get(0))) {
-                visited.remove(neighbour);
-            }
-        }
-    }
+    //private void prune(Point point) {
+    //    ArrayList<Point> neighbours = getNeighbours(point);
+    //    ArrayList<Point> neighbours2 = new ArrayList<>();
+    //    for (Point neighbour : neighbours) {
+    //        neighbours2 = getNeighbours(neighbour);
+    //        if (neighbours2.size() == 1 && visited.contains(neighbours2.get(0))) {
+    //            visited.remove(neighbour);
+    //        }
+    //    }
+    //}
 
     /***
      * Creates a new edit on the maze

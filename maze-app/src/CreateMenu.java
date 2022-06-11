@@ -20,7 +20,7 @@ public class CreateMenu implements IMenu, ActionListener {
     //private ButtonGroup buttonGroup = new ButtonGroup();
 
     //private JButton generateSolution, regenerate, save, back;
-    private Maze currentMaze = new Maze("", "", 10, 10);
+    private Maze currentMaze = new Maze("", "", 20, 10);
 
     private ArrayList<JButton> buttonList = new ArrayList<>();
     private ArrayList<JLabel> labelList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class CreateMenu implements IMenu, ActionListener {
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
 
-        fieldlist.get(4).setText("10");
+        fieldlist.get(4).setText("20");
         fieldlist.get(5).setText("10");
 
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
@@ -174,6 +174,8 @@ public class CreateMenu implements IMenu, ActionListener {
                 break;
             case "Generate Solution":
                 currentMaze.solve();
+                contentPanel.revalidate();
+                contentPanel.repaint();
                 break;
             case "Generate New Maze":
                 //if fields in fieldlist arnt empty
