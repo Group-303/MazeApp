@@ -25,11 +25,6 @@ public class Database {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:maze.db");
             statement = connection.createStatement();
-
-            // Clears the maze table to prevent errors, comment out if you want to keep the data
-            //String sql = "DROP TABLE IF EXISTS Mazes";
-            //statement.executeUpdate(sql);
-
             query = "CREATE TABLE IF NOT EXISTS Mazes " +
                     "(ID INTEGER PRIMARY KEY NOT NULL," +
                     " WIDTH INTEGER NOT NULL," +
@@ -48,29 +43,6 @@ public class Database {
             e.printStackTrace();
         }
         System.out.println("Table created successfully");
-        //Properties props = new Properties();
-       //FileInputStream in = null;
-       //try {
-       //    in = new FileInputStream("./db.props");
-       //    props.load(in);
-       //    in.close();
-
-       //    // specify the data source, username and password
-       //    String url = props.getProperty("jdbc.url");
-       //    String username = props.getProperty("jdbc.username");
-       //    String password = props.getProperty("jdbc.password");
-       //    String schema = props.getProperty("jdbc.schema");
-
-       //    // get a connection
-       //    instance = DriverManager.getConnection(url + "/" + schema, username,
-       //            password);
-       //} catch (SQLException sqle) {
-       //    System.err.println(sqle);
-       //} catch (FileNotFoundException fnfe) {
-       //    System.err.println(fnfe);
-       //} catch (IOException ex) {
-       //    ex.printStackTrace();
-       //}
     }
 
     public static boolean addMaze(Maze maze) {

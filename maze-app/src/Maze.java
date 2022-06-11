@@ -124,7 +124,7 @@ public class Maze implements ActionListener {
        }
     }
 
-    public void solve(boolean generated) {
+    public void solve(boolean solved) {
         Color colour;
         Point root = new Point(1, 1);
         Point goal = new Point(width * 2 - 1, height * 2 - 1);
@@ -189,7 +189,7 @@ public class Maze implements ActionListener {
         
         System.out.println("JUNCTIONS: " + junctions.size());
 
-        if (generated) {
+        if (solved) {
             colour = Color.WHITE;
         }
         else {

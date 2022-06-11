@@ -22,10 +22,9 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel = new JPanel(new GridBagLayout());
         browsePanel.setVisible(false);
         Main.frame.add(browsePanel);
-        //panelLayout(JPanel containerPanel, Color c, int gridX, int gridY)
         int newHeight = (int) Math.round((Frame.HEIGHT) * 0.01);
+        
         //creating panels for layout inside the container panel
-
         headerPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.headerGreen, 0,0, newHeight, 1); //Header
         searchPanel = GUIHelper.panelLayout(browsePanel, Main.createMenu.subheader, 0,1, (int) Math.round(Frame.HEIGHT*0.16), 1); //sidebar
         contentPanel = GUIHelper.panelLayout(browsePanel, Color.WHITE, 0,2,(int) Math.round(Frame.HEIGHT*0.67), 1); // where the maze goes
@@ -35,22 +34,17 @@ public class BrowseMenu implements IMenu, ActionListener {
         JLabel labelTitle = GUIHelper.createLabel(TITLE, headerPanel, 0,0);
 
         //Label formatting for the Header
-        //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);
 
-        //for loop to format the JLabels in the SideBar
-       // for (JLabel  text: labelList) {
-       //     text.setFont(new Font("Century Gothic", Font.BOLD, 14));
-        // }
-
-       // JButton back = new JButton("Back");
-        //footerPanel.add(back);
+        // Create back button
         JButton back = GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
 
+        // Add back button action listener
         back.addActionListener(this);
     }
 
+    // Standard openMenu method
     public void openMenu() {
         createReturn = false;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
@@ -58,6 +52,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel.setVisible(true);
     }
 
+    // openMenu method for when the user opens from the create menu
     public void openMenu(boolean fromCreate) {
         createReturn = fromCreate;
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
@@ -65,6 +60,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         browsePanel.setVisible(true);
     }
 
+    // closeMenu method
     public void closeMenu() {
         browsePanel.setVisible(false);
         mazeList.clear();
@@ -72,6 +68,7 @@ public class BrowseMenu implements IMenu, ActionListener {
         contentPanel.removeAll();
     }
 
+    // Method to load all mazes from the database
     private void loadMazes() {
         mazeList = Main.database.getAllMazes();
         if (mazeList != null) {
@@ -119,8 +116,5 @@ public class BrowseMenu implements IMenu, ActionListener {
                     System.out.println("No maze selected");
                 }
         }
-        /*if (e.getSource() == back) {
-
-        }*/
     }
 }
