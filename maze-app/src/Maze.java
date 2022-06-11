@@ -123,13 +123,14 @@ public class Maze {
     public void solve() {
         Point root = new Point(1, 1);
         Point goal = new Point(width * 2 - 1, height * 2 - 1);
-        System.out.println(goal.x + "," + goal.y);
+
         //find the path from root to goal in this.grid using BFS adding each point on the most direct route
         Point lastJunction = root;
         Point current;
         ArrayList<Point> path = new ArrayList<>();
         ArrayList<Point> queue = new ArrayList<>();
         ArrayList<Point> neighbours = new ArrayList<>();
+        ArrayList<Point> junctions = new ArrayList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
             current = queue.remove(0);
@@ -138,23 +139,41 @@ public class Maze {
             }
             visited.add(current);
             neighbours = getNeighbours(current);
+            if (neighbours.size() > 2) {
+                junctions.add(current);
+            }
             for (Point neighbour : neighbours) {
-                System.out.println("N:" + neighbour.x + "," + neighbour.y);
                 if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
                     queue.add(neighbour);
                 }
             }
         }
 
-        for (Point point : visited) {
-            System.out.println("V:" + point.x + "," + point.y);
-        }
+        path = visited;
+        queue = new ArrayList<>();
 
-        for (JButton button : this.mazeButtons) {
-            for (Point point : visited) {
-                
-                if (button.getText().equals(point.x + "," + point.y)) {
-                    button.setBackground(Color.GREEN);
+        for (Point junction : junctions) {
+            queue.add(junction);
+            while (!queue.isEmpty()) {
+                current = queue.remove(0);
+                visited.add(current);
+                neighbours = getNeighbours(current);
+                if ((neighbours.size() == 1 && (neighbours.get(0) != root && neighbours.get(0) != goal)) || (neighbours.size() == 2 && (!path.contains(neighbours.get(0)) || !path.contains(neighbours.get(1))))) {
+                    path.remove(current);
+                }
+                for (Point neighbour : neighbours) {
+                    if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
+                        queue.add(neighbour);
+                    }
+                }
+            }
+
+            for (JButton button : this.mazeButtons) {
+                for (Point point : path) {
+
+                    if (button.getText().equals(point.x + "," + point.y)) {
+                        button.setBackground(Color.GREEN);
+                    }
                 }
             }
         }
