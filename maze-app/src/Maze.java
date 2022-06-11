@@ -61,7 +61,6 @@ public class Maze {
 
     public void render(JPanel container) {
         this.mazeButtons = new ArrayList<>();
-        boolean black = false;
         int xRegion = 0;
         int yRegion = 0;
 
@@ -70,41 +69,30 @@ public class Maze {
                 Color colour;
                 if (layout[j][i][1]) {
                     colour = Color.BLACK;
-                    black = true;
                 } else {
                     colour = Color.WHITE;
-                    black = false;
                 }
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
-                this.grid[xRegion][yRegion] = true;
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
-                this.grid[xRegion][yRegion + 1] = black;
                 xRegion++;
 
                 if (layout[j][i][0]) {
                     colour = Color.BLACK;
-                    black = true;
                 } else {
                     colour = Color.WHITE;
-                    black = false;
                 }
 
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
-                this.grid[xRegion][yRegion] = black;
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
-                this.grid[xRegion][yRegion + 1] = false;
                 xRegion++;
             }
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
-            this.grid[xRegion][yRegion] = true;
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
-            this.grid[xRegion][yRegion + 1] = true;
             yRegion += 2;
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
            this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
-              this.grid[j][yRegion] = true;
        }
 
        for (JButton button : this.mazeButtons) {
