@@ -125,13 +125,13 @@ public class Maze {
         //int count;
 
         //find the path from root to goal in this.grid using BFS adding each point on the most direct route
-        Point lastJunction = root;
         Point current;
         ArrayList<Point> path = new ArrayList<>();
         ArrayList<Point> visited = new ArrayList<>();
         ArrayList<Point> queue = new ArrayList<>();
         ArrayList<Point> neighbours = new ArrayList<>();
         ArrayList<Point> junctions = new ArrayList<>();
+        boolean junctionsFound = false;
         queue.add(root);
         while (!queue.isEmpty()) {
             current = queue.remove(0);
@@ -142,6 +142,7 @@ public class Maze {
             neighbours = getNeighbours(current);
             if (neighbours.size() > 2) {
                 junctions.add(current);
+                junctionsFound = true;
             }
             for (Point neighbour : neighbours) {
                 if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
@@ -150,45 +151,30 @@ public class Maze {
             }
         }
 
-        path = visited;
+        path = cullJunctions(junctions, visited);
+
+        //while (junctionsFound) {
+        //    junctionsFound = false;
+        //    int count = 0;
+        //    path = cullJunctions(junctions, visited);
+        //    junctions = new ArrayList<>();
+        //    for (Point point : path) {
+        //        neighbours = getNeighbours(point);
+        //        if (neighbours.size() > 2) {
+        //            for (Point neighbour : neighbours) {
+        //                if (path.contains(neighbour)) {
+        //                    count++;
+        //                }
+        //            }
+        //            if (count > 2) {
+        //                junctions.add(point);
+        //                junctionsFound = true;
+        //            }
+        //        }
+        //    }
+        //}
+        
         System.out.println("JUNCTIONS: " + junctions.size());
-
-        for (Point junction : junctions) {
-            visited = new ArrayList<>();
-            queue = new ArrayList<>();
-            queue.add(junction);
-            while (!queue.isEmpty()) {
-                current = queue.remove(0);
-                visited.add(current);
-                neighbours = getNeighbours(current);
-                if ((neighbours.size() == 1 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
-                    System.out.println("Junction1: " + current.x + "," + current.y);
-                    path.remove(current);
-                }
-                else if ((neighbours.size() == 2 && (!path.containsAll(neighbours))) && (!neighbours.contains(root) && !neighbours.contains(goal))) {
-                    System.out.println("Junction2: " + current.x + "," + current.y);
-                    path.remove(current);
-                }
-                else if ((neighbours.size() == 3 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
-                    int count = 0;
-                    for (Point neighbour : neighbours) {
-                        if (!path.contains(neighbour)) {
-                            count++;
-                        }
-                    }
-                    if (count == 2) {
-                        System.out.println("Junction3: " + current.x + "," + current.y);
-                        path.remove(current);
-                    }
-                }
-                for (Point neighbour : neighbours) {
-                    if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
-                        queue.add(neighbour);
-                    }
-                }
-            }
-
-        }
 
         for (JButton button : this.mazeButtons) {
             for (Point point : path) {
@@ -229,6 +215,51 @@ public class Maze {
             neighbours.add(new Point(current.x, current.y + 1));
         }
         return neighbours;
+    }
+
+    private ArrayList<Point> cullJunctions(ArrayList<Point> junctions, ArrayList<Point> path) {
+        ArrayList<Point> queue = new ArrayList<>();
+        ArrayList<Point> neighbours = new ArrayList<>();
+        ArrayList<Point> visited = new ArrayList<>();
+        Point root = new Point(1, 1);
+        Point goal = new Point(width * 2 - 1, height * 2 - 1);
+        Point current;
+
+        for (Point junction : junctions) {
+            visited = new ArrayList<>();
+            queue = new ArrayList<>();
+            queue.add(junction);
+            while (!queue.isEmpty()) {
+                current = queue.remove(0);
+                visited.add(current);
+                neighbours = getNeighbours(current);
+                if ((neighbours.size() == 1 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
+                    path.remove(current);
+                }
+                else if ((neighbours.size() == 2 && (!path.containsAll(neighbours))) && (!neighbours.contains(root) && !neighbours.contains(goal))) {
+                    path.remove(current);
+                }
+                else if ((neighbours.size() == 3 && (!neighbours.contains(root) && !neighbours.contains(goal)))) {
+                    int count = 0;
+                    for (Point neighbour : neighbours) {
+                        if (!path.contains(neighbour)) {
+                            count++;
+                        }
+                    }
+                    if (count == 2) {
+                        System.out.println("Junction3: " + current.x + "," + current.y);
+                        path.remove(current);
+                    }
+                }
+                for (Point neighbour : neighbours) {
+                    if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
+                        queue.add(neighbour);
+                    }
+                }
+            }
+
+        }
+        return path;
     }
 
     /***
