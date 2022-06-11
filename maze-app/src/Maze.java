@@ -52,15 +52,14 @@ public class Maze implements ActionListener {
         this.width = width;
         this.height = height;
         this.creationTime = creationTime; // Time in unix milliseconds
-        //this.generator = new MazeGenerator(this.width, this.height);
         this.layout = layout;
         this.grid = new boolean[width*2 + 1][height*2 + 1];
     }
 
-    //public void render(JPanel container) {
-        //this.generator.render(container);
-    //}
-
+    /***
+     * Renders the maze as buttons to the provided JPanel
+     * @param container The JPanel to render the maze to
+     */
     public void render(JPanel container) {
         this.bgcolour = container.getBackground();
         this.mazeButtons = new ArrayList<>();
@@ -123,6 +122,10 @@ public class Maze implements ActionListener {
        }
     }
 
+    /***
+     * Draws the solution to the maze on the mazeButtons grid
+     * @param solved Boolean to indicate whether to display the solution or not
+     */
     public void solve(boolean solved) {
         Color colour;
         Point root = new Point(1, 1);
@@ -164,27 +167,6 @@ public class Maze implements ActionListener {
         path = cullJunctions(junctions, visited);
         path = cullJunctions(junctions, visited);
         path = cullJunctions(junctions, visited);
-
-        //while (junctionsFound) {
-        //    junctionsFound = false;
-        //    int count = 0;
-        //    path = cullJunctions(junctions, visited);
-        //    junctions = new ArrayList<>();
-        //    for (Point point : path) {
-        //        neighbours = getNeighbours(point);
-        //        if (neighbours.size() > 2) {
-        //            for (Point neighbour : neighbours) {
-        //                if (path.contains(neighbour)) {
-        //                    count++;
-        //                }
-        //            }
-        //            if (count > 2) {
-        //                junctions.add(point);
-        //                junctionsFound = true;
-        //            }
-        //        }
-        //    }
-        //}
         
         System.out.println("JUNCTIONS: " + junctions.size());
 
@@ -202,23 +184,14 @@ public class Maze implements ActionListener {
                 }
             }
         }
-        
-
-        //while (!visited.isEmpty()) {
-        //    current = visited.remove(0);
-        //    neighbours = getNeighbours(current);
-        //    if (current.x == goal.x && current.y == goal.y) {
-        //        break;
-        //    }
-        //    if (neighbours.size() > 2) {
-        //        lastJunction = current;
-        //        
-        //    }
-        //    
-        //}
 
     }
 
+    /***
+     * Returns the neighbours of a given point
+     * @param point The point to find the neighbours of
+     * @return An ArrayList of points representing the neighbours of the given point
+     */
     private ArrayList<Point> getNeighbours(Point current)  {
         ArrayList<Point> neighbours = new ArrayList<>();
         if (this.grid[current.x - 1][current.y]) {
@@ -236,6 +209,12 @@ public class Maze implements ActionListener {
         return neighbours;
     }
 
+    /***
+     * Returns the path from the root to the goal
+     * @param junctions An ArrayList of points representing the junctions in the maze
+     * @param visited An ArrayList of points representing the visited points in the maze
+     * @return An ArrayList of points representing the path from the root to the goal
+     */
     private ArrayList<Point> cullJunctions(ArrayList<Point> junctions, ArrayList<Point> path) {
         ArrayList<Point> queue = new ArrayList<>();
         ArrayList<Point> neighbours = new ArrayList<>();
@@ -281,16 +260,6 @@ public class Maze implements ActionListener {
         return path;
     }
 
-    public void clearLayout() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                for (int l = 0; l < 2; l++) {
-                    this.layout[i][j][l] = false;
-                }
-            }
-        }
-    }
-
     /***
      * Adds an Image and Position object into the maze item list
      * @param image Image object that will be displayed on the Maze
@@ -316,6 +285,10 @@ public class Maze implements ActionListener {
         this.creator = creator;
     }
 
+    /***
+     * Sets the width of the maze
+     * @param width Integer containing the width of the maze
+     */
     public void setWidth(int width) {
         this.width = width;
         clearMaze();
@@ -323,6 +296,10 @@ public class Maze implements ActionListener {
         regenerateMaze();
     }
 
+    /***
+     * Sets the height of the maze
+     * @param height Integer containing the height of the maze
+     */
     public void setHeight(int height) {
         this.height = height;
         clearMaze();
@@ -345,20 +322,13 @@ public class Maze implements ActionListener {
         return this.title;
     }
 
+    /***
+     * Method for retrieving the creator of the maze
+     * @return Returns a String containing the creator of the maze
+     */
     public String getCreator() {
         return this.creator;
     }
-
-    /***
-     * Method for retrieving the creation date and time of the maze in readable form
-     * Uses "MMMM dd, yyyy" and "HH:mma" formatting patterns
-     * @return Returns a String containing the date and time the maze was created
-     */
-    //public String getCreatedReadable() {
-    //    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-    //    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
-    //    return dateFormatter.format(this.creationTime) + " at " + timeFormatter.format(this.creationTime);
-    //}
 
     /***
      * Method for retrieving the creation date and time of the maze
@@ -376,6 +346,10 @@ public class Maze implements ActionListener {
         return layout;
     }
 
+    /***
+     * Retrieves the current layout of the maze as a Json string
+     * @return Returns a String containing the Json representation of the maze
+     */
     public String getLayoutJsonString() {
         Gson gson = new Gson();
         return gson.toJson(layout);
@@ -397,18 +371,20 @@ public class Maze implements ActionListener {
         return height;
     }
 
+    /***
+     * Retreives the next available ID for a new maze
+     * @return Returns an integer containing the next available ID
+     */
     public int getID() {
         return id;
     }
 
-    public boolean setID(int newid) {
-        if (this.id == 0) {
-            this.id = newid;
-            return true;
-        }
-        else {
-            return false;
-        }
+    /***
+     * Sets the ID of the maze
+     * @param newid Integer containing the new ID of the maze
+     */
+    public void setID(int newid) {
+        this.id = newid;
     }
 
     /***
@@ -438,10 +414,16 @@ public class Maze implements ActionListener {
         //this.generator.display();
     }
 
+
     public HashMap<Image, Point> getHashmap() {
         return this.items;
     }
 
+    /***
+     * Draws a line on the mazeButton grid from cursor to point
+     * @param point Point object containing the X and Y of the end point
+     * @param axis Integer containing the axis to draw the line on
+     */
     private void drawLine(Point point, char axis) {
         ArrayList<Point> colouredCells = new ArrayList<Point>();
         
@@ -521,7 +503,7 @@ public class Maze implements ActionListener {
             }
         }
         else if (this.bgcolour == Color.WHITE) {
-            
+            return;
         }
     }
 }

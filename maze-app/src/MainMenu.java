@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /***
- * Class for managing spring MainMenu
+ * Class for managing swing MainMenu
  */
 
 public class MainMenu implements IMenu, ActionListener {
@@ -25,9 +25,7 @@ public class MainMenu implements IMenu, ActionListener {
 
         // Add buttons to components list
         buttonList.add(GUIHelper.newButton("Create New", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER - 200)));
-        //buttonList.add(GUIHelper.newButton("Generate New", new Dimension(300, 300), new Point(Frame.H_CENTER + 200, Frame.V_CENTER - 200)));
         buttonList.add(GUIHelper.newButton("Browse Mazes", new Dimension(700, 300), new Point(Frame.H_CENTER, Frame.V_CENTER + 200)));
-        //buttonList.add(GUIHelper.newButton("Exit", new Dimension(200, 150), new Point(Frame.H_CENTER + 500, Frame.V_CENTER + 200)));
 
         // Add all components into the main panel and add action listeners to each JButton component
         for (JButton button : buttonList) {
@@ -41,11 +39,13 @@ public class MainMenu implements IMenu, ActionListener {
         openMenu();
     }
 
+    // Standard openMenu method
     public void openMenu() {
         mainPanel.setVisible(true);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
     }
 
+    // Standard closeMenu method
     public void closeMenu() {
         mainPanel.setVisible(false);
     }
@@ -59,8 +59,5 @@ public class MainMenu implements IMenu, ActionListener {
         else if (e.getSource() == buttonList.get(1)) {
             Main.browseMenu.openMenu();
         }
-        //else if (e.getSource() == buttonList.get(2)) {
-        //    System.exit(0);
-        //}
     }
 }
