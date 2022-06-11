@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame extends JFrame implements ActionListener, ItemListener {
-    public final static int WIDTH = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getWidth());
-    public final static int HEIGHT = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getHeight());
-    public final static int H_CENTER = WIDTH / 2;
-    public final static int V_CENTER = HEIGHT / 2;
+    public final static int WIDTH = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getWidth()); // width of the frame
+    public final static int HEIGHT = (int) Math.round(0.85 * GUIHelper.SCREEN_SIZE.getHeight()); // height of the frame
+    public final static int H_CENTER = WIDTH / 2; // horizontal center of the frame
+    public final static int V_CENTER = HEIGHT / 2; // vertical center of the frame
     public final static int H_MENU = 46; // Height of the menu-bar
-    public final static String TITLE_PREFIX = "MazeCo Cartographer - ";
+    public final static String TITLE_PREFIX = "MazeCo Cartographer - "; // Prefix for the title of the frame
 
+    /***    
+     * Constructor for the Frame class
+     */
     public Frame() {
         setTitle(TITLE_PREFIX + "Loading...");
         setJMenuBar(createMenus());

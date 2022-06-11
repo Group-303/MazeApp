@@ -33,7 +33,7 @@ public class GUIHelper {
      * @param leftInset
      * @param bottomInset
      * @param rightInset
-     * @return Returned a created JButton
+     * @return Returns a created JButton
      */
     public static JButton newButton(String text, JPanel container, int gridX, int gridY, int topInset, int leftInset, int bottomInset, int rightInset) {
         JButton button = new JButton(text);
@@ -51,6 +51,14 @@ public class GUIHelper {
         return button;
     }
 
+    /***
+     * Overload of newButton for use in a grid bag layout
+     * @param container Container for button
+     * @param colour Colour of button
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @return Returns a created JButton
+     */
     public static JButton newButton(JPanel container, Color colour, int gridX, int gridY) {
         String text = Integer.toString(gridX) + "," + Integer.toString(gridY);
         JButton button = new JButton(text);
@@ -72,6 +80,14 @@ public class GUIHelper {
         return button;
     }
 
+    /***
+     * Overload of newButton for use in a grid bag layout
+     * @param text String to be displayed on button
+     * @param container Container for button
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @return Returns a created JButton
+     */
     public static JButton newButton(String text, JPanel container, int gridX, int gridY) {
         JButton button = new JButton(text);
         button.setLayout(new GridBagLayout());
@@ -87,6 +103,14 @@ public class GUIHelper {
         return button;
     }
 
+    /***
+     * Overload of newTextField for use in a grid bag layout
+     * @param size Dimension object containing the width and height of the JTextField
+     * @param container Container for JTextField
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @return Returns a created JTextField
+     */
     public static JTextField newTextField(Dimension size, JPanel container, int gridX, int gridY) {
         JTextField textField = new JTextField();
         textField.setEnabled(true);
@@ -106,6 +130,15 @@ public class GUIHelper {
         return textField;
     }
 
+    /***
+     * Overload of newTextField for use in a grid bag layout
+     * @param size Dimension object containing the width and height of the JTextField
+     * @param container Container for JTextField
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @param enabled Boolean value to enable or disable the JTextField
+     * @return Returns a created JTextField
+     */
     public static JTextField newTextField(Dimension size, JPanel container, int gridX, int gridY, boolean enabled) {
         JTextField textField = new JTextField();
         textField.setEnabled(enabled);
@@ -155,16 +188,11 @@ public class GUIHelper {
         return new JMenuItem(text, icon);
     }
 
-    public ButtonGroup newButtonGroup() {
-        return new ButtonGroup();
-    }
-
-    public static JRadioButton newRButton(String text, Dimension size, Point location) {
-        JRadioButton radioButton = new JRadioButton(text);
-        radioButton.setLocation(((int) location.getX() - (size.width / 2)), ((int) location.getY() - (size.height / 2)));
-        return radioButton;
-    }
-
+    /***
+     * Creates and retruns a new ButtonGroup object
+     * @param buttons Array of JRadioButton objects to be added to the ButtonGroup
+     * @return Returns a ButtonGroup object
+     */
     public ButtonGroup formButtonGroup(ArrayList<JRadioButton> radioButtons) {
         ButtonGroup group = new ButtonGroup();
         for (JRadioButton component : radioButtons) {
@@ -173,91 +201,13 @@ public class GUIHelper {
         return group;
     }
 
-    // This is all spaghetti code from Oracle documentation
-    // Will be removed when I have fully implemented the
-    // dynamic menu instantiation above -CT
-    public JMenuBar oracleMenuTest() {
-        //Where the GUI is created:
-        JMenuBar menuBar;
-        JMenu fileMenu, submenu;
-        JMenuItem menuItem;
-        JRadioButtonMenuItem rbMenuItem;
-        JCheckBoxMenuItem cbMenuItem;
-
-        //Create the menu bar.
-        menuBar = new JMenuBar();
-
-        //Build the first menu.
-        //fileMenu = new JMenu("File");
-        //fileMenu.setMnemonic(KeyEvent.VK_F);
-        //fileMenu.getAccessibleContext().setAccessibleDescription(
-        //        "The only menu in this program that has menu items");
-        //menuBar.add(fileMenu);
-
-        //a group of JMenuItems
-        menuItem = new JMenuItem("A text-only menu item",
-                KeyEvent.VK_T);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.SHIFT_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription(
-                "This doesn't really do anything");
-        //fileMenu.add(menuItem);
-
-        menuItem = new JMenuItem("Both text and icon",
-                new ImageIcon("images/middle.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_B);
-        //fileMenu.add(menuItem);
-
-        menuItem = new JMenuItem(new ImageIcon("images/middle.gif"));
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        //fileMenu.add(menuItem);
-
-        //a group of radio button menu items
-        //fileMenu.addSeparator();
-        ButtonGroup group = new ButtonGroup();
-        rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
-        rbMenuItem.setSelected(true);
-        rbMenuItem.setMnemonic(KeyEvent.VK_R);
-        group.add(rbMenuItem);
-        //fileMenu.add(rbMenuItem);
-
-        rbMenuItem = new JRadioButtonMenuItem("Another one");
-        rbMenuItem.setMnemonic(KeyEvent.VK_O);
-        group.add(rbMenuItem);
-        //fileMenu.add(rbMenuItem);
-
-        //a group of check box menu items
-        //fileMenu.addSeparator();
-        cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
-        cbMenuItem.setMnemonic(KeyEvent.VK_C);
-        //fileMenu.add(cbMenuItem);
-
-        cbMenuItem = new JCheckBoxMenuItem("Another one");
-        cbMenuItem.setMnemonic(KeyEvent.VK_H);
-        //fileMenu.add(cbMenuItem);
-
-        //a submenu
-        //fileMenu.addSeparator();
-        submenu = new JMenu("A submenu");
-        submenu.setMnemonic(KeyEvent.VK_S);
-
-        menuItem = new JMenuItem("An item in the submenu");
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_2, ActionEvent.ALT_MASK));
-        submenu.add(menuItem);
-
-        menuItem = new JMenuItem("Another item");
-        submenu.add(menuItem);
-        //fileMenu.add(submenu);
-
-        //Build second menu in the menu bar.
-        fileMenu = new JMenu("Another Menu");
-        fileMenu.setMnemonic(KeyEvent.VK_N);
-        fileMenu.getAccessibleContext().setAccessibleDescription(
-                "This menu does nothing");
-        menuBar.add(fileMenu);
-        return menuBar;
-    }
-    // Remove above when dynamic menu has been implemented
+    /***
+     * Creates and returns a new JPanel object
+     * @param containerPanel container panel for the new JPanel
+     * @param c Colour of the new JPanel
+     * @param layoutLocation Location of the new JPanel in the container panel
+     * @return
+     */
     public static JPanel panelLayout(JPanel containerPanel, Color c, String layoutLocation){
         //create a JPanel object
         JPanel panel = new JPanel(new GridBagLayout());
@@ -270,6 +220,17 @@ public class GUIHelper {
         return panel;
     }
 
+    /***
+     * Creates and returns a new JPanel object with a GridBagLayout
+     * @param containerPanel container panel for the new JPanel
+     * @param c Colour of the new JPanel
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @param padX X padding
+     * @param padY Y padding
+     * @param span span of the new JPanel
+     * @return Returns a JPanel object with the provided fields
+     */
     public static JPanel panelLayout(JPanel containerPanel, Color c, int gridX, int gridY, int padY, int span){
         //create a JPanel object
         JPanel panel = new JPanel(new GridBagLayout());
@@ -292,6 +253,14 @@ public class GUIHelper {
         return panel;
     }
 
+    /***
+     * Creates and returns a new JLabel object with a GridBagLayout
+     * @param text String to be displayed as the label's text
+     * @param container Panel for the new JLabel
+     * @param gridX X Grid
+     * @param gridY Y Grid
+     * @return Returns a JLabel object with the provided fields
+     */
     public static JLabel createLabel(String text, JPanel container, int gridX, int gridY) {
         //Create label
         JLabel l = new JLabel(text);
