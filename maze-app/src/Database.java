@@ -86,7 +86,7 @@ public class Database {
             }
             else {
 
-                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR, CREATION_TIME, MAZE) VALUES ('" + maze.getId() + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "', '" + maze.getCreatedRaw() + "', '" + maze.getLayoutJsonString() + "')";
+                query = "INSERT INTO Mazes (ID, WIDTH, HEIGHT, TITLE, CREATOR, CREATION_TIME, LAYOUT) VALUES ('" + maze.getId() + "', '" + maze.getWidth() + "', '" + maze.getHeight() + "', '" + maze.getTitle() + "', '" + maze.getCreator() + "', '" + maze.getCreatedRaw() + "', '" + maze.getLayoutJsonString() + "')";
                 statement.executeUpdate(query);
                 statement.close();
                 connection.close();

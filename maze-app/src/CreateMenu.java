@@ -71,6 +71,9 @@ public class CreateMenu implements IMenu, ActionListener {
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 4, true));
         fieldlist.add(GUIHelper.newTextField(new Dimension(50, 50), sidePanel, 1, 5, true));
 
+        fieldlist.get(4).setText("10");
+        fieldlist.get(5).setText("10");
+
         contentPanel.add(new TestingPanelGraphics.DrawStuff());
 
         //Label formatting for the Header
@@ -153,25 +156,34 @@ public class CreateMenu implements IMenu, ActionListener {
                 Main.browseMenu.openMenu();
                 break;
             case "Save Maze":
-                createMaze();
-                setCreated();
-                setEdited();
+                Database.addMaze(currentMaze);
                 break;
             case "Update Maze":
                 currentMaze.setTitle(fieldlist.get(0).getText());
                 currentMaze.setCreator(fieldlist.get(1).getText());
-                currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
-                currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
-                currentMaze.regenerateMaze();
-                contentPanel.removeAll();
-                contentPanel.revalidate();
-                contentPanel.repaint();
-                currentMaze.render(contentPanel);
+                currentMaze.setID(Main.database.getNextID());
+                if (currentMaze.getWidth() != Integer.parseInt(fieldlist.get(4).getText()) && currentMaze.getHeight() != Integer.parseInt(fieldlist.get(5).getText())) {
+                    currentMaze.setWidth(Integer.parseInt(fieldlist.get(4).getText()));
+                    currentMaze.setHeight(Integer.parseInt(fieldlist.get(5).getText()));
+                    currentMaze.regenerateMaze();
+                    contentPanel.removeAll();
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                    currentMaze.render(contentPanel);
+                }
                 break;
             case "Generate Solution":
                 currentMaze.solve();
                 break;
             case "Generate New Maze":
+                //if fields in fieldlist arnt empty
+                if (!fieldlist.get(0).getText().isEmpty() && !fieldlist.get(1).getText().isEmpty() && !fieldlist.get(4).getText().isEmpty() && !fieldlist.get(5).getText().isEmpty()) {
+                    currentMaze = new Maze(fieldlist.get(0).getText(), fieldlist.get(1).getText(), Integer.parseInt(fieldlist.get(4).getText()), Integer.parseInt(fieldlist.get(5).getText()));
+                    contentPanel.removeAll();
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                    currentMaze.render(contentPanel);
+                }                
                 break;
             case "Back":
                 closeMenu();

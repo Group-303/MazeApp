@@ -69,7 +69,7 @@ public class Maze {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 Color colour;
-                if (layout[i][j][0]) {
+                if (layout[j][i][1]) {
                     colour = Color.BLACK;
                 } else {
                     colour = Color.WHITE;
@@ -78,7 +78,7 @@ public class Maze {
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
                 xRegion++;
 
-                if (layout[i][j][1]) {
+                if (layout[j][i][0]) {
                     colour = Color.BLACK;
                 } else {
                     colour = Color.WHITE;
@@ -369,9 +369,9 @@ public class Maze {
         return height;
     }
 
-    public boolean setID(int id) {
+    public boolean setID(int newid) {
         if (this.id == 0) {
-            this.id = id;
+            this.id = newid;
             return true;
         }
         else {
