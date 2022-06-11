@@ -99,6 +99,7 @@ public class CreateMenu implements IMenu, ActionListener {
         buttonList.add(GUIHelper.newButton("Generate New Maze", sidePanel, 1, 7, 10, 5, 5, 10));
         buttonList.add(GUIHelper.newButton("Load Maze", sidePanel, 0, 8, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Play", sidePanel, 1, 8, 10, 10, 5, 5));
+        buttonList.add(GUIHelper.newButton("Clear", sidePanel, 0, 9, 10, 10, 5, 5));
         buttonList.add(GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9)));
 
        // JRadioButton confirmRButton = GUIHelper.newRButton("Confirm", new Dimension(100, 50), new Point(sidePanel_H_CENTER+ 50, sidePanel_V_CENTER + 300));
@@ -210,10 +211,15 @@ public class CreateMenu implements IMenu, ActionListener {
                 }                
                 break;
             case "Play" :
-                    closeMenu();
-                    PlayMenu playMenu = new PlayMenu(currentMaze);
-                    playMenu.openMenu();
-                    break;
+                closeMenu();
+                PlayMenu playMenu = new PlayMenu(currentMaze);
+                playMenu.openMenu();
+                break;
+            case "Clear":
+                currentMaze.clearLayout();
+                contentPanel.removeAll();
+                currentMaze.render(contentPanel);
+                break;
             case "Back":
                 closeMenu();
                 Main.mainMenu.openMenu();

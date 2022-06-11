@@ -274,6 +274,16 @@ public class Maze implements ActionListener {
         return path;
     }
 
+    public void clearLayout() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                for (int l = 0; l < 2; l++) {
+                    this.layout[i][j][l] = false;
+                }
+            }
+        }
+    }
+
     /***
      * Creates a new edit on the maze
      * @param description Description of changes made to the maze
