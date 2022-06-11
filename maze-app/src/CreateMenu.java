@@ -147,6 +147,8 @@ public class CreateMenu implements IMenu, ActionListener {
         //fieldlist.get(2).setText(currentMaze.getCreated().toString());	
         fieldlist.get(4).setText(currentMaze.getWidth() + "");
         fieldlist.get(5).setText(currentMaze.getHeight() + "");
+        contentPanel.removeAll();
+        currentMaze.render(contentPanel);
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         createPanel.setVisible(true);
 

@@ -46,15 +46,15 @@ public class Maze implements ActionListener {
     }
 
     //Overloaded constructor for loading a maze from the database
-    public Maze(int ID, String title, String creator, int width, int height) {
+    public Maze(int ID, String title, String creator, int width, int height, long creationTime, boolean[][][] layout) {
         this.id = ID;
         this.title = title;
         this.creator = creator;
         this.width = width;
         this.height = height;
-        this.creationTime = System.currentTimeMillis(); // Time in unix milliseconds
-        this.generator = new MazeGenerator(this.width, this.height);
-        this.layout = generator.getLayout();
+        this.creationTime = creationTime; // Time in unix milliseconds
+        //this.generator = new MazeGenerator(this.width, this.height);
+        this.layout = layout;
         this.grid = new boolean[width*2 + 1][height*2 + 1];
     }
 

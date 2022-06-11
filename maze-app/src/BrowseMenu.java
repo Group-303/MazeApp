@@ -12,6 +12,7 @@ public class BrowseMenu implements IMenu, ActionListener {
     public boolean createReturn;
     private List<JButton> buttonList = new ArrayList<>();
     private List<Maze> mazeList = new ArrayList<>();
+    private Maze selectedMaze;
     private JPanel headerPanel;
     private JPanel searchPanel;
     private JPanel contentPanel;
@@ -66,6 +67,9 @@ public class BrowseMenu implements IMenu, ActionListener {
 
     public void closeMenu() {
         browsePanel.setVisible(false);
+        mazeList.clear();
+        buttonList.clear();
+        contentPanel.removeAll();
     }
 
     private void loadMazes() {
@@ -88,9 +92,9 @@ public class BrowseMenu implements IMenu, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        closeMenu();
         switch (e.getActionCommand()) {
             case "Back":
+            closeMenu();
                 if (createReturn) {
                     Main.createMenu.openMenu();
                 }
@@ -102,8 +106,17 @@ public class BrowseMenu implements IMenu, ActionListener {
             default:
                 for (Maze maze : mazeList) {
                     if (e.getActionCommand() == maze.getTitle()) {
-                        Main.createMenu.openMenu(maze);
+                        
+                        selectedMaze = maze;
+                        break;
                     }
+                }
+                if (selectedMaze != null) {
+                    closeMenu();
+                    Main.createMenu.openMenu(selectedMaze);
+                }
+                else {
+                    System.out.println("No maze selected");
                 }
         }
         /*if (e.getSource() == back) {

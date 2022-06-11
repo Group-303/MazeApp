@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class Database {
 
     /**
@@ -132,7 +134,7 @@ public class Database {
         return null;
     }
 
-    public static List<Maze> getAllMazes() {
+    public List<Maze> getAllMazes() {
         List<Maze> mazeList = new ArrayList<>();
 
         try {
@@ -142,7 +144,8 @@ public class Database {
             query = "SELECT * FROM Mazes";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                mazeList.add(new Maze(result.getInt("ID"), result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT")));
+                boolean[][][] layout = new Gson().fromJson(result.getString("LAYOUT"), boolean[][][].class);
+                mazeList.add(new Maze(result.getInt("ID"), result.getString("TITLE"), result.getString("CREATOR"), result.getInt("WIDTH"), result.getInt("HEIGHT"), result.getInt("CREATION_TIME"), layout));
             }
             if (mazeList == null) {
                 statement.close();
