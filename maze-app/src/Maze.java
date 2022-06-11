@@ -24,10 +24,8 @@ public class Maze {
     private ArrayList<JButton> mazeButtons;
     private boolean[][][] layout;
     
-    private ArrayList<JButton> visited;
-    private ArrayList<JButton> path;
-    private int startx;
-    private int starty;
+    private boolean[][] grid = new boolean[width*2][height*2];
+    private ArrayList<Point> visited = new ArrayList<>();
 
     /***
      * Maze class that stores the details of a maze.
@@ -63,6 +61,7 @@ public class Maze {
 
     public void render(JPanel container) {
         this.mazeButtons = new ArrayList<>();
+        boolean black = false;
         int xRegion = 0;
         int yRegion = 0;
 
@@ -71,30 +70,41 @@ public class Maze {
                 Color colour;
                 if (layout[j][i][1]) {
                     colour = Color.BLACK;
+                    black = true;
                 } else {
                     colour = Color.WHITE;
+                    black = false;
                 }
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NW
+                this.grid[xRegion][yRegion] = true;
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion + 1)); //SW
+                this.grid[xRegion][yRegion + 1] = black;
                 xRegion++;
 
                 if (layout[j][i][0]) {
                     colour = Color.BLACK;
+                    black = true;
                 } else {
                     colour = Color.WHITE;
+                    black = false;
                 }
 
                 this.mazeButtons.add(GUIHelper.newButton(container, colour, xRegion, yRegion)); //NE
+                this.grid[xRegion][yRegion] = black;
                 this.mazeButtons.add(GUIHelper.newButton(container, Color.WHITE, xRegion, yRegion + 1)); //SE
+                this.grid[xRegion][yRegion + 1] = false;
                 xRegion++;
             }
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion)); //NE Border
+            this.grid[xRegion][yRegion] = true;
             this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, xRegion, yRegion + 1)); //SE Border
+            this.grid[xRegion][yRegion + 1] = true;
             yRegion += 2;
             xRegion = 0;
         }
        for (int j = 0; j < width * 2 + 1; j++) {
            this.mazeButtons.add(GUIHelper.newButton(container, Color.BLACK, j, yRegion)); //S Border
+              this.grid[j][yRegion] = true;
        }
 
        for (JButton button : this.mazeButtons) {
@@ -109,141 +119,76 @@ public class Maze {
     }
 
     public void solve() {
-        this.visited = new ArrayList<>();
-        int depth = 0;
-
-        while (!DFS(startx, startx, 0, 0)) {
-            depth++;
-        }
-
-    }
-
-    private boolean DFS(int currentx, int currenty, int prevx, int prevy) {
-        int commaIndex;
-        int x;
-        int y;
-        String buttonText;
-        ArrayList<JButton> visitedNeighbours = new ArrayList<>();
-        boolean newFound = false;
-
-
-        for (JButton button : this.mazeButtons) {
-            System.out.println("dfs");
-            buttonText = button.getText();
-            commaIndex = buttonText.indexOf(",");
-            x = Integer.parseInt(buttonText.substring(0, commaIndex));
-            y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-            //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
-            if (((x == currentx + 1 || x == currentx - 1) ^ (y == currenty + 1 || y == currenty - 1)) && !button.getBackground().equals(Color.BLACK)) {
-                
-                if ((!path.contains(button)) && (visited.contains(button))) {
-                    visitedNeighbours.add(button);
-                } 
-                else {
-                    newFound = true;
-                    visited.add(button);
-                    path.add(button);
-                    if (DFS(x, y, currentx, currenty)) {
-                        return true;
-                    }
-                    else {
-                        path.remove(button);
-                    }
+        Point root = new Point(1, 1);
+        Point goal = new Point(width * 2 - 1, height * 2 - 1);
+        //find the path from root to goal in this.grid using BFS adding each point on the most direct route
+        Point lastJunction = root;
+        Point current;
+        ArrayList<Point> path = new ArrayList<>();
+        ArrayList<Point> queue = new ArrayList<>();
+        ArrayList<Point> neighbours = new ArrayList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            current = queue.remove(0);
+            if (current.x == goal.x && current.y == goal.y) {
+                break;
+            }
+            visited.add(current);
+            neighbours = getNeighbours(current);
+            if (visited.containsAll(neighbours)) {
+                continue;       
+            }
+            for (Point neighbour : neighbours) {
+                if (!visited.contains(neighbour) && !queue.contains(neighbour)) {
+                    queue.add(neighbour);
                 }
+            }
+        }
+
+        while (!visited.isEmpty()) {
+            current = visited.remove(0);
+            neighbours = getNeighbours(current);
+            if (current.x == goal.x && current.y == goal.y) {
+                break;
+            }
+            if (neighbours.size() > 2) {
+                lastJunction = current;
                 
-            }
-            else if (x == currentx && y == currenty) {
-                button.setBackground(Color.GREEN);
-            }
-
-        }
-
-        if (visitedNeighbours.size() == 0) {
-            return false;
-        }
-        else {
-            if (!newFound) {
-                startx = currentx;
-                starty = currenty;
             }
             
-            for (JButton button : visitedNeighbours) {
-                buttonText = button.getText();
-                commaIndex = buttonText.indexOf(",");
-                x = Integer.parseInt(buttonText.substring(0, commaIndex));
-                y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-                if (DFS(x, y, currentx, currenty)) {
-                    return true;
-                }
-            }
         }
 
-        return false;
+
+
+
     }
 
-    private int BFS(int depth, int currentx, int currenty, int prevx, int prevy) {
-        int commaIndex;
-        int x;
-        int y;
-        int returnint = 2;
-        int result;
-        String buttonText;
-
-
-        for (JButton button : this.mazeButtons) {
-            System.out.println("bfs");
-            buttonText = button.getText();
-            commaIndex = buttonText.indexOf(",");
-            x = Integer.parseInt(buttonText.substring(0, commaIndex));
-            y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-            //If x is equal to junctionx or junction x+1 or junction x-1 or y is equal to Junctiony or junction y+1 or junction y-1
-            if (((x == currentx + 1 || x == currentx - 1) ^ (y == currenty + 1 || y == currenty - 1)) && !button.getBackground().equals(Color.BLACK)) {
-                returnint = 1;
-                //add the button index to the neighbours array
-                if (depth == 0) {
-                    break;
-                }
-                //If the neighbour is not a wall
-                else {
-    
-                    if (button.getBackground() == Color.RED) {
-                        //end found
-                        //Set current button to green
-                        System.out.println("found");
-                        button.setBackground(Color.GREEN);
-                        return 0;
-                    }
-                    else if (button.getBackground() == Color.WHITE) {
-                        buttonText = button.getText();
-                        commaIndex = buttonText.indexOf(",");
-                        x = Integer.parseInt(buttonText.substring(0, commaIndex));
-                        y = Integer.parseInt(buttonText.substring(commaIndex + 1));
-                        if (x == prevx && y == prevy) {
-                            //Set current button to gray
-                            button.setBackground(Color.GRAY);
-                        }
-                        else {
-                            result = BFS(depth - 1, x, y, currentx, currenty);
-                            if (result == 0) {
-                            button.setBackground(Color.GREEN);
-                            System.out.println("green");
-                            return 0;
-                            }
-                            else if (result == 2) {
-                                button.setBackground(Color.GRAY);
-                                System.out.println("gray");
-                                return 2;
-                            }
-    
-                        }
-    
-                    }
-    
-                }
-            }
-
+    private ArrayList<Point> getNeighbours(Point current)  {
+        ArrayList<Point> neighbours = new ArrayList<>();
+        if (!this.grid[current.x - 1][current.y]) {
+            neighbours.add(new Point(current.x - 1, current.y));
         }
-        return returnint;
+        if (!this.grid[current.x + 1][current.y]) {
+            neighbours.add(new Point(current.x + 1, current.y));
+        }
+        if (!this.grid[current.x][current.y - 1]) {
+            neighbours.add(new Point(current.x, current.y - 1));
+        }
+        if (!this.grid[current.x][current.y - 1]) {
+            neighbours.add(new Point(current.x, current.y + 1));
+        }
+        return neighbours;
+    }
+
+    private void prune(Point point) {
+        ArrayList<Point> neighbours = getNeighbours(point);
+        ArrayList<Point> neighbours2 = new ArrayList<>();
+        for (Point neighbour : neighbours) {
+            neighbours2 = getNeighbours(neighbour);
+            if (neighbours2.size() == 1 && visited.contains(neighbours2.get(0))) {
+                visited.remove(neighbour);
+            }
+        }
     }
 
     /***
