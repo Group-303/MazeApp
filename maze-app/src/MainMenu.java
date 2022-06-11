@@ -17,6 +17,7 @@ public class MainMenu implements IMenu, ActionListener {
     public MainMenu() {
         // Create JPanel for MainGUIFrame
         mainPanel = new JPanel();
+        mainPanel.setBackground(Color.getHSBColor(0.35f, 0.7f, 0.6f));
 
         // Set mainGUIPanel to be in the center of the frame
         mainPanel.setLayout(null);
