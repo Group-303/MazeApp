@@ -98,24 +98,5 @@ public class MazeGenerator {
         System.out.println(this.layout.length);
         regenerateMaze();
     }
-
-    //public void display() {
-    //    for (int i = 0; i < width; i++) {
-    //        // draw the north edge
-    //        for (int j = 0; j < height; j++) {
-    //            System.out.print((layout[j][i] & 1) == 0 ? "+---" : "+   ");
-    //        }
-    //        System.out.println("+");
-    //        // draw the west edge
-    //        for (int j = 0; j < height; j++) {
-    //            System.out.print((layout[j][i] & 8) == 0 ? "|   " : "    ");
-    //        }
-    //        System.out.println("|");
-    //    }
-    //    // draw the bottom line
-    //    for (int j = 0; j < height; j++) {
-    //        System.out.print("+---");
-    //    }
-    //    System.out.println("+");
-    //}
+    
 }
