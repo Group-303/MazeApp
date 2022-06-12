@@ -19,7 +19,6 @@ public class PlayMenu implements IMenu, ActionListener {
     public final static String TITLE = "Maze Creator";
     private Maze currentMaze;
     private JButton backButton;
-    private ArrayList<JLabel> labelList = new ArrayList<>();
     private JPanel contentPanel;
     public JPanel playPanel;
     public Color headerGreen = Color.getHSBColor(0.35f, 0.7f, 0.6f);
@@ -51,11 +50,6 @@ public class PlayMenu implements IMenu, ActionListener {
         //Label formatting for the Header
         labelTitle.setFont(new Font("Century Gothic", Font.BOLD, 40));
         labelTitle.setForeground(Color.WHITE);
-
-        //for loop to format the JLabels in the SideBar
-        for (JLabel  text: labelList) {
-            text.setFont(new Font("Century Gothic", Font.BOLD, 14));
-        }
 
         //Adds back button to the footer
         backButton = GUIHelper.newButton("Back", footerPanel, 0, 0, 5, 10, 5, (int) Math.round(Frame.WIDTH*0.9));
