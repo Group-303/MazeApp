@@ -69,14 +69,6 @@ public class PlayMenu implements IMenu, ActionListener {
     public void openMenu() {
         Main.frame.setTitle(Frame.TITLE_PREFIX + TITLE);
         playPanel.setVisible(true);
-
-        try {
-            BufferedImage picture = ImageIO.read(new File("PlaceholderMaze.png"));
-            JLabel imageLabel = new JLabel(new ImageIcon(picture));
-            playPanel.add(imageLabel);
-        } catch (IOException e) {
-            //System.out.println("Invalid");
-        }
     }
 
     @Override

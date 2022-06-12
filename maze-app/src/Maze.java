@@ -44,7 +44,7 @@ public class Maze implements ActionListener {
         this.grid = new boolean[width*2+1][height*2+1];
     }
 
-    //Overloaded constructor for loading a maze from the database
+
     public Maze(int ID, String title, String creator, int width, int height, long creationTime, boolean[][][] layout) {
         this.id = ID;
         this.title = title;
@@ -261,15 +261,6 @@ public class Maze implements ActionListener {
     }
 
     /***
-     * Adds an Image and Position object into the maze item list
-     * @param image Image object that will be displayed on the Maze
-     * @param point Point object that contains the X and Y of the Image object
-     */
-    public void addImage(Image image, Point point) {
-        items.put(image, point);
-    }
-
-    /***
      * Sets the title of the maze
      * @param title String containing the new title of the maze
      */
@@ -398,7 +389,7 @@ public class Maze implements ActionListener {
     /***
      * Clears the current maze stored in the
      */
-    public void clearMaze() {
+    private void clearMaze() {
         this.generator = null;
         this.layout = null;
     }

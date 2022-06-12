@@ -15,7 +15,6 @@ public class Database {
     private static Connection connection = null;
     private static Statement statement = null;
     private static String query = null;
-    private static int mazeCount = 0;
 
     /**
      * Constructor initializes the connection.

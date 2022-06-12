@@ -70,33 +70,4 @@ public class MazeGenerator {
             }
         }
     }
-
-    public void clear() {
-        this.layout = new int[this.width][this.height];
-    }
-
-    public void regenerateMaze() {
-        this.layout = new int[this.width][this.height];
-        generate(0, 0);
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-        int[][] newSize = new int[this.width][this.height];
-        //this.layout = newSize;
-
-        System.arraycopy(newSize, 0, this.layout, 0, newSize.length);
-        System.out.println(this.layout.length);
-        regenerateMaze();
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-        int[][] newSize = new int[this.width][this.height];
-        //this.layout = newSize;
-        System.arraycopy(newSize, 0, this.layout, 0, newSize.length);
-        System.out.println(this.layout.length);
-        regenerateMaze();
-    }
-    
 }
